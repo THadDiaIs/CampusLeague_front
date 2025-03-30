@@ -1,0 +1,19 @@
+.logo {
+  width: 60px;
+  height: 0px;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 60px solid rgb(var(--color-2));
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+  position: relative;
+}
+
+.logo-image {
+  position: absolute;
+  left: 50%;
+  bottom: -100%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: auto;
+}
