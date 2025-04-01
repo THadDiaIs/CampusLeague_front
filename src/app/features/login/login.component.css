@@ -4,9 +4,7 @@
     background-image: url('../../../assets/pexels-markusspiske.jpg');
     background-position: center;
     background-size: cover;
-}
-  
-.text-node { background-clip: text !important; -webkit-background-clip: text !important; }
+}  
   
 .img-login-f2c5fec667d6 {
     position: absolute;
@@ -16,7 +14,7 @@
     height: 215px;
 }
   
-.sign-in {
+.sign-in, .rectangle-f2c5fec667d7 {
     position: absolute;
     left: 0px;
     top: 0px;
