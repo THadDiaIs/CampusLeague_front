@@ -1,0 +1,7 @@
+.main {
+    width: 100%;
+    height: 100%;
+    background-image: url('../../../assets/pexels-markusspiske.jpg');
+    background-position: center;
+    background-size: cover;
+}
