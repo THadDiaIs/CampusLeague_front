@@ -16,7 +16,7 @@
     height: 215px;
 }
   
-.rectangle-f2c5fec667d7 {
+.sign-in {
     position: absolute;
     left: 0px;
     top: 0px;
@@ -90,6 +90,102 @@
     font-size: 14px;
     text-rendering: geometricPrecision;
     caret-color: rgba(255, 255, 255, 1);
+    text-decoration: none;
+    letter-spacing: 0px;
+    font-family: "sourcesanspro";
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 462px;
+    height: 444px;
+    border-radius: 0px 0px 0px 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transform: translate(0px,2.842170943040401e-14px);
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 462px;
+    height: 444px;
+  }
+
+  .mesage {
+    position: absolute;
+    left: 11px;
+    top: 444px;
+    width: 451px;
+    height: 128px;
+    display: flex;
+    white-space: break-spaces;
+    align-items: flex-start;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: inherit;
+    min-width: 100%;
+    margin-right: 1px;
+    vertical-align: top;
+    font-size: 0;
+    line-height: 1.2;
+    margin: 0;
+    text-align: left;
+    color: rgba(255, 255, 255, 1);
+    text-transform: none;
+    line-break: auto;
+    overflow-wrap: initial;
+    white-space: break-spaces;
+    font-size: 32px;
+    text-rendering: geometricPrecision;
+    caret-color: rgba(255, 255, 255, 1);
+    text-decoration: none;
+    letter-spacing: 0px;
+    font-family: "sourcesanspro";
+    font-style: normal;
+    font-weight: 400;
+  }
+  
+  .info{
+    position: absolute;
+    left: 6px;
+    top: 377px;
+    width: 4.7px;
+    height: 194.5px;
+    background: #C8EEC1;
+    border-radius: 0px 0px 0px 0px;
+  }
+  
+  .reference {
+    position: absolute;
+    left: 21.45px;
+    top: 377px;
+    width: 111.48px;
+    height: 44.89px;
+    display: flex;
+    white-space: break-spaces;
+    align-items: flex-start;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: inherit;
+    min-width: 100%;
+    margin-right: 1px;
+    vertical-align: top;
+    font-size: 0;
+    line-height: 1.2;
+    margin: 0;
+    text-align: left;
+    color: rgba(200, 238, 193, 1);
+    text-transform: none;
+    line-break: auto;
+    overflow-wrap: initial;
+    white-space: break-spaces;
+    font-size: 25px;
+    text-rendering: geometricPrecision;
+    caret-color: rgba(200, 238, 193, 1);
     text-decoration: none;
     letter-spacing: 0px;
     font-family: "sourcesanspro";
