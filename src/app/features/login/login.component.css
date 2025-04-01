@@ -5,3 +5,94 @@
     background-position: center;
     background-size: cover;
 }
+  
+.text-node { background-clip: text !important; -webkit-background-clip: text !important; }
+  
+.img-login-f2c5fec667d6 {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 397px;
+    height: 215px;
+}
+  
+.rectangle-f2c5fec667d7 {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 397px;
+    height: 215px;
+    background: rgba(18, 46, 39, 0.5);
+    border-radius: 10px 10px 10px 10px;
+}
+
+  label {
+    color: rgba(10, 62, 17, 0.75);
+    position: absolute;
+    left: 95px;
+    top: 0px;
+    width: 106px;
+    height: 24px;
+    display: flex;
+    white-space: break-spaces;
+    align-items: flex-start;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: inherit;
+    min-width: 100%;
+    margin-right: 1px;
+    vertical-align: top;
+    font-size: 0;
+    line-height: 1.2;
+    margin: 0;
+    text-align: left;
+    text-transform: none;
+    line-break: auto;
+    overflow-wrap: initial;
+    white-space: break-spaces;
+    font-size: 20px;
+    text-rendering: geometricPrecision;
+    caret-color: rgba(10, 65, 17, 0.75);
+    text-decoration: none;
+    letter-spacing: 0px;
+    font-family: "sourcesanspro";
+    font-style: normal;
+    font-weight: bold;
+  }
+
+  input {
+    position: absolute;
+    left: 0px;
+    top: 34px;
+    width: 290px;
+    height: 30px;
+    background: rgba(177, 178, 181, 0.5);
+    border-radius: 20px 20px 20px 20px;
+  }
+
+  button {
+    background-color: rgba(18, 46, 39, 0.85);
+    border-radius: 35px 35px 35px 35px;
+    position: absolute;
+    left: 111px;
+    top: 440px;
+    width: 175px;
+    height: 41px;
+    font-size: 0;
+    line-height: 1.2;
+    margin: 0;
+    text-align: left;
+    color: rgba(255, 255, 255, 1);
+    text-transform: none;
+    line-break: auto;
+    overflow-wrap: initial;
+    white-space: pre;
+    font-size: 14px;
+    text-rendering: geometricPrecision;
+    caret-color: rgba(255, 255, 255, 1);
+    text-decoration: none;
+    letter-spacing: 0px;
+    font-family: "sourcesanspro";
+    font-style: normal;
+    font-weight: 400;
+  }
