@@ -113,27 +113,3 @@ nav {
 .news>.title {
     font-size: 1.5em;
 }
-
-.quote {
-    position: absolute;
-    left: 100px;
-    bottom: 100px;
-    display: flex;
-    gap: 1em;
-}
-
-.quote-decorator {
-    width: 7px;
-    background-color: rgb(var(--color-1));
-}
-
-.phrase {
-    color: rgb(var(--color-1));
-    font-size: 3.7em;
-    max-width: 65%;
-}
-
-.author {
-    color: rgb(var(--color-4));
-    font-size: 1.9em;
-}
