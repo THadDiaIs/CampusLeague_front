@@ -22,3 +22,12 @@ main {
   width: 400px;
   height: 100%;
 }
+
+h4 {
+  color: #c8eec1;
+}
+
+p {
+  text-align: left;
+  margin-bottom: 80%;
+}
