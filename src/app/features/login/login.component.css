@@ -24,10 +24,18 @@ main {
 }
 
 h4 {
+  margin-top: 80%;
   color: #c8eec1;
+  font-size: 20px;
 }
 
-p {
+.text-base {
   text-align: left;
   margin-bottom: 80%;
+  font-size: 30px;
+}
+
+.quote-decorator {
+  width: 7px;
+  background-color: #c8eec1;
 }
