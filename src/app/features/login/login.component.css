@@ -24,7 +24,7 @@ main {
 }
 
 h4 {
-  margin-top: 80%;
+  margin-top: 50%;
   color: #c8eec1;
   font-size: 20px;
 }
@@ -38,4 +38,24 @@ h4 {
 .quote-decorator {
   width: 7px;
   background-color: #c8eec1;
+}
+
+input {
+  background-color: rgba(2, 40, 2, 0.347);
+  border-radius: 100px;
+}
+
+button {
+  background-color: rgba(4, 24, 4, 0.442);
+  border-radius: 100px;
+  color: #c8eec1;
+}
+
+#sign-in {
+  padding: 8px;
+  margin-top: 20px;
+}
+
+#regresar {
+  padding: 15px;
 }
