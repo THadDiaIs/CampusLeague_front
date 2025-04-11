@@ -11,4 +11,13 @@ import { OutlinedButtonComponent } from "../../shared/outlined-button/outlined-b
 })
 export class LoginComponent {
 
+  username: string = '';
+  password: string = '';
+
+  handleSubmit = () => {
+    console.log(this.username);
+    console.log(this.password);
+    console.log('submit');
+  }
+
 }

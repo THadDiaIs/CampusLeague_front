@@ -11,12 +11,12 @@
                 <fieldset class="flex flex-col gap-2">
                     <p class="text-lg font-bold">Acceso Adminsitrativo</p>
                     <label>Usuario <br>
-                        <input type="text">
+                        <input type="text" [(value)]="username">
                     </label>
                     <label>Contraseña <br>
-                        <input type="password">
+                        <input type="password" [(value)]="password">
                     </label>
-                    <button type="submit">Sign In</button>
+                    <button (click)="handleSubmit()">Sign In</button>
                 </fieldset>
                 <app-outlined-button />
                 <button routerLink="/home">Regresar</button>
