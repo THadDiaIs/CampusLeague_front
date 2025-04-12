@@ -25,10 +25,17 @@ main {
 
 h4 {
   margin-top: 50%;
-  color: #c8eec1;
+  color: rgb(var(--color-1));
   font-size: 20px;
 }
 
+p {
+  color: rgb(var(--color-4));
+}
+
+label {
+  color: rgb(var(--color-1));
+}
 .text-base {
   text-align: left;
   margin-bottom: 80%;
@@ -40,22 +47,23 @@ h4 {
   background-color: #c8eec1;
 }
 
+button, input {
+  background-color: rgba(var(--color-4), 0.3);
+  color: rgb(var(--color-2));
+}
+
 input {
-  background-color: rgba(2, 40, 2, 0.347);
-  border-radius: 100px;
+  text-indent: 0.3rem;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
-button {
-  background-color: rgba(4, 24, 4, 0.442);
-  border-radius: 100px;
-  color: #c8eec1;
+button:hover{
+  transform: translate(1.1%);
 }
 
-#sign-in {
-  padding: 8px;
-  margin-top: 20px;
-}
-
-#regresar {
-  padding: 15px;
+.outlined {
+  background-color: transparent;
+  color: rgba(var(--color-4), 0.3);;
+  border: 2px solid rgba(var(--color-4), 0.3);
 }
