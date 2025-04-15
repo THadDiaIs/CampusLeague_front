@@ -1,0 +1,13 @@
+.card{
+    background-color: rgba(var(--color-2), 0.6);
+    padding: 1.5em;
+    border-radius: 1em;
+    width: 200px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.content{
+    text-align: right;
+}

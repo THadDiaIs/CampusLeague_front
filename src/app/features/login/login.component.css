@@ -1,0 +1,69 @@
+main {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../../../assets/pexels-markusspiske.jpg');
+  background-position: center;
+  background-size: cover;
+}
+
+.login-card{
+  background-color: rgba(var(--color-5), 0.7);
+  height: 700px;
+}
+.quote-container {
+  width: 450px;
+  height: 100%;
+  background-image: url('../../../assets/pexels-mike.jpg');
+  background-position: center;
+  background-size: cover;
+}
+
+.login-form {
+  width: 400px;
+  height: 100%;
+}
+
+h4 {
+  margin-top: 50%;
+  color: rgb(var(--color-1));
+  font-size: 20px;
+}
+
+p {
+  color: rgb(var(--color-4));
+}
+
+label {
+  color: rgb(var(--color-1));
+}
+.text-base {
+  text-align: left;
+  margin-bottom: 80%;
+  font-size: 30px;
+}
+
+.quote-decorator {
+  width: 7px;
+  background-color: #c8eec1;
+}
+
+button, input {
+  background-color: rgba(var(--color-4), 0.3);
+  color: rgb(var(--color-2));
+}
+
+input {
+  text-indent: 0.3rem;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+button:hover{
+  transform: translate(1.1%);
+}
+
+.outlined {
+  background-color: transparent;
+  color: rgba(var(--color-4), 0.3);;
+  border: 2px solid rgba(var(--color-4), 0.3);
+}

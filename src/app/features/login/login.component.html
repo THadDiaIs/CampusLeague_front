@@ -1,0 +1,28 @@
+<main class="">
+    <div class="flex flex-col justify-center items-center w-full h-full backdrop-blur-xs">
+        <div class="flex flex-row flex-wrap justify-center items-center rounded-lg login-card">
+            <div class="relative quote-container">
+                <h4>San Juan Bosco</h4>
+                <div class="quote-decorator"></div>
+                <p class="text-base">"Que los Jovenes no solo jueguen para divertirse, sino para aprender a ser mejores"</p>
+            </div>
+            <div class="login-form flex flex-col justify-evenly items-center">
+                <img class='w-1/3 h-auto' src="logo-dark.png" alt="logo">
+                <fieldset class="flex flex-col gap-2">
+                    <p class="text-lg font-bold">Acceso Adminsitrativo</p>
+                    <label>Usuario <br>
+                        <input class="rounded-lg" type="text" [(ngModel)]="username">
+                    </label>
+                    <label>Contraseña <br>
+                        <input class="rounded-lg" type="password" [(ngModel)]="password">
+                    </label>
+                </fieldset>
+                <fieldset class="flex flex-col w-40 gap-1">
+                    <button class="rounded-lg py-0.5" (click)="handleSubmit()" id="sign-in">Entrar</button>
+                    <button class="outlined rounded-lg" routerLink="/home" id="regresar">Regresar</button>
+                </fieldset>
+            </div>
+            <p-toast></p-toast>
+        </div>
+    </div>
+</main>

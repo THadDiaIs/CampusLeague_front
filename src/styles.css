@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --col-1: rgb(206, 232, 232);
+    --col-2: rgb(30, 56, 56);
+    --col-4: rgb(247, 247, 247);
+    --col-5: rgb(59, 74, 74);
+
+    --color-1: 206, 232, 232;
+    --color-2: 30, 56, 56;
+    --color-4: 247, 247, 247;
+    --color-5: 59, 74, 74;
+}
+
+@import "tailwindcss";
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
