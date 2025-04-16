@@ -1,0 +1,35 @@
+main {
+    background-image: url('../../../assets/pexels-markusspiske.jpg');
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 2rem;
+    color: rgb(var(--color-3));
+}
+
+.registrations-form {
+    text-align: center;
+    background-color: rgba(var(--color-2), 0.3);
+    border-radius: 1rem;
+
+}
+
+label {
+    font-size: 22px;
+    padding: 0.5em;
+    color: rgb(var(--color-3));
+}
+
+input {
+    background-color: rgba(var(--color-4), 0.3);
+    color: rgb(var(--color-2));
+}
+
+.buttons {
+     background-color: rgb(var(--color-3));
+}
