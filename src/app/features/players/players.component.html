@@ -1,0 +1,31 @@
+<main class="">
+    <div class="flex flex-col justify-center items-center w-full h-full backdrop-blur-xs">
+        <div class="flex flex-row flex-wrap justify-center items-center rounded-lg players-card">
+            <div class="players-form flex flex-col justify-evenly items-center">
+                <fieldset class="flex flex-col gap-2">
+                    <img class='w-1/3 h-auto' src="logo-dark.png" alt="logo">
+                    <p class="text-lg font-bold">Formulario Registro de Jugadores</p>
+                    <label>Nombre <br>
+                        <input class="rounded-lg"type="text" >
+                    </label>
+                    <label>Posicion <br>
+                        <input class="rounded-lg" type="text" >
+                    </label>
+                    <label>Edad <br>
+                        <input  class="rounded-lg" type="number" >
+                    </label>
+                    <label>Carnet <br>
+                        <input class="rounded-lg" type="number" >
+                    </label>
+                    <label>Modificaciones <br>
+                        <input class="rounded-lg" type="text" >
+                    </label>
+                </fieldset>
+                <fieldset class="flex flex-col w-40 gap-1">
+                    <button class="rounded-lg py-0.5" id="register">Registrar Jugador</button>
+                    <button class="outlined rounded-lg" routerLink="/registrations" id="regresar">Regresar</button>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</main>
