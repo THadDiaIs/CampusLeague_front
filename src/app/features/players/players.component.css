@@ -24,12 +24,12 @@ label {
     color: rgb(var(--color-1));
 }
 
-button, input {
+button, input, select{
     background-color: rgba(var(--color-4), 0.3);
     color: rgb(var(--color-2));
 }
 
-input {
+input, select {
     text-indent: 0.3rem;
     padding-top: 3px;
     padding-bottom: 3px;
