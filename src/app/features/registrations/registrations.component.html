@@ -12,10 +12,10 @@
                 <div class="team-form flex flex-col justify-center items-center mb-6">
                     <fieldset class="flex flex-col gap-6 w-full max-w-2xl">
                         <label>Nombre del Equipo
-                            <input class="rounded-lg w-full" type="text">
+                            <input class="rounded-lg w-full" type="text" [(ngModel)]="teamName" (input)="saveTeamInfo()">
                         </label>
                         <label>Color de Camisola
-                            <input class="rounded-lg w-full" type="text">
+                            <input class="rounded-lg w-full" type="text" [(ngModel)]="shirtColor" (input)="saveTeamInfo()">
                         </label>
                     </fieldset>
                 </div>
@@ -23,8 +23,9 @@
                 <div class="basis-[80vh]">
                     <div class="flex justify-between items-center mb-4">
                         <h1>Jugadores</h1>
-                        <button id="add-player"
-                            class="bg-green-800 hover:bg-green-700 text-white w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold">+</button>
+                        <a id="add-player"
+                            class="bg-green-800 hover:bg-green-700 text-white w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold" 
+                            routerLink="/players">+</a>
                     </div>
 
                     <div class="bg-white/20 backdrop-blur-sm p-2 rounded-xl min-h-65 h-64 overflow-auto">
@@ -41,17 +42,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr
-                                        class="bg-white/10 hover:bg-white/20 transition-colors duration-200 rounded-xl shadow-sm">
-                                        <td class="px-4 py-2 rounded-l-xl">Erikson Denilson Orozco Monterroso</td>
+                                    <tr *ngFor="let player of players; let i = index" class="bg-white/10 hover:bg-white/20 transition-colors duration-200 rounded-xl shadow-sm">
+                                        <td class="px-4 py-2 rounded-l-xl">{{ player.nombre }}</td>
                                         <td class="px-4 py-2">
                                             <span
-                                                class="bg-green-700 text-white text-xs font-medium px-2 py-1 rounded-full">Portero</span>
+                                                class="bg-green-700 text-white text-xs font-medium px-2 py-1 rounded-full">{{ player.posicion.name }}</span>
                                         </td>
-                                        <td class="px-4 py-2">21</td>
-                                        <td class="px-4 py-2">202564825</td>
-                                        <td class="px-4 py-2 flex gap-3 items-center justify-center">
-
+                                        <td class="px-4 py-2">{{ player.edad }}</td>
+                                        <td class="px-4 py-2">{{ player.carnet }}</td>
+                                        <td class="px-4 py-2 flex gap-3 items-center justify-center"> 
+                                            <button>
+                                                Editar
+                                            </button>
+                                            <button class="text-red-600 hover:underline" (click)="deletePlayer(i)">
+                                                Eliminar
+                                            </button> 
                                         </td>
                                     </tr>
                                 </tbody>
@@ -63,7 +68,7 @@
 
             <div class="mt-6 flex justify-between items-center">
                 <a class="bg-green-800 hover:bg-green-700 px-6 py-3 text-white rounded-3xl text-xl font-bold"
-                    routerLink="/home">Cancelar Inscripción</a>
+                    (click)="registrationsCancel()">Cancelar Inscripción</a>
                 <button
                     class="bg-green-800 hover:bg-green-700 px-6 py-3 text-white rounded-3xl text-xl font-bold">Inscribir</button>
             </div>
