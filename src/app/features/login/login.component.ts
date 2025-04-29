@@ -3,7 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { QuoteComponent } from "../../shared/quote/quote.component";
 import { OutlinedButtonComponent } from "../../shared/outlined-button/outlined-button.component";
 import { FormsModule } from '@angular/forms';
-import { login } from '../../services/api/api.service';
+import { login } from '../../services/api/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 

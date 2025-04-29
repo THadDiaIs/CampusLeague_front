@@ -50,6 +50,7 @@ label {
 button, input {
   background-color: rgba(var(--color-4), 0.3);
   color: rgb(var(--color-2));
+  height: 33px;
 }
 
 input {

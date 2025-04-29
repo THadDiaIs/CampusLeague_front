@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RegisterDataService } from '../../services/register/register.service';
+import { RegisterDataService } from '../../../services/register/register.service';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { RouterLink, Router } from '@angular/router';

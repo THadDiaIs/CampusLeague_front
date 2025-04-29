@@ -1,29 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { RegisterDataService } from '../../services/register/register.service';
+import { RegisterDataService } from '../../../services/register/register.service';
 import { Router, RouterLink } from '@angular/router';
-import { playerPositions } from '../../services/api/api.position.service';
+import { getPlayerPositions } from '../../../services/api/player.service';
+import { PlayerPosition } from '../../../types/player_position';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-players',
   imports: [RouterLink, ReactiveFormsModule, CommonModule],
+  providers: [MessageService],
   templateUrl: './players.component.html',
   styleUrl: './players.component.css'
 })
-export class PlayersComponent implements OnInit {
+export class PlayersComponent {
+
+  public nombre: string = '';
+  public posicion: string = '';
+  public edad: number = 0;
+  public carnet: string = '';
+
   playerForm: FormGroup;
-  playerPositions: any[] = [];
-  temp = [
-    { id: 1, name: 'Portero', description: 'Defiende el arco' },
-    { id: 2, name: 'Defensa', description: 'Protege el área' },
-    { id: 3, name: 'Delantero', description: 'Ataca y busca goles' }
-  ];
+  playerPositions: PlayerPosition[] = [];
 
   constructor(
     private fb: FormBuilder,
     private registerDataService: RegisterDataService,
-    private router: Router
+    private router: Router,
+    private msgService: MessageService
     
   ) {
     this.playerForm = this.fb.group({
@@ -35,11 +40,11 @@ export class PlayersComponent implements OnInit {
   }
   
   async ngOnInit() {
-    const data = await playerPositions();
+    const data = await getPlayerPositions();
     if (data) {
       this.playerPositions = data;
     } else {
-      this.playerPositions = this.temp;
+      console.log("No player positions in the db");
     }
   }
 
@@ -48,6 +53,12 @@ export class PlayersComponent implements OnInit {
       this.registerDataService.saveDataPlayer(this.playerForm.value);
       this.playerForm.reset();
       this.router.navigate(['/registrations']);
+    } else {
+      this.msgService.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Llene todos los campos"
+      });
     }
 
   }

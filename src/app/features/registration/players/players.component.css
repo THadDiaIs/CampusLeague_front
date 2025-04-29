@@ -1,19 +1,13 @@
 main {
     width: 100vw;
     height: 100vh;
-    background-image: url('../../../assets/pexels-markusspiske.jpg');
+    background-image: url('../../../../assets/pexels-markusspiske.jpg');
     background-position: center;
     background-size: cover;
 }
 
 .players-card{
-    background-color: rgba(var(--color-5), 0.7);
-    height: 700px;
-}
-
-.players-form {
-    width: 400px;
-    height: 100%;
+    background-color: rgba(var(--color-5), 0.8);
 }
 
 p {
@@ -27,6 +21,7 @@ label {
 button, input, select{
     background-color: rgba(var(--color-4), 0.3);
     color: rgb(var(--color-2));
+    height: 33px;
 }
 
 input, select {
@@ -39,8 +34,13 @@ button:hover{
     transform: translate(1.1%);
 }
 
+#register-btn{
+    background-color: rgb(var(--color-1));
+    color: rgb(var(--color-5));
+}
+
 .outlined {
     background-color: transparent;
-    color: rgba(var(--color-4), 0.3);;
-    border: 2px solid rgba(var(--color-4), 0.3);
+    color: rgb(var(--color-1));
+    border: 2px solid rgb(var(--color-1));
 }
