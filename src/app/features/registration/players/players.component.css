@@ -19,9 +19,14 @@ label {
 }
 
 button, input, select{
+    height: 33px;
+    background-color: rgb(var(--color-1));
+    color: rgb(var(--color-5));
+}
+
+input, select{
     background-color: rgba(var(--color-4), 0.3);
     color: rgb(var(--color-2));
-    height: 33px;
 }
 
 input, select {
@@ -33,12 +38,6 @@ input, select {
 button:hover{
     transform: translate(1.1%);
 }
-
-#register-btn{
-    background-color: rgb(var(--color-1));
-    color: rgb(var(--color-5));
-}
-
 .outlined {
     background-color: transparent;
     color: rgb(var(--color-1));

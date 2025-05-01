@@ -1,0 +1,90 @@
+<main class="main">
+    <div class="registrations-form flex flex-col p-8 backdrop-blur-md shadow-lg rounded-lg max-h-4/5 w-1/2 gap-6">
+
+        <div class="flex flex-col justify-center items-center space-x-6">
+            <div class="flex flex-row justify-evenly">
+                <img class='w-1/5 h-auto' src="logo-dark.png" alt="logo">
+                <img class='w-1/4 h-auto' src="meso_logo_white.avif" alt="logo-meso">
+            </div>
+            <p class="text-2xl font-bold mt-8">Formulario Registro de Equipos</p>
+        </div>
+
+        <div class="flex flex-col w-full gap-2">
+            <div class="flex flex-row gap-3 w-full">
+                <label>Nombre del Equipo
+                    <input class="rounded-lg w-full" type="text" [(ngModel)]="team.name">
+                </label>
+                <label>Color de Camisola
+                    <input class="rounded-lg w-full" type="text" [(ngModel)]="shirtColor">
+                </label>
+            </div>
+            <div class="flex flex-row gap-3 w-full">
+                <label>Logo del Equipo
+                    <input class="rounded-lg w-full" type="file" accept="image">
+                </label>
+                <select class="rounded-lg w-full" type="number">
+                    <option value="some value">
+                        TIpo Torneo
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="w-full flex flex-col items-center">
+            <div class="flex gap-2 mb-4 w-full">
+                <h1>Jugadores</h1>
+                <a id="add-player" class="hover:bg-green-700 flex items-center justify-center rounded-full">
+                    <i class="pi pi-plus-circle" style="color: var(--color-1)" (click)="togglePlayerModal()"></i>
+                </a>
+            </div>
+
+            <div class="bg-white/20 backdrop-blur-sm p-2 rounded-lg min-h-65 max-h-72 overflow-auto w-full">
+                <table class="min-w-full text-sm text-left text-gray-100 border-separate border-spacing-y-1.5">
+                    <thead class="text-xs uppercase bg-white/10 text-white">
+                        <tr>
+                            <th class="px-3 py-3">No.</th>
+                            <th class="px-3 py-3">Nombre</th>
+                            <th class="px-3 py-3">Posición</th>
+                            <th class="px-3 py-3">Edad</th>
+                            <th class="px-3 py-3">Carnet</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let player of team.players; let idx = index"
+                            class="bg-white/10 hover:bg-white/20 transition-colors duration-200 rounded-xl shadow-sm">
+                            <td class="px-4 py-2">{{ idx + 1 }}</td>
+                            <td class="px-4 py-2">{{ player.names }}</td>
+                            <td class="px-4 py-2">
+                                <span class="bg-green-700 text-white text-xs font-medium px-2 py-1 rounded-full">{{
+                                    player.position?.name }}</span>
+                            </td>
+                            <td class="px-4 py-2">{{ player.age }}</td>
+                            <td class="px-4 py-2">{{ player.carnet }}</td>
+                            <td class="px-4 py-2 flex gap-3 items-center justify-center">
+                                <button class="hover:underline" (click)="setEdittingPlayer(idx)">
+                                    <i class="pi pi-pencil" style="color: var(--color-1)"></i>
+                                </button>
+                                <button class="text-red-600 hover:underline" (click)="removePlayer(idx)">
+                                    <i class="pi pi-trash" style="color: red"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="flex justify-between items-center">
+            <button class="outlined px-6 rounded-lg text-lg font-bold" (click)="registrationsCancel()">
+                Cancelar
+            </button>
+            <button class="filled px-6 rounded-lg text-lg font-bold" (click)="registerTeam()">
+                Inscribir
+            </button>
+        </div>
+    </div>
+    <p-toast />
+</main>
+<div *ngIf="showPlayerModal"
+    class="w-full h-full bg-transparent backdrop-blur-md fixed top-0 right-0 flex flex-col justify-center items-center gap-3">
+    <app-players [currPlayer]="currentEdittingPlayer" [players]="team.players" (done)="onPlayerAdded()" />
+</div>

@@ -1,37 +1,34 @@
-<main>
-    <div class="flex flex-col justify-center items-center w-full h-full backdrop-blur-xs">
-        <div class="flex flex-row flex-wrap justify-center items-center rounded-lg players-card">
-            <div class="players-form flex flex-col justify-evenly items-center p-8">
-                <div class="flex flex-row justify-evenly mt-4">
-                    <img class='w-1/5 h-auto' src="logo-dark.png" alt="logo">
-                    <img class='w-1/4 h-auto' src="meso_logo_white.avif" alt="logo-meso">
-                </div>
-                <p class="text-2xl font-bold my-8">Formulario Registro de Jugadores</p>
-                <form [formGroup]="playerForm" (ngSubmit)="savePlayer()" class="w-full flex flex-col items-center" >
-                    <fieldset class="flex flex-col gap-2 w-3/4">
-                        <label>Nombre <br>
-                            <input class="rounded-lg w-full" type="text" formControlName="nombre">
-                        </label>
-                        <label>Carnet <br>
-                            <input class="rounded-lg w-full" type="number" formControlName="carnet">
-                        </label>
-                        <label>Edad <br>
-                            <input class="rounded-lg w-full" type="number" formControlName="edad">
-                        </label>
-                        <label>Posicion <br>
-                            <select class="rounded-lg w-full" type="number" formControlName="posicion">
-                               <option *ngFor="let posicion of playerPositions" [ngValue]="posicion">
-                                {{ posicion.name }}
-                               </option>
-                            </select>
-                        </label>
-                    </fieldset>
-                    <fieldset class="flex flex-col mt-10 mb-8 w-3/4">
-                        <button type="submit" class="rounded-lg mb-4" id="register-btn">Agregar Jugador</button>
-                        <button class="outlined rounded-lg" routerLink="/registrations" id="regresar">Cancelar</button>
-                    </fieldset>
-                </form>
+<div class="flex flex-row flex-wrap justify-center items-center rounded-lg players-card">
+    <div class="players-form flex flex-col justify-evenly items-center p-8">
+        <div class="flex flex-row justify-evenly mt-4">
+            <img class='w-1/5 h-auto' src="logo-dark.png" alt="logo">
+            <img class='w-1/4 h-auto' src="meso_logo_white.avif" alt="logo-meso">
+        </div>
+        <p class="text-2xl font-bold my-8">Formulario Registro de Jugadores</p>
+        <div class="w-full flex flex-col items-center">
+            <div class="flex flex-col gap-2 w-3/4">
+                <label>Nombre <br>
+                    <input class="rounded-lg w-full" type="text" [(ngModel)]="newPlayer.names">
+                </label>
+                <label>Carnet <br>
+                    <input class="rounded-lg w-full" type="number" [(ngModel)]="newPlayer.carnet">
+                </label>
+                <label>Edad <br>
+                    <input class="rounded-lg w-full" type="number" [(ngModel)]="newPlayer.age">
+                </label>
+                <label>Posicion <br>
+                    <select class="rounded-lg w-full" [(ngModel)]="newPlayer.position">
+                        <option *ngFor="let posicion of playerPositions" [ngValue]="posicion">
+                            {{ posicion.name }}
+                        </option>
+                    </select>
+                </label>
+            </div>
+            <div class="flex flex-col mt-10 mb-8 w-3/4">
+                <button class="rounded-lg mb-4" (click)="savePlayer()">Agregar Jugador</button>
+                <button class="outlined rounded-lg hover:translate-0.5" (click)="closeModal()">Cancelar</button>
             </div>
         </div>
     </div>
-</main>
+    <p-toast></p-toast>
+</div>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { NgClass, NgIf } from '@angular/common';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-quote',
@@ -7,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './quote.component.css'
 })
 export class QuoteComponent {
+
+  @Input() authorSize: string = "text-3xl";
+  @Input() quoteSize: string = "text-4xl";
 
 }

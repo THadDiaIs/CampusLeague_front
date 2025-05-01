@@ -27,8 +27,18 @@ input {
     color: rgb(var(--color-2));
     height: 33px;
 }
-
-.buttons {
+button{
     height: 33px;
-     background-color: rgb(var(--color-3));
+}
+button:hover{
+    transform: scale(0.98);
+}
+.filled {
+    color: rgb(var(--color-2));
+    background-color: rgb(var(--color-1));
+}
+.outlined {
+    background-color: transparent;
+    color: rgb(var(--color-1));
+    border: 2px solid rgb(var(--color-1));
 }

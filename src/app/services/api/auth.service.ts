@@ -1,9 +1,9 @@
-import { Login } from "../../types/login.type"
+import { Login } from "../../types/login"
 import { Post } from "./api.generic";
 
 
 export async function login(params: Login) {
-    return Post("auth/login", params, false)
+    return Post<any>("auth/login", params, false)
         .then(resp => {
             const { token } = resp.data;
             if (token) {

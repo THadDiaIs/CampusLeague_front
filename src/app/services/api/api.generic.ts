@@ -10,8 +10,8 @@ const defaultHeaders = {
     "Content-Type": "application/json"
 }
 
-const Get = (endpoint: string, params: any, needAuth: boolean = false) => {
-    return axios(
+const Get = <T>(endpoint: string, params: any, needAuth: boolean = false) => {
+    return axios<T>(
         {
             method: "get",
             params,
@@ -24,8 +24,8 @@ const Get = (endpoint: string, params: any, needAuth: boolean = false) => {
     );
 }
 
-const Post = (endpoint: string, formData: any, needAuth: boolean = true) => {
-    return axios({
+const Post = <T>(endpoint: string, formData: any, needAuth: boolean = true) => {
+    return axios<T>({
         method: "post",
         url: `${apiUrl}${endpoint}`,
         data: formData,
