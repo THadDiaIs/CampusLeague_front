@@ -35,6 +35,17 @@ export class LoginComponent {
 
     await login({ username: this.username, password: this.password })
       .then(resp => {
+
+        if (!resp) {
+          this.msgService.add({
+            severity: "error",
+            summary: "Error de coneccion",
+            detail: "No se pudo conectar con el servidor"
+          });
+          return;
+        }
+        
+        console.log(resp);
         if (resp === 400) {
           this.msgService.add({
             severity: "error",
@@ -60,5 +71,4 @@ export class LoginComponent {
         }
       });
   }
-
 }

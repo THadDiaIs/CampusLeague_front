@@ -12,7 +12,7 @@ export async function login(params: Login) {
             return resp.status;
         })
         .catch(err => {
-            console.log(err.data);
+            console.log(err);
             return err.status;
         })
 }

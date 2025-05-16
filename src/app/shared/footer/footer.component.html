@@ -1,11 +1,41 @@
-<footer>
-    <img src="#" alt="umeslLogo">
-    <img src="#" alt="umeslLogo">
-    <div class="divider"></div>
-    <div class="contact-info">
-        some contact info
+<footer class="flex flex-col justify-evenly items-center bg-[var(--col-2)] px-8 gap-2.5 pb-8">
+    <div class="w-full h-0.5 bg-[var(--col-1)] mt-0.5 mb-8"></div>
+    <div class="flex justify-around h-40 w-2/3">
+        <img src="logo-dark.png" alt="logo">
+        <div class="flex flex-col items-center justify-evenly">
+            <div class="tech-icons flex justify-center gap-2">
+                <a href="#" target="_blank">
+                    <i class="pi pi-github" style="color: var(--col-1)"></i>
+                </a>
+                <a href="#" target="_blank">
+                    <i class="pi pi-discord" style="color: var(--col-1)"></i>
+                </a>
+                <a href="#" target="_blank">
+                    <i class="pi pi-linkedin" style="color: var(--col-1)"></i>
+                </a>
+                <a href="https://www.umes.edu.gt/" target="_blank">
+                    <i class="pi pi-globe" style="color: var(--col-1)"></i>
+                </a>
+            </div>
+            <div class="flex justify-center gap-2">
+                <a href="https://github.com/EDK367" target="_blank" class="decorated-element flex items-center rounded-full bg-[var(--col-4)] px-3 py-1 gap-2">
+                    <i class="pi pi-github" style="color: var(--col-5)"></i>
+                    <p class="text-lg font-bold text-[var(--col-5)]">EDK367</p>
+                </a>
+                <a href="https://github.com/THadDiaIs/" target="_blank" class="decorated-element flex items-center rounded-full bg-[var(--col-4)] px-3 py-1 gap-2">
+                    <i class="pi pi-github" style="color: var(--col-5)"></i>
+                    <p class="text-lg font-bold text-[var(--col-5)]">AdDig</p>
+                </a>
+                <a href="https://github.com/Neyzer538/" target="_blank" class="decorated-element flex items-center rounded-full bg-[var(--col-4)] px-3 py-1 gap-2">
+                    <i class="pi pi-github" style="color: var(--col-5)"></i>
+                    <p class="text-lg font-bold text-[var(--col-5)]">Neyzer538</p>
+                </a>
+            </div>
+        </div>
+        <img src="meso_logo_white.png" alt="umeslLogo">
     </div>
-    <div class="tech-icons">
-        
+    <div class="contact-info text-[var(--col-1)]">
+        <p>© {{ currentYear }} CampusLeague, UMES. All rights reserved</p>
     </div>
+    
 </footer>
