@@ -4,9 +4,11 @@ import { Team } from '../../../types/team';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 import { PlayersComponent } from "../players/players.component";
-import { saveTeam } from '../../../services/api/register.service';
+import { getPlayerPositions, saveTeam } from '../../../services/api/register.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { Position } from '../../../types/position';
+import { Tournament } from '../../../types/tournament';
 
 @Component({
   selector: 'app-team',
@@ -19,17 +21,23 @@ export class TeamComponent {
 
   public team: Team = {
     name: "",
+    inscription_date: new Date(),
     players: [],
   };
   logoUrl: String = "";
   shirtColor: String = "";
   showPlayerModal: boolean = false;
   currentEdittingPlayer: number | undefined = undefined;
+  
+  positions: Position[] = [];
+  tournaments: Tournament[] = [];
 
   constructor(
     private router: Router,
     private messageService: MessageService
-  ) { }
+  ) { 
+    this.loadPositions();
+  }
 
   registrationsCancel() {
     this.router.navigate(['/home']);
@@ -91,5 +99,15 @@ export class TeamComponent {
   onPlayerAdded() {
     this.togglePlayerModal();
     this.currentEdittingPlayer = undefined;
+  }
+
+  async loadPositions() {
+    const data = await getPlayerPositions();
+    if (data && data.length > 0) {
+      this.positions = data;
+    } else {
+      this.positions = [];
+      console.log("No player positions in the db");
+    }
   }
 }

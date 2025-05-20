@@ -35,7 +35,6 @@ export class LoginComponent {
 
     await login({ username: this.username, password: this.password })
       .then(resp => {
-
         if (!resp) {
           this.msgService.add({
             severity: "error",

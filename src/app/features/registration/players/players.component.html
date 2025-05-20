@@ -1,8 +1,9 @@
 <div class="flex flex-row flex-wrap justify-center items-center rounded-lg players-card">
     <div class="players-form flex flex-col justify-evenly items-center p-8">
         <div class="flex flex-row justify-evenly mt-4">
-            <img class='w-1/5 h-auto' src="logo-dark.png" alt="logo">
-            <img class='w-1/4 h-auto' src="meso_logo_white.avif" alt="logo-meso">
+            <img class='w-auto h-32' src="logo-dark.png" alt="logo">
+            <div class="w-40 h-1 bg-transparent"></div>
+            <img class='w-auto h-32' src="logo-meso.png" alt="logo-meso">
         </div>
         <p class="text-2xl font-bold my-8">Formulario Registro de Jugadores</p>
         <div class="w-full flex flex-col items-center">
@@ -18,7 +19,7 @@
                 </label>
                 <label>Posicion <br>
                     <select class="rounded-lg w-full" [(ngModel)]="newPlayer.position">
-                        <option *ngFor="let posicion of playerPositions" [ngValue]="posicion">
+                        <option *ngFor="let posicion of positions" [ngValue]="posicion">
                             {{ posicion.name }}
                         </option>
                     </select>

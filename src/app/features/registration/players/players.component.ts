@@ -15,12 +15,11 @@ import { ToastModule } from 'primeng/toast';
   styleUrl: './players.component.css'
 })
 export class PlayersComponent {
-
+  @Input() positions: Position[] = [];
   @Input() players: Player[] = [];
   @Input() currPlayer: number | undefined = undefined;
   @Output() done = new EventEmitter<void>();
 
-  public playerPositions: Position[] = [];
   public newPlayer: Player = {
     names: "",
     carnet: "",
@@ -34,18 +33,6 @@ export class PlayersComponent {
   constructor(
     private msgService: MessageService
   ) { }
-
-  async ngOnInit() {
-    const data = await getPlayerPositions();
-    if (data) {
-      this.playerPositions = data;
-    } else {
-      console.log("No player positions in the db");
-    }
-    if (this.currPlayer != undefined) {
-      this.newPlayer = { ...this.players[this.currPlayer] };
-    }
-  }
 
   closeModal(){
     this.done.emit();
