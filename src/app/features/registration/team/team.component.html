@@ -21,13 +21,24 @@
                 <!-- <label>Logo del Equipo
                     <input class="rounded-lg w-full" type="file" accept="image">
                 </label> -->
-                <select class="rounded-lg w-full" type="number">
-                    <option value="some value">
-                        Torneo:
-                    </option>
-                </select>
+                <label>Torneo:
+                    <select class="rounded-lg w-full" [(ngModel)]="selectedTorunament">
+                        <option value="0">
+                            Selecciona un torneo
+                        </option>
+                        <option *ngFor="let torneo of tournaments" [ngValue]="torneo.id">
+                            {{ torneo.tournament_name }}
+                        </option>
+                    </select>
+                </label>
             </div>
             <div class="flex flex-row gap-3 w-full">
+                <label>Nombre del Entrenador
+                    <input class="rounded-lg w-full" type="text" [(ngModel)]="coach.name">
+                </label>
+                <label>Experiencia
+                    <input class="rounded-lg w-full" type="number" [(ngModel)]="coach.experience_years">
+                </label>
             </div>
         </div>
 

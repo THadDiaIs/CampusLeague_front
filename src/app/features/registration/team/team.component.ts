@@ -9,6 +9,8 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { Position } from '../../../types/position';
 import { Tournament } from '../../../types/tournament';
+import { getAllTournaments } from '../../../services/tournament/tournament.service';
+import { Coach } from '../../../types/coach';
 
 @Component({
   selector: 'app-team',
@@ -24,6 +26,11 @@ export class TeamComponent {
     inscription_date: new Date(),
     players: [],
   };
+  public coach: Coach = {
+    name: "",
+    experience_years: 0
+  };
+  selectedTorunament: number = 0;
   logoUrl: String = "";
   shirtColor: String = "";
   showPlayerModal: boolean = false;
@@ -37,6 +44,7 @@ export class TeamComponent {
     private messageService: MessageService
   ) { 
     this.loadPositions();
+    this.loadTournaments();
   }
 
   registrationsCancel() {
@@ -108,6 +116,25 @@ export class TeamComponent {
     } else {
       this.positions = [];
       console.log("No player positions in the db");
+    }
+  }
+
+  async loadTournaments() {
+    try {
+      const data = await getAllTournaments();
+      if (data && data.length > 0) {
+        this.tournaments = data;
+      } else {
+        this.tournaments = [];
+        console.log("No tournaments in the db");
+      }
+    } catch (error) {
+      console.error('Error loading tournaments:', error);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Failed to load tournaments'
+      });
     }
   }
 }

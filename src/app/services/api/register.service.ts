@@ -4,7 +4,7 @@ import { Get, Post } from "./api.generic";
 
 export async function getPlayerPositions(): Promise<Position[]> {
   try {
-    const response = await Get<Position[]>("posicion-jugador", false);
+    const response = await Get<Position[]>("posicion-jugador", undefined, false);
     return response.data;
   } catch (error: any) {
     console.error("Error on loading positions:", error);
