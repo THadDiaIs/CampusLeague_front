@@ -4,18 +4,19 @@ import { Team } from '../../../types/team';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 import { PlayersComponent } from "../players/players.component";
-import { getPlayerPositions, saveTeam } from '../../../services/api/register.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { Position } from '../../../types/position';
 import { Tournament } from '../../../types/tournament';
-import { getAllTournaments } from '../../../services/tournament/tournament.service';
 import { Coach } from '../../../types/coach';
+import { TournamentService } from '../../../services/tournament/tournament.service';
+import { PlayerPositionService } from '../../../services/player-position/player-position.service';
+import { TeamService } from '../../../services/team/team.service';
 
 @Component({
   selector: 'app-team',
   imports: [FormsModule, NgFor, PlayersComponent, NgIf, ToastModule],
-  providers: [MessageService],
+  providers: [MessageService, TeamService],
   templateUrl: './team.component.html',
   styleUrl: './team.component.css'
 })
@@ -41,7 +42,10 @@ export class TeamComponent {
 
   constructor(
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private tournamentService: TournamentService,
+    private playerPositionService: PlayerPositionService,
+    private teamService: TeamService
   ) { 
     this.loadPositions();
     this.loadTournaments();
@@ -79,8 +83,7 @@ export class TeamComponent {
       return;
     }*/
 
-    console.log(this.team);
-    const registred = await saveTeam(this.team);
+    const registred = await this.teamService.saveTeam(this.team);
     if (registred?.id) {
       this.messageService.add({
         severity: "success",
@@ -110,7 +113,7 @@ export class TeamComponent {
   }
 
   async loadPositions() {
-    const data = await getPlayerPositions();
+    const data = await this.playerPositionService.getPlayerPositions();
     if (data && data.length > 0) {
       this.positions = data;
     } else {
@@ -121,7 +124,7 @@ export class TeamComponent {
 
   async loadTournaments() {
     try {
-      const data = await getAllTournaments();
+      const data = await this.tournamentService.getAllTournaments();
       if (data && data.length > 0) {
         this.tournaments = data;
       } else {

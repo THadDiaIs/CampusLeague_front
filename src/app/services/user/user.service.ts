@@ -1,19 +1,38 @@
 import { User } from '../../types/user';
-import { Get, Post } from '../api/api.generic';
+import { ApiService } from '../api/api.generic';
+import { Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
-    // Get user by ID
-    static getUserById(id: number) {
-        return Get<User>(`/usuario/${id}`, {}, true);
-    }
+  constructor(private apiService: ApiService) {
+  }
 
-    // Update user
-    static updateUser(id: number, userData: any) {
-        return Post<User>(`/usuario/${id}`, userData, true);
+  async getUserById(id: number): Promise<User> {
+    try {
+      return await this.apiService.get<User>(`usuario/${id}`, {}, true);
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      throw error;
     }
+  }
 
-    // Delete user
-    static deleteUser(id: number) {
-        return Post<User>(`/usuario/${id}`, {}, true);
+  async updateUser(id: number, userData: User): Promise<User> {
+    try {
+      return await this.apiService.post<User>(`usuario/${id}`, userData, true);
+    } catch (error) {
+      console.error('Error updating user:', error);
+      throw error;
     }
+  }
+
+  async deleteUser(id: number): Promise<User> {
+    try {
+      return await this.apiService.post<User>(`usuario/${id}`, {}, true);
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      throw error;
+    }
+  }
 }

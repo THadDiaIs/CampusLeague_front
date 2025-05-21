@@ -1,22 +1,47 @@
-import { Get, Post } from '../api/api.generic';
 import { Player } from '../../types/player';
+import { ApiService } from '../api/api.generic';
+import { Injectable } from '@angular/core';
 
-export const getPlayer = async (id: number): Promise<Player> => {
-  const response = await Get<Player>(`/jugador/${id}`, {}, true);
-  return response.data;
-};
+@Injectable({
+  providedIn: 'root'
+})
+export class PlayerService {
+  constructor(private apiService: ApiService) {
+  }
 
-export const updatePlayer = async (id: number, playerData: Player): Promise<Player> => {
-  const response = await Post<Player>(`/jugador/${id}`, playerData, true);
-  return response.data;
-};
+  async getPlayer(id: number): Promise<Player> {
+    try {
+      return await this.apiService.get<Player>(`jugador/${id}`, {}, true);
+    } catch (error) {
+      console.error('Error fetching player:', error);
+      throw error;
+    }
+  }
 
-export const deletePlayer = async (id: number): Promise<Player> => {
-  const response = await Post<Player>(`/jugador/${id}`, {}, true);
-  return response.data;
-};
+  async updatePlayer(id: number, playerData: Player): Promise<Player> {
+    try {
+      return await this.apiService.post<Player>(`jugador/${id}`, playerData, true);
+    } catch (error) {
+      console.error('Error updating player:', error);
+      throw error;
+    }
+  }
 
-export const getAllPlayers = async (): Promise<Player[]> => {
-  const response = await Get<Player[]>(`/jugador`, {}, true);
-  return response.data;
-};
+  async deletePlayer(id: number): Promise<Player> {
+    try {
+      return await this.apiService.post<Player>(`jugador/${id}`, {}, true);
+    } catch (error) {
+      console.error('Error deleting player:', error);
+      throw error;
+    }
+  }
+
+  async getAllPlayers(): Promise<Player[]> {
+    try {
+      return await this.apiService.get<Player[]>(`jugador`, {}, true);
+    } catch (error) {
+      console.error('Error fetching all players:', error);
+      throw error;
+    }
+  }
+}

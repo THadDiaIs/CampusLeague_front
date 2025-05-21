@@ -1,22 +1,57 @@
 import { Team } from '../../types/team';
-import { Get, Post } from '../api/api.generic';
+import { ApiService } from '../api/api.generic';
+import { Injectable } from '@angular/core';
 
-export const getTeam = async (id: number): Promise<Team> => {
-  const response = await Get<Team>(`/equipo/${id}`, {}, true);
-  return response.data;
-};
+@Injectable({
+  providedIn: 'root'
+})
+export class TeamService {
+  constructor(private apiService: ApiService) {
+  }
 
-export const updateTeam = async (id: number, teamData: Team): Promise<Team> => {
-  const response = await Post<Team>(`/equipo/${id}`, teamData, true);
-  return response.data;
-};
+  async getTeam(id: number): Promise<Team> {
+    try {
+      return await this.apiService.get<Team>(`equipo/${id}`, {}, true);
+    } catch (error) {
+      console.error('Error fetching team:', error);
+      throw error;
+    }
+  }
 
-export const deleteTeam = async (id: number): Promise<Team> => {
-  const response = await Post<Team>(`/equipo/${id}`, {}, true);
-  return response.data;
-};
+  async updateTeam(id: number, teamData: Team): Promise<Team> {
+    try {
+      return await this.apiService.post<Team>(`equipo/${id}`, teamData, true);
+    } catch (error) {
+      console.error('Error updating team:', error);
+      throw error;
+    }
+  }
 
-export const getAllTeams = async (): Promise<Team[]> => {
-  const response = await Get<Team[]>(`/equipo`, {}, true);
-  return response.data;
-};
+  async deleteTeam(id: number): Promise<Team> {
+    try {
+      return await this.apiService.post<Team>(`equipo/${id}`, {}, true);
+    } catch (error) {
+      console.error('Error deleting team:', error);
+      throw error;
+    }
+  }
+
+  async getAllTeams(): Promise<Team[]> {
+    try {
+      return await this.apiService.get<Team[]>(`equipo`, {}, true);
+    } catch (error) {
+      console.error('Error fetching all teams:', error);
+      throw error;
+    }
+  }
+
+  async saveTeam(team: Team): Promise<Team | undefined> {
+    try {
+      const response = await this.apiService.post<Team>("equipo", team, true);
+      return response;
+    } catch (error) {
+      console.log("Error on saving team:", error);
+      return;
+    }
+  }
+}

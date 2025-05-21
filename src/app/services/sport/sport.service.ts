@@ -1,12 +1,29 @@
 import { Sport } from '../../types/sport';
-import { Get, Post } from '../api/api.generic';
+import { ApiService } from '../api/api.generic';
+import { Injectable } from '@angular/core';
 
-export const getSport = async (id: number): Promise<Sport> => {
-  const response = await Get<Sport>(`/deporte/${id}`, {}, true);
-  return response.data;
-};
+@Injectable({
+  providedIn: 'root'
+})
+export class SportService {
+  constructor(private apiService: ApiService) {
+  }
 
-export const getAllSports = async (): Promise<Sport[]> => {
-  const response = await Get<Sport[]>(`/deporte`, {}, true);
-  return response.data;
-};
+  async getSport(id: number): Promise<Sport> {
+    try {
+      return await this.apiService.get<Sport>(`deporte/${id}`, {}, true);
+    } catch (error) {
+      console.error('Error fetching sport:', error);
+      throw error;
+    }
+  }
+
+  async getAllSports(): Promise<Sport[]> {
+    try {
+      return await this.apiService.get<Sport[]>(`deporte`, {}, true);
+    } catch (error) {
+      console.error('Error fetching all sports:', error);
+      throw error;
+    }
+  }
+}

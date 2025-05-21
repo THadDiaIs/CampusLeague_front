@@ -1,22 +1,47 @@
 import { Field } from '../../types/field';
-import { Get, Post } from '../api/api.generic';
+import { ApiService } from '../api/api.generic';
+import { Injectable } from '@angular/core';
 
-export const getField = async (id: number): Promise<Field> => {
-  const response = await Get<Field>(`/campo/${id}`, {}, true);
-  return response.data;
-};
+@Injectable({
+  providedIn: 'root'
+})
+export class FieldService {
+  constructor(private apiService: ApiService) {
+  }
 
-export const updateField = async (id: number, fieldData: Field): Promise<Field> => {
-  const response = await Post<Field>(`/campo/${id}`, fieldData, true);
-  return response.data;
-};
+  async getField(id: number): Promise<Field> {
+    try {
+      return await this.apiService.get<Field>(`campo/${id}`, {}, true);
+    } catch (error) {
+      console.error('Error fetching field:', error);
+      throw error;
+    }
+  }
 
-export const deleteField = async (id: number): Promise<Field> => {
-  const response = await Post<Field>(`/campo/${id}`, {}, true);
-  return response.data;
-};
+  async updateField(id: number, fieldData: Field): Promise<Field> {
+    try {
+      return await this.apiService.post<Field>(`campo/${id}`, fieldData, true);
+    } catch (error) {
+      console.error('Error updating field:', error);
+      throw error;
+    }
+  }
 
-export const getAllFields = async (): Promise<Field[]> => {
-  const response = await Get<Field[]>(`/campo`, {}, true);
-  return response.data;
-};
+  async deleteField(id: number): Promise<Field> {
+    try {
+      return await this.apiService.post<Field>(`campo/${id}`, {}, true);
+    } catch (error) {
+      console.error('Error deleting field:', error);
+      throw error;
+    }
+  }
+
+  async getAllFields(): Promise<Field[]> {
+    try {
+      return await this.apiService.get<Field[]>(`campo`, {}, true);
+    } catch (error) {
+      console.error('Error fetching all fields:', error);
+      throw error;
+    }
+  }
+}

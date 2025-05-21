@@ -1,22 +1,47 @@
 import { Referee } from '../../types/referee';
-import { Get, Post } from '../api/api.generic';
+import { ApiService } from '../api/api.generic';
+import { Injectable } from '@angular/core';
 
-export const getReferee = async (id: number): Promise<Referee> => {
-  const response = await Get<Referee>(`/arbitro/${id}`, {}, true);
-  return response.data;
-};
+@Injectable({
+  providedIn: 'root'
+})
+export class RefereeService {
+  constructor(private apiService: ApiService) {
+  }
 
-export const updateReferee = async (id: number, refereeData: Referee): Promise<Referee> => {
-  const response = await Post<Referee>(`/arbitro/${id}`, refereeData, true);
-  return response.data;
-};
+  async getReferee(id: number): Promise<Referee> {
+    try {
+      return await this.apiService.get<Referee>(`arbitro/${id}`, {}, true);
+    } catch (error) {
+      console.error('Error fetching referee:', error);
+      throw error;
+    }
+  }
 
-export const deleteReferee = async (id: number): Promise<Referee> => {
-  const response = await Post<Referee>(`/arbitro/${id}`, {}, true);
-  return response.data;
-};
+  async updateReferee(id: number, refereeData: Referee): Promise<Referee> {
+    try {
+      return await this.apiService.post<Referee>(`arbitro/${id}`, refereeData, true);
+    } catch (error) {
+      console.error('Error updating referee:', error);
+      throw error;
+    }
+  }
 
-export const getAllReferees = async (): Promise<Referee[]> => {
-  const response = await Get<Referee[]>(`/arbitro`, {}, true);
-  return response.data;
-};
+  async deleteReferee(id: number): Promise<Referee> {
+    try {
+      return await this.apiService.post<Referee>(`arbitro/${id}`, {}, true);
+    } catch (error) {
+      console.error('Error deleting referee:', error);
+      throw error;
+    }
+  }
+
+  async getAllReferees(): Promise<Referee[]> {
+    try {
+      return await this.apiService.get<Referee[]>(`arbitro`, {}, true);
+    } catch (error) {
+      console.error('Error fetching all referees:', error);
+      throw error;
+    }
+  }
+}

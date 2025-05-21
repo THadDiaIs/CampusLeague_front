@@ -5,7 +5,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { Tournament } from '../../../types/tournament';
 import { Sport } from '../../../types/sport';
-import { getAllSports } from '../../../services/sport/sport.service';
+import { SportService } from '../../../services/sport/sport.service';
 
 @Component({
   selector: 'app-tournament',
@@ -39,7 +39,8 @@ export class TournamentComponent implements OnInit {
   logoUrl: string = '';
 
   constructor(
-    private messageService: MessageService
+    private messageService: MessageService,
+    private sportService: SportService
   ) {}
 
   ngOnInit(): void {
@@ -48,7 +49,7 @@ export class TournamentComponent implements OnInit {
 
   async loadSports() {
     try {
-      const sports = await getAllSports();
+      const sports = await this.sportService.getAllSports();
       if (sports && sports.length > 0) {
         this.sports = sports;
       }
@@ -57,7 +58,7 @@ export class TournamentComponent implements OnInit {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'Failed to load sports'
+        detail: 'Error al cargar los deportes'
       });
     }
   }

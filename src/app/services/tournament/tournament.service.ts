@@ -1,22 +1,47 @@
-import { Get, Post } from '../api/api.generic';
 import { Tournament } from '../../types/tournament';
+import { ApiService } from '../api/api.generic';
+import { Injectable } from '@angular/core';
 
-export const getTournament = async (id: number): Promise<Tournament> => {
-  const response = await Get<Tournament>(`/torneo/${id}`, {}, true);
-  return response.data;
-};
+@Injectable({
+  providedIn: 'root'
+})
+export class TournamentService {
+  constructor(private apiService: ApiService) {
+  }
 
-export const updateTournament = async (id: number, tournamentData: Tournament): Promise<Tournament> => {
-  const response = await Post<Tournament>(`/torneo/${id}`, tournamentData, true);
-  return response.data;
-};
+  async getTournament(id: number): Promise<Tournament> {
+    try {
+      return await this.apiService.get<Tournament>(`torneo${id}`, {}, true);
+    } catch (error) {
+      console.error('Error fetching tournament:', error);
+      throw error;
+    }
+  }
 
-export const deleteTournament = async (id: number): Promise<Tournament> => {
-  const response = await Post<Tournament>(`/torneo/${id}`, {}, true);
-  return response.data;
-};
+  async updateTournament(id: number, tournamentData: Tournament): Promise<Tournament> {
+    try {
+      return await this.apiService.post<Tournament>(`torneo${id}`, tournamentData, true);
+    } catch (error) {
+      console.error('Error updating tournament:', error);
+      throw error;
+    }
+  }
 
-export const getAllTournaments = async (): Promise<Tournament[]> => {
-  const response = await Get<Tournament[]>(`/torneo`, {}, false);
-  return response.data;
-};
+  async deleteTournament(id: number): Promise<Tournament> {
+    try {
+      return await this.apiService.post<Tournament>(`torneo/${id}`, {}, true);
+    } catch (error) {
+      console.error('Error deleting tournament:', error);
+      throw error;
+    }
+  }
+
+  async getAllTournaments(): Promise<Tournament[]> {
+    try {
+      return await this.apiService.get<Tournament[]>(`torneo`, {}, false);
+    } catch (error) {
+      console.error('Error fetching all tournaments:', error);
+      throw error;
+    }
+  }
+}

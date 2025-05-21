@@ -1,18 +1,22 @@
-import { Login } from "../../types/login"
-import { Post } from "./api.generic";
+import { Login } from "../../types/login";
+import { ApiService } from "./api.generic";
+import { Injectable } from '@angular/core';
 
-
-export async function login(params: Login) {
-    return Post<any>("auth/login", params, false)
-        .then(resp => {
-            const { token } = resp.data;
-            if (token) {
-                window.localStorage.setItem("uid", token);
-            }
-            return resp.status;
-        })
-        .catch(err => {
-            console.log(err);
-            return err.status;
-        })
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService extends ApiService {
+  async login(params: Login): Promise<number> {
+    try {
+      const response = await this.post<any>("auth/login", params, false);
+      const { token } = response;
+      if (token) {
+        window.localStorage.setItem("uid", token);
+      }
+      return 200;
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
+    }
+  }
 }

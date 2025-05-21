@@ -3,9 +3,9 @@ import { Router, RouterLink } from '@angular/router';
 import { QuoteComponent } from "../../shared/quote/quote.component";
 import { OutlinedButtonComponent } from "../../shared/outlined-button/outlined-button.component";
 import { FormsModule } from '@angular/forms';
-import { login } from '../../services/api/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { AuthService } from '../../services/api/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,8 @@ import { MessageService } from 'primeng/api';
 export class LoginComponent {
 
   constructor(private router: Router,
-    private msgService: MessageService
+    private msgService: MessageService,
+    private authService: AuthService
   ) { }
 
   public username: string = '';
@@ -33,33 +34,9 @@ export class LoginComponent {
       return
     }
 
-    await login({ username: this.username, password: this.password })
-      .then(resp => {
-        if (!resp) {
-          this.msgService.add({
-            severity: "error",
-            summary: "Error de coneccion",
-            detail: "No se pudo conectar con el servidor"
-          });
-          return;
-        }
-        
-        console.log(resp);
-        if (resp === 400) {
-          this.msgService.add({
-            severity: "error",
-            summary: "Error",
-            detail: "Credenciales incorrectas"
-          });
-        } 
-        if (resp > 400) {
-          this.msgService.add({
-            severity: "error",
-            summary: "Error",
-            detail: "Error al iniciar sesion, intenta mas tarde"
-          });
-        }
-        if (resp === 200) {
+    await this.authService.login({ username: this.username, password: this.password })
+      .then(resp => {        
+        if (resp >= 200 && resp < 300) {
           this.username = "";
           this.password = "";
           this.msgService.add({
@@ -68,6 +45,33 @@ export class LoginComponent {
           });
           this.router.navigate(['/dashboard']);
         }
+      })
+      .catch(error => {
+        console.log(error);
+
+        if (error.status >= 400) {
+          if (error.status === 400) {
+            this.msgService.add({
+              severity: "error",
+              summary: "Error",
+              detail: "Credenciales incorrectas"
+            });
+            return;
+          }
+
+          this.msgService.add({
+            severity: "error",
+            summary: "Error",
+            detail: "Error al iniciar sesion, intenta mas tarde"
+          });
+          return;
+        }
+
+        this.msgService.add({
+          severity: "error",
+          summary: "Error",
+          detail: "Error, no se pudo conectar al servidor"
+        });
       });
   }
 }

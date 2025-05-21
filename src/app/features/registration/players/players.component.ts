@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgFor } from '@angular/common';
-import { getPlayerPositions } from '../../../services/api/register.service';
 import { Position } from '../../../types/position';
 import { MessageService } from 'primeng/api';
 import { Player } from '../../../types/player';
@@ -31,7 +30,7 @@ export class PlayersComponent {
   }
 
   constructor(
-    private msgService: MessageService
+    private msgService: MessageService,
   ) { }
 
   closeModal(){
