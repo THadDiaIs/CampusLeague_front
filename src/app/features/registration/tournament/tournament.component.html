@@ -1,16 +1,9 @@
 <main class="main">
-    <div class="registrations-form flex flex-col p-8 backdrop-blur-md shadow-lg rounded-lg max-h-4/5 w-1/2 gap-6">
+    <div class="registrations-form flex flex-col p-8 backdrop-blur-md shadow-lg rounded-lg w-3/4 gap-6 bg-[var(--col-5)]">
 
-        <div class="flex flex-col justify-center items-center space-x-6">
-            <div class="flex flex-row justify-evenly">
-                <img class='w-auto h-32' src="logo-dark.png" alt="logo">
-                <div class="w-40 h-1 bg-transparent"></div>
-                <img class='w-auto h-32' src="logo-meso.png" alt="logo-meso">
-            </div>
-            <p class="text-2xl font-bold mt-8">Formulario Registro de Torneo</p>
-        </div>
-
+        <p class="text-2xl font-bold mt-8">Formulario Registro de Torneo</p>
         <div class="flex flex-col w-full gap-2">
+
             <div class="flex flex-row gap-3 w-full">
                 <label>Nombre del Torneo
                     <input class="rounded-lg w-full" type="text" [(ngModel)]="tournament.tournament_name">
