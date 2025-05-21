@@ -1,42 +1,61 @@
 <main class="main">
-    <div class="registrations-form flex flex-col p-8 backdrop-blur-md shadow-lg rounded-lg max-h-4/5 w-1/2 gap-6">
+    <div *ngIf="!showRegisterForm" class="registrations-form flex flex-col justify-center items-center p-8 backdrop-blur-md shadow-lg rounded-lg max-h-4/5 w-1/2 gap-6">
+        <p class="text-2xl font-bold text-center">Seleccione el torneo al que desea inscribir su equipo</p>
+        <div class="flex flex-row gap-3 w-full justify-center">
+                <select class="rounded-lg w-1/2 outline py-2 px-1" [(ngModel)]="selectedTournamentIdx" (ngModelChange)="onSelectedTournamentChange()">
+                    <option value="-1">
+                        Selecciona un torneo
+                    </option>
+                    <option *ngFor="let torneo of tournaments; let i = index" [ngValue]="i">
+                        {{ torneo.tournament_name }}
+                    </option>
+                </select>
+        </div>
+        <div *ngIf="selectedTournamentIdx >= 0" class="description flex flex-col gap-2">
+            <p class="flex justify-between">{{ tournaments[selectedTournamentIdx].description }}</p>
+            <p class="flex justify-between"><strong>Fecha de inicio:</strong> {{ tournaments[selectedTournamentIdx].start_date.toLocaleString().split('T')[0] }}</p>
+            <p class="flex justify-between"><strong>Fecha de final:</strong> {{ tournaments[selectedTournamentIdx].end_date.toLocaleString().split('T')[0] }}</p>
+            <p class="flex justify-between"><strong>Miembros M nimos:</strong> {{ tournaments[selectedTournamentIdx].min_team_members }}</p>
+            <p class="flex justify-between"><strong>Miembros M ximos:</strong> {{ tournaments[selectedTournamentIdx].max_team_members }}</p>
+        </div>
+        <div class="flex justify-between items-center gap-3">
+            <button class="rounded-lg outlined px-6" (click)="registrationsCancel()">Cancelar</button>
+            <button class="rounded-lg filled px-6" (click)="goToRegisterForm()">Siguiente</button>
+        </div>
+    </div>
 
-        <div class="flex flex-col justify-center items-center space-x-6">
-            <div class="flex flex-row justify-evenly">
-                <img class='w-auto h-32' src="logo-dark.png" alt="logo">
-                <div class="w-40 h-1 bg-transparent"></div>
-                <img class='w-auto h-32' src="logo-meso.png" alt="logo-meso">
+    <div *ngIf="showRegisterForm" class="registrations-form flex flex-col p-8 backdrop-blur-md shadow-lg rounded-lg max-h-4/5 w-1/2 gap-6 overflow-auto">
+        <div class="flex flex-row justify-evenly items-center">
+            <img class='w-auto h-32' src="logo-dark.png" alt="logo">
+            <div class=" bg-transparent max-w-1/2 ">
+                <p class="text-2xl font-bold">{{ tournaments[selectedTournamentIdx].tournament_name }}</p>
             </div>
-            <p class="text-2xl font-bold mt-8">Formulario Registro de Equipos</p>
+            <img class='w-auto h-32' src="logo-meso.png" alt="logo-meso">
         </div>
 
-        <div class="flex flex-col w-full gap-2">
-            <div class="flex flex-row gap-3 w-full">
-                <label>Nombre del Equipo
-                    <input class="rounded-lg w-full" type="text" [(ngModel)]="team.name">
-                </label>
-                <!-- <label>Color de Camisola
-                    <input class="rounded-lg w-full" type="text" [(ngModel)]="shirtColor">
-                </label> -->
+        <div class="flex flex-col justify-center items-center">
+            <p class="text-xl font-medium">Formulario Registro de Equipos</p>
+        </div>
+
+        <div class="flex flex-col w-full gap-2 border p-3 rounded-lg border-[var(--col-4)]">
+            <label>Nombre del Equipo
+                <input class="rounded-lg w-full" type="text" [(ngModel)]="team.name">
+            </label>
+            <!-- <label>Color de Camisola
+                <input class="rounded-lg w-full" type="text" [(ngModel)]="shirtColor">
+            </label> -->
                 <!-- <label>Logo del Equipo
                     <input class="rounded-lg w-full" type="file" accept="image">
                 </label> -->
-                <label>Torneo:
-                    <select class="rounded-lg w-full" [(ngModel)]="selectedTorunament">
-                        <option value="0">
-                            Selecciona un torneo
-                        </option>
-                        <option *ngFor="let torneo of tournaments" [ngValue]="torneo.id">
-                            {{ torneo.tournament_name }}
-                        </option>
-                    </select>
-                </label>
-            </div>
+        </div>
+
+        <div class="flex flex-col w-full gap-2 border border-[var(--col-4)] p-3 rounded-lg">
+            <label>Entrenador</label>
             <div class="flex flex-row gap-3 w-full">
-                <label>Nombre del Entrenador
+                <label>Nombre
                     <input class="rounded-lg w-full" type="text" [(ngModel)]="coach.name">
                 </label>
-                <label>Experiencia
+                <label>Años de experiencia
                     <input class="rounded-lg w-full" type="number" [(ngModel)]="coach.experience_years">
                 </label>
             </div>
@@ -86,12 +105,17 @@
             </div>
         </div>
         <div class="flex justify-between items-center">
-            <button class="outlined px-6 rounded-lg text-lg font-bold" (click)="registrationsCancel()">
-                Cancelar
+            <button class="outlined px-6 rounded-lg" [disabled]="team.players.length > 0" (click)="showRegisterForm = false">
+                Anterior
             </button>
-            <button class="filled px-6 rounded-lg text-lg font-bold" (click)="registerTeam()">
-                Inscribir
-            </button>
+            <div>
+                <button class="outlined px-6 rounded-lg" (click)="registrationsCancel()">
+                    Cancelar
+                </button>
+                <button class="filled px-6 rounded-lg" (click)="registerTeam()">
+                    Inscribir
+                </button>
+            </div>
         </div>
     </div>
     <p-toast />

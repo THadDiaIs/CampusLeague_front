@@ -1,0 +1,9 @@
+.filled {
+    color: rgb(var(--color-2));
+    background-color: rgb(var(--color-1));
+}
+.outlined {
+    background-color: transparent;
+    color: rgb(var(--color-1));
+    border: 2px solid rgb(var(--color-1));
+}

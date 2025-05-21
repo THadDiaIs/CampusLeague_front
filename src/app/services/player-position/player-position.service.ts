@@ -43,4 +43,15 @@ export class PlayerPositionService {
       throw error;
     }
   }
+
+  
+  async getPlayerPositionsBySport(sportId: number): Promise<Position[]> {
+    try {
+      return await this.apiService.get<Position[]>(`posicion-jugador/deporte/${sportId}`, {}, false);
+    } catch (error) {
+      console.error('Error fetching player positions by sport:', error);
+      throw error;
+    }
+  }
+
 }

@@ -31,12 +31,14 @@ export class TeamComponent {
     name: "",
     experience_years: 0
   };
-  selectedTorunament: number = 0;
   logoUrl: String = "";
   shirtColor: String = "";
+
+  selectedTournamentIdx: number = -1;
+  showRegisterForm: boolean = false;
   showPlayerModal: boolean = false;
   currentEdittingPlayer: number | undefined = undefined;
-  
+
   positions: Position[] = [];
   tournaments: Tournament[] = [];
 
@@ -46,13 +48,32 @@ export class TeamComponent {
     private tournamentService: TournamentService,
     private playerPositionService: PlayerPositionService,
     private teamService: TeamService
-  ) { 
-    this.loadPositions();
+  ) {
     this.loadTournaments();
+  }
+  onSelectedTournamentChange() {
+    if (this.selectedTournamentIdx >= 0) {
+      const selectedTournament = this.tournaments[this.selectedTournamentIdx];
+      this.playerPositionService.getPlayerPositionsBySport(selectedTournament.sport.id).then((positions) => {
+        this.positions = positions;
+      });
+    }
   }
 
   registrationsCancel() {
     this.router.navigate(['/home']);
+  }
+
+  goToRegisterForm() {
+    if (this.selectedTournamentIdx < 0) {
+      this.messageService.add({
+        severity: "info",
+        summary: "Info",
+        detail: "Seleccione un torneo"
+      });
+      return;
+    }
+    this.showRegisterForm = true;
   }
 
   async registerTeam() {
@@ -73,15 +94,36 @@ export class TeamComponent {
       });
       return;
     }*/
-
-    /*if (!(this.team.players.length > tournament.miniumPlayers)) {
+    if (!(this.team.players.length < this.tournaments[this.selectedTournamentIdx].min_team_members)) {
       this.messageService.add({
         severity: "error",
         summary: "Error",
-        detail: "Ingrese un nombre para el equipo"
+        detail: "El equipo debe tener al menos " + this.tournaments[this.selectedTournamentIdx].min_team_members + " jugadores"
       });
       return;
-    }*/
+    }
+
+    if (!(this.team.players.length > this.tournaments[this.selectedTournamentIdx].max_team_members)) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error",
+        detail: "El equipo solo puede tener " + this.tournaments[this.selectedTournamentIdx].max_team_members + " jugadores maximos"
+      });
+      return;
+    }
+
+    try {
+      this.team.inscription_date = new Date();
+      //this.team. = this.tournaments[this.selectedTournamentIdx];
+      const response = await this.teamService.saveTeam(this.team);
+      if (response?.id) {
+        this.team.id = response.id;
+      }
+    } catch (error) {
+      console.log("Error on saving team:", error);
+      return;
+    }
+
 
     const registred = await this.teamService.saveTeam(this.team);
     if (registred?.id) {
@@ -110,16 +152,6 @@ export class TeamComponent {
   onPlayerAdded() {
     this.togglePlayerModal();
     this.currentEdittingPlayer = undefined;
-  }
-
-  async loadPositions() {
-    const data = await this.playerPositionService.getPlayerPositions();
-    if (data && data.length > 0) {
-      this.positions = data;
-    } else {
-      this.positions = [];
-      console.log("No player positions in the db");
-    }
   }
 
   async loadTournaments() {
