@@ -12,4 +12,5 @@ export interface Team {
   status?: Status;
   coach?: Coach;
   players: Player[];
+  captain: string;
 }

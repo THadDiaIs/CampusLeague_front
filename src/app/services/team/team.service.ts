@@ -45,13 +45,13 @@ export class TeamService {
     }
   }
 
-  async saveTeam(team: Team): Promise<Team | undefined> {
+  async saveTeam(team: Team): Promise<Team | any> {
     try {
       const response = await this.apiService.post<Team>("equipo", team, true);
       return response;
     } catch (error) {
       console.log("Error on saving team:", error);
-      return;
+      return error;
     }
   }
 }

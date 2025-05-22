@@ -26,15 +26,18 @@ export class TeamComponent {
     name: "",
     inscription_date: new Date(),
     players: [],
+    captain: ""
   };
   public coach: Coach = {
     name: "",
     experience_years: 0
   };
-  logoUrl: String = "";
-  shirtColor: String = "";
+
+  /*logoUrl: String = "";
+  shirtColor: String = "";*/
 
   selectedTournamentIdx: number = -1;
+  selectedCaptainIdx: number | undefined = undefined;
   showRegisterForm: boolean = false;
   showPlayerModal: boolean = false;
   currentEdittingPlayer: number | undefined = undefined;
@@ -76,6 +79,14 @@ export class TeamComponent {
     this.showRegisterForm = true;
   }
 
+  isCaptain(idx: number): boolean {
+    return idx === this.selectedCaptainIdx;
+  }
+
+  selectCapitan(idx: number) {
+    this.selectedCaptainIdx = idx;
+  }
+
   async registerTeam() {
     if (!(this.team.name.length > 1)) {
       this.messageService.add({
@@ -86,15 +97,16 @@ export class TeamComponent {
       return;
     }
 
-    /*if (!(this.team.shirtColor.length > 1)){
+    if (this.selectedCaptainIdx === undefined) {
       this.messageService.add({
         severity: "error",
         summary: "Error",
-        detail: "Ingrese un nombre para el equipo"
+        detail: "Seleccione un capitán"
       });
       return;
-    }*/
-    if (!(this.team.players.length < this.tournaments[this.selectedTournamentIdx].min_team_members)) {
+    }
+
+    if (this.team.players.length < this.tournaments[this.selectedTournamentIdx].min_team_members) {
       this.messageService.add({
         severity: "error",
         summary: "Error",
@@ -103,7 +115,7 @@ export class TeamComponent {
       return;
     }
 
-    if (!(this.team.players.length > this.tournaments[this.selectedTournamentIdx].max_team_members)) {
+    if (this.team.players.length > this.tournaments[this.selectedTournamentIdx].max_team_members) {
       this.messageService.add({
         severity: "error",
         summary: "Error",
@@ -114,26 +126,38 @@ export class TeamComponent {
 
     try {
       this.team.inscription_date = new Date();
-      //this.team. = this.tournaments[this.selectedTournamentIdx];
+      this.team.captain = this.team.players[this.selectedCaptainIdx!].carnet;
+      if (this.coach.name.length > 1){
+        this.team.coach = this.coach;
+      }
+      //this.team.tournament = this.tournaments[this.selectedTournamentIdx];
       const response = await this.teamService.saveTeam(this.team);
       if (response?.id) {
-        this.team.id = response.id;
+        this.messageService.add({
+          severity: "success",
+          summary: "Done",
+          detail: "Equipo registrado correctamente!."
+        });
+      //this.showRegisterForm = false;
+      this.router.navigate(['/home']);
+      }
+      if (response?.error) {
+        this.messageService.add({
+          severity: "error",
+          summary: "Error",
+          detail: response.error
+        });
+        return;
       }
     } catch (error) {
       console.log("Error on saving team:", error);
+      this.messageService.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Error al registrar el equipo, intente de nuevo mas tarde"
+      });
       return;
     }
-
-
-    const registred = await this.teamService.saveTeam(this.team);
-    if (registred?.id) {
-      this.messageService.add({
-        severity: "success",
-        summary: "Done",
-        detail: "Equipo registrado correctamente!."
-      });
-    }
-    //naviagte to print register sheet
   }
 
   removePlayer(idx: number): void {

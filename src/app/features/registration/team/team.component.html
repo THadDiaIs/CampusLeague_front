@@ -37,10 +37,9 @@
             <p class="text-xl font-medium">Formulario Registro de Equipos</p>
         </div>
 
-        <div class="flex flex-col w-full gap-2 border p-3 rounded-lg border-[var(--col-4)]">
-            <label>Nombre del Equipo
-                <input class="rounded-lg w-full" type="text" [(ngModel)]="team.name">
-            </label>
+        <div class="flex flex-col items-center w-full gap-2 border p-3 rounded-lg border-[var(--col-4)]">
+            <label>Nombre del Equipo</label>
+            <input class="rounded-lg w-1/2" type="text" [(ngModel)]="team.name">
             <!-- <label>Color de Camisola
                 <input class="rounded-lg w-full" type="text" [(ngModel)]="shirtColor">
             </label> -->
@@ -49,14 +48,14 @@
                 </label> -->
         </div>
 
-        <div class="flex flex-col w-full gap-2 border border-[var(--col-4)] p-3 rounded-lg">
+        <div class="flex flex-col items-center w-full gap-2 border border-[var(--col-4)] p-3 rounded-lg">
             <label>Entrenador</label>
-            <div class="flex flex-row gap-3 w-full">
+            <div class="flex flex-row justify-evenly gap-3 w-full">
                 <label>Nombre
-                    <input class="rounded-lg w-full" type="text" [(ngModel)]="coach.name">
+                    <input class="rounded-lg" type="text" [(ngModel)]="coach.name">
                 </label>
                 <label>Años de experiencia
-                    <input class="rounded-lg w-full" type="number" [(ngModel)]="coach.experience_years">
+                    <input class="rounded-lg" type="number" [(ngModel)]="coach.experience_years">
                 </label>
             </div>
         </div>
@@ -78,6 +77,7 @@
                             <th class="px-3 py-3">Posición</th>
                             <th class="px-3 py-3">Edad</th>
                             <th class="px-3 py-3">Carnet</th>
+                            <th class="px-3 py-3">Cap.</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -91,6 +91,9 @@
                             </td>
                             <td class="px-4 py-2">{{ player.age }}</td>
                             <td class="px-4 py-2">{{ player.carnet }}</td>
+                            <td class="px-4 py-2">
+                                <input type="checkbox" [ngModel]="isCaptain(idx)" (ngModelChange)="selectCapitan(idx)">
+                            </td>
                             <td class="px-4 py-2 flex gap-3 items-center justify-center">
                                 <button class="hover:underline" (click)="setEdittingPlayer(idx)">
                                     <i class="pi pi-pencil" style="color: var(--color-1)"></i>
@@ -108,7 +111,7 @@
             <button class="outlined px-6 rounded-lg" [disabled]="team.players.length > 0" (click)="showRegisterForm = false">
                 Anterior
             </button>
-            <div>
+            <div class="flex gap-3">
                 <button class="outlined px-6 rounded-lg" (click)="registrationsCancel()">
                     Cancelar
                 </button>
