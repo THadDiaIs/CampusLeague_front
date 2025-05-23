@@ -26,7 +26,7 @@ export class TeamComponent {
     name: "",
     inscription_date: new Date(),
     players: [],
-    captain: ""
+    captain: "",
   };
   public coach: Coach = {
     name: "",
@@ -127,6 +127,8 @@ export class TeamComponent {
     try {
       this.team.inscription_date = new Date();
       this.team.captain = this.team.players[this.selectedCaptainIdx!].carnet;
+      this.team.tournament = this.tournaments[this.selectedTournamentIdx!];
+
       if (this.coach.name.length > 1){
         this.team.coach = this.coach;
       }

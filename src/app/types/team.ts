@@ -1,6 +1,7 @@
 import { Coach } from "./coach";
 import { Player } from "./player";
 import { Status } from "./status";
+import { Tournament } from "./tournament";
 import { User } from "./user";
 
 export interface Team {
@@ -13,4 +14,5 @@ export interface Team {
   coach?: Coach;
   players: Player[];
   captain: string;
+  tournament?: Tournament;
 }
