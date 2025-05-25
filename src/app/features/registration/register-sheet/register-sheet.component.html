@@ -37,11 +37,13 @@
             <div class="flex flex-col gap-4 p-4 w-3/4">
                 <div class="flex gap-4">
                     <p class="text-xs font-bold text-[var(--col-2)]">Fecha de Inicio</p>
-                    <p class="text-xs text-[var(--col-5)]">{{ team?.tournament?.start_date?.toString()!.split('T')[0] || "" }}</p>
+                    <p class="text-xs text-[var(--col-5)]">{{ team?.tournament?.start_date?.toString()!.split('T')[0] ||
+                        "" }}</p>
                 </div>
                 <div class="flex gap-4">
                     <p class="text-xs font-bold text-[var(--col-2)]">Fecha de Final</p>
-                    <p class="text-xs text-[var(--col-5)]">{{ team?.tournament?.end_date?.toString()!.split('T')[0] || "" }}</p>
+                    <p class="text-xs text-[var(--col-5)]">{{ team?.tournament?.end_date?.toString()!.split('T')[0] ||
+                        "" }}</p>
                 </div>
             </div>
         </div>
@@ -101,8 +103,8 @@
                 </table>
                 <tfoot>
                     <tr class="bg-[var(--col-4)]">
-                        <td colspan="4" class="text-xs px-3 py-1 text-[var(--col-2)]">Total de jugadores: {{ team?.players!.length || 0}}</td>
-
+                        <td colspan="4" class="text-xs px-3 py-1 text-[var(--col-2)]">Total de jugadores: {{
+                            team?.players!.length || 0}}</td>
                     </tr>
                 </tfoot>
             </div>
