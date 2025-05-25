@@ -1,6 +1,9 @@
 import { NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Team } from '../../../types/team';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-sheet',
@@ -10,20 +13,44 @@ import { Team } from '../../../types/team';
 })
 export class RegisterSheetComponent {
 
-  mockTeam: Team = {
-    name: "MUMES",
-    inscription_date: new Date(),
-    players: [
-      {names: "Santiago D az", carnet: "12345678", age: 25, position: {name: "PORTERO", description: ""}},
-      {names: "Juan P rez", carnet: "90123456", age: 28, position: {name: "DEFENSOR", description: ""}},
-      {names: "Pedro  lvarez", carnet: "11111111", age: 30, position: {name: "DEFENSOR", description: ""}},
-      {names: "Andr s G mez", carnet: "22222222", age: 22, position: {name: "DEFENSOR", description: ""}},
-      {names: "Miguel  ngel", carnet: "33333333", age: 25, position: {name: "DEFENSOR", description: ""}},
-      {names: "Mar a Fern ndez", carnet: "44444444", age: 27, position: {name: "MEDIOCAMPISTA", description: ""}},
-      {names: "Ignacio Hern ndez", carnet: "55555555", age: 29, position: {name: "MEDIOCAMPISTA", description: ""}},
-      {names: "Ana Garc a", carnet: "66666666", age: 26, position: {name: "DELANTERO", description: ""}},
-    ],
-    captain: ""
+  @ViewChild('pdfContent', { static: false }) pdfContent!: ElementRef;
+
+  @Input() team: Team | null = null;
+
+  constructor(private router: Router) {}
+
+  replaceOklchColors = (element: HTMLElement) => {
+    const elements = element.querySelectorAll('*');
+    elements.forEach(el => {
+      const style = getComputedStyle(el);
+      for (let prop of ['color', 'backgroundColor', 'borderColor']) {
+        const val = style.getPropertyValue(prop);
+        if (val.includes('oklch')) {
+          (el as HTMLElement).style.setProperty(prop, '#000');
+        }
+      }
+    });
   };
 
+  downloadPdf(): void {
+    this.replaceOklchColors(this.pdfContent.nativeElement);
+    html2canvas(this.pdfContent.nativeElement, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save('formulario-inscripcion-equipo.pdf');
+    });
+  }
+
+  goHome(): void {
+    this.router.navigate(['/home']);
+  }
 }

@@ -14,5 +14,9 @@ export interface Team {
   coach?: Coach;
   players: Player[];
   captain: string;
+  contact_email: string;
+  contact_phone: string;
+  //logo?: string;
+  teamCode?: string;
   tournament?: Tournament;
 }

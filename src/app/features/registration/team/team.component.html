@@ -1,9 +1,9 @@
-<main class="main">
+<main class="main" *ngIf="!registredTeam">
     <div *ngIf="!showRegisterForm" class="registrations-form flex flex-col justify-center items-center p-8 backdrop-blur-md shadow-lg rounded-lg max-h-4/5 w-1/2 gap-6">
         <p class="text-2xl font-bold text-center">Seleccione el torneo al que desea inscribir su equipo</p>
         <div class="flex flex-row gap-3 w-full justify-center">
                 <select class="rounded-lg w-1/2 outline py-2 px-1" [(ngModel)]="selectedTournamentIdx" (ngModelChange)="onSelectedTournamentChange()">
-                    <option value="-1">
+                    <option value="-1" disabled>
                         Selecciona un torneo
                     </option>
                     <option *ngFor="let torneo of tournaments; let i = index" [ngValue]="i">
@@ -38,19 +38,29 @@
         </div>
 
         <div class="flex flex-col items-center w-full gap-2 border p-3 rounded-lg border-[var(--col-4)]">
-            <label>Nombre del Equipo</label>
-            <input class="rounded-lg w-1/2" type="text" [(ngModel)]="team.name">
-            <!-- <label>Color de Camisola
-                <input class="rounded-lg w-full" type="text" [(ngModel)]="shirtColor">
-            </label> -->
+            <label>Nombre del Equipo
+                <input class="rounded-lg w-1/2" type="text" [(ngModel)]="team.name">
+            </label>
+            <div class="flex flex-row gap-2 w-full justify-evenly">
+                <label>Correo de Contacto
+                    <input class="rounded-lg w-full" type="email" [(ngModel)]="team.contact_email">
+                </label>
+                <label>Telefono de Contacto
+                    <input class="rounded-lg w-full" placeholder="12345678" type="text" maxlength="8" minlength="8" pattern="[0-9]{8}" [(ngModel)]="team.contact_phone">
+                </label>
+            </div>
                 <!-- <label>Logo del Equipo
                     <input class="rounded-lg w-full" type="file" accept="image">
                 </label> -->
         </div>
 
         <div class="flex flex-col items-center w-full gap-2 border border-[var(--col-4)] p-3 rounded-lg">
-            <label>Entrenador</label>
-            <div class="flex flex-row justify-evenly gap-3 w-full">
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" [(ngModel)]="hasCoach">
+                    Entrenador
+                </label>
+
+            <div *ngIf="hasCoach" class="flex flex-row justify-evenly gap-3 w-full">
                 <label>Nombre
                     <input class="rounded-lg" type="text" [(ngModel)]="coach.name">
                 </label>
@@ -126,4 +136,7 @@
 <div *ngIf="showPlayerModal"
     class="w-full h-full bg-transparent backdrop-blur-md fixed top-0 right-0 flex flex-col justify-center items-center gap-3">
     <app-players [currPlayer]="currentEdittingPlayer" [players]="team.players" [positions]="positions" (done)="onPlayerAdded()" />
+</div>
+<div *ngIf="registredTeam" class="w-full min-h-screen bg-transparent backdrop-blur-md gap-3">
+    <app-register-sheet [team]="registredTeam" />
 </div>

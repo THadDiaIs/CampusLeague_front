@@ -12,10 +12,11 @@ import { Coach } from '../../../types/coach';
 import { TournamentService } from '../../../services/tournament/tournament.service';
 import { PlayerPositionService } from '../../../services/player-position/player-position.service';
 import { TeamService } from '../../../services/team/team.service';
+import { RegisterSheetComponent } from "../register-sheet/register-sheet.component";
 
 @Component({
   selector: 'app-team',
-  imports: [FormsModule, NgFor, PlayersComponent, NgIf, ToastModule],
+  imports: [FormsModule, NgFor, PlayersComponent, NgIf, ToastModule, RegisterSheetComponent],
   providers: [MessageService, TeamService],
   templateUrl: './team.component.html',
   styleUrl: './team.component.css'
@@ -27,14 +28,14 @@ export class TeamComponent {
     inscription_date: new Date(),
     players: [],
     captain: "",
+    contact_email: "",
+    contact_phone: "",
   };
   public coach: Coach = {
     name: "",
     experience_years: 0
   };
-
-  /*logoUrl: String = "";
-  shirtColor: String = "";*/
+  public hasCoach: boolean = false;
 
   selectedTournamentIdx: number = -1;
   selectedCaptainIdx: number | undefined = undefined;
@@ -44,6 +45,8 @@ export class TeamComponent {
 
   positions: Position[] = [];
   tournaments: Tournament[] = [];
+
+  registredTeam: Team | null = null;
 
   constructor(
     private router: Router,
@@ -88,23 +91,56 @@ export class TeamComponent {
   }
 
   async registerTeam() {
-    if (!(this.team.name.length > 1)) {
+    this.team.name = this.team.name.trim();
+    this.team.contact_email = this.team.contact_email.trim();
+    this.team.contact_phone = this.team.contact_phone.trim();
+    
+    if (!(this.team.name.length > 5)) {
       this.messageService.add({
         severity: "error",
         summary: "Error",
-        detail: "Ingrese un nombre para el equipo"
+        detail: "Ingrese un nombre para el equipo, debe tener al menos 6 caracteres"
       });
       return;
     }
 
-    if (this.selectedCaptainIdx === undefined) {
+    if (!(this.team.contact_email.length > 5)) {
       this.messageService.add({
         severity: "error",
         summary: "Error",
-        detail: "Seleccione un capitán"
+        detail: "Ingrese un correo de contacto"
       });
       return;
     }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.team.contact_email)) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Ingrese un correo de contacto válido"
+      });
+      return;
+    }
+
+    if (!(this.team.contact_phone.length === 8)) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Ingrese un telefono de contacto"
+      });
+      return;
+    }
+
+    const phoneRegex = /^[0-9]{8}$/;
+    if (!phoneRegex.test(this.team.contact_phone)) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Ingrese un telefono de contacto válido"
+      });
+        return;
+      }
 
     if (this.team.players.length < this.tournaments[this.selectedTournamentIdx].min_team_members) {
       this.messageService.add({
@@ -124,15 +160,34 @@ export class TeamComponent {
       return;
     }
 
+    if (this.selectedCaptainIdx === undefined || this.selectedCaptainIdx < 0) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Seleccione un capitán"
+      });
+      return;
+    }
+
     try {
       this.team.inscription_date = new Date();
       this.team.captain = this.team.players[this.selectedCaptainIdx!].carnet;
       this.team.tournament = this.tournaments[this.selectedTournamentIdx!];
 
-      if (this.coach.name.length > 1){
+      if (this.hasCoach){
+        if (!(this.coach.name.length > 1)) {
+          this.messageService.add({
+            severity: "error",
+            summary: "Error",
+            detail: "Ingrese un nombre para el entrenador"
+          });
+          return;
+        }
+        if (!(this.coach.experience_years > 0)) {
+          this.coach.experience_years = 1;
+        }
         this.team.coach = this.coach;
       }
-      //this.team.tournament = this.tournaments[this.selectedTournamentIdx];
       const response = await this.teamService.saveTeam(this.team);
       if (response?.id) {
         this.messageService.add({
@@ -140,8 +195,7 @@ export class TeamComponent {
           summary: "Done",
           detail: "Equipo registrado correctamente!."
         });
-      //this.showRegisterForm = false;
-      this.router.navigate(['/home']);
+        this.registredTeam = response;
       }
       if (response?.error) {
         this.messageService.add({
@@ -184,10 +238,20 @@ export class TeamComponent {
     try {
       const data = await this.tournamentService.getAllTournaments();
       if (data && data.length > 0) {
-        this.tournaments = data;
+        const currentDate = new Date();
+        const filteredTournaments = data.filter((tournament) => {
+          return [1,9,11,15].includes(tournament.status!.id) &&
+            new Date(tournament.inscriptions_open_date) <= currentDate &&
+            new Date(tournament.inscriptions_close_date) >= currentDate
+        });
+        this.tournaments = filteredTournaments;
       } else {
         this.tournaments = [];
-        console.log("No tournaments in the db");
+        this.messageService.add({
+          severity: "info",
+          summary: "Info",
+          detail: "No hay torneos disponibles"
+        });
       }
     } catch (error) {
       console.error('Error loading tournaments:', error);

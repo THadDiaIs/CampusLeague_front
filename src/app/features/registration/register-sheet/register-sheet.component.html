@@ -1,137 +1,120 @@
-<div class="w-[420mm] h-full bg-white">
-    <div class="w-full grid grid-cols-2 bg-[var(--col-2)]">
-        <div class="flex flex-col justify-center items-center">
-            <p class="text-xl font-light text-[var(--col-1)]">Formulario de</p>
-            <p class="text-2xl font-bold text-[var(--col-1)]">Registro de Equipos</p>
+<main class="w-full min-h-screen bg-[var(--col-4)] overflow-auto flex flex-col justify-start items-center">
+    <div #pdfContent id="pdf-content" class="w-[210mm] h-full bg-white">
+        <div class="w-full grid grid-cols-2 bg-[var(--col-2)]">
+            <div class="flex flex-col justify-center items-center">
+                <p class="text-xs font-light text-[var(--col-1)]">Formulario de</p>
+                <p class="text-lg font-bold text-[var(--col-1)]">Registro de Equipos</p>
+            </div>
+            <div class="flex flex-row justify-evenly items-center p-2">
+                <img class='w-auto h-10 my-3' src="logo-dark.png" alt="logo">
+                <img class='w-auto h-10 my-3' src="logo-meso.png" alt="logo-meso">
+            </div>
         </div>
-        <div class="flex flex-row justify-evenly items-center p-4">
-            <img class='w-auto h-24 my-3' src="logo-dark.png" alt="logo">
-            <img class='w-auto h-24 my-3' src="logo-meso.png" alt="logo-meso">
+
+        <div class="flex flex-row justify-evenly items-center gap-4 p-4 w-full">
+            <div class="flex gap-4">
+                <p class="text-xs font-bold text-[var(--col-2)]">Fecha</p>
+                <p class="text-xs text-[var(--col-5)]">{{ team?.inscription_date?.toString()!.split('T')[0] || "" }}</p>
+            </div>
+            <div class="flex gap-4">
+                <p class="text-xs font-bold text-[var(--col-2)]">Estado</p>
+                <p class="text-xs text-[var(--col-5)]">{{ team?.status?.status_name }}</p>
+            </div>
+        </div>
+
+        <div class="flex flex-row items-center w-full mt-3">
+            <div class="flex flex-col items-center gap-4 p-2 w-3/4 bg-[var(--col-4)]">
+                <p class="text-xs font-bold text-[var(--col-2)]">{{ team?.tournament?.tournament_name }}</p>
+            </div>
+            <div class="flex flex-col gap-4 p-2 w-1/4">
+                <div class="flex gap-4">
+                    <p class="text-xs font-bold text-[var(--col-2)]">Deporte</p>
+                    <p class="text-xs text-[var(--col-5)]">{{ team?.tournament?.sport?.sport_name }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-row items-center justify-center w-full">
+            <div class="flex flex-col gap-4 p-4 w-3/4">
+                <div class="flex gap-4">
+                    <p class="text-xs font-bold text-[var(--col-2)]">Fecha de Inicio</p>
+                    <p class="text-xs text-[var(--col-5)]">{{ team?.tournament?.start_date?.toString()!.split('T')[0] || "" }}</p>
+                </div>
+                <div class="flex gap-4">
+                    <p class="text-xs font-bold text-[var(--col-2)]">Fecha de Final</p>
+                    <p class="text-xs text-[var(--col-5)]">{{ team?.tournament?.end_date?.toString()!.split('T')[0] || "" }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-row items-center w-full">
+            <div class="flex flex-col items-center gap-4 p-2 w-3/4 bg-[var(--col-4)]">
+                <p class="text-xs font-bold text-[var(--col-2)]">Informacion del Equipo</p>
+            </div>
+            <div class="flex gap-4 p-2 w-1/4">
+                <p class="text-xs font-bold text-[var(--col-2)]">Registro</p>
+                <p class="text-xs text-[var(--col-5)]">{{ team?.teamCode }}</p>
+            </div>
+        </div>
+        <div class="flex flex-row items-center justify-center w-full">
+            <div class="flex flex-col gap-4 p-4 w-3/4">
+                <div class="flex gap-4">
+                    <p class="text-xs font-bold text-[var(--col-2)]">Nombre del Equipo</p>
+                    <p class="text-xs text-[var(--col-5)]">{{ team?.name }}</p>
+                </div>
+                <div class="flex gap-4">
+                    <p class="text-xs font-bold text-[var(--col-2)]">Entrenador</p>
+                    <p class="text-xs text-[var(--col-5)]">{{ team?.coach?.name || "No tiene" }}</p>
+                </div>
+                <div class="flex gap-4">
+                    <p class="text-xs font-bold text-[var(--col-2)]">Capitan del Equipo</p>
+                    <p class="text-xs text-[var(--col-5)]">{{ team?.captain || "No tiene" }}</p>
+                </div>
+                <div class="flex gap-4">
+                    <p class="text-xs font-bold text-[var(--col-2)]">Correo de contacto</p>
+                    <p class="text-xs text-[var(--col-5)]">{{ team?.contact_email }}</p>
+                </div>
+                <div class="flex gap-4">
+                    <p class="text-xs font-bold text-[var(--col-2)]">Telefono de contacto</p>
+                    <p class="text-xs text-[var(--col-5)]">{{ team?.contact_phone }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-row items-center justify-center w-full">
+            <div class="flex flex-col gap-4 p-2 w-3/4 mb-8">
+                <table class="min-w-3/4 text-xs text-left text-gray-100 border-separate border-spacing-y-1.5">
+                    <thead class="text-xs uppercase bg-[var(--col-5)] text-white">
+                        <tr>
+                            <th class="px-3 py-2 text-[var(--col-1)]">Nombre</th>
+                            <th class="px-3 py-2 text-[var(--col-1)]">Carnet</th>
+                            <th class="px-3 py-2 text-[var(--col-1)]">Posicion</th>
+                            <th class="px-3 py-2 text-[var(--col-1)]">Edad</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-xs">
+                        <tr *ngFor="let player of team?.players; let i = index">
+                            <td class="px-3 py-2 text-[var(--col-5)]">{{ player.names }}</td>
+                            <td class="px-3 py-2 text-[var(--col-5)]">{{ player.carnet }}</td>
+                            <td class="px-3 py-2 text-[var(--col-5)]">{{ player.position?.name }}</td>
+                            <td class="px-3 py-2 text-[var(--col-5)]">{{ player.age }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <tfoot>
+                    <tr class="bg-[var(--col-4)]">
+                        <td colspan="4" class="text-xs px-3 py-1 text-[var(--col-2)]">Total de jugadores: {{ team?.players!.length || 0}}</td>
+
+                    </tr>
+                </tfoot>
+            </div>
         </div>
     </div>
-
     <div class="flex flex-row justify-evenly items-center gap-4 p-4 w-full">
-        <div class="flex gap-4">
-            <p class="text-lg font-bold text-[var(--col-2)]">Fecha</p>
-            <p class="text-lg text-[var(--col-5)]">10/11/2022</p>
-        </div>
-        <div class="flex gap-4">
-            <p class="text-lg font-bold text-[var(--col-2)]">Codigo</p>
-            <p class="text-lg text-[var(--col-5)]">CLUMES001</p>
-        </div>
+        <button
+            class="text-sm bg-[var(--col-2)] px-6 rounded-lg py-2 text-[var(--col-1)] hover:bg-[var(--col-5)] hover:text-[var(--col-4)]"
+            (click)="downloadPdf()">Guardar</button>
+        <p class="text-sm text-[var(--col-2)]">SU EQUIPO SE REGISTRO CORRECTAMENTE</p>
+        <button
+            class="text-sm bg-[var(--col-2)] px-6 rounded-lg py-2 text-[var(--col-1)] hover:bg-[var(--col-5)] hover:text-[var(--col-4)]"
+            (click)="goHome()">Salir</button>
     </div>
-
-    <div class="flex flex-row items-center w-full mt-3">
-        <div class="flex flex-col items-center gap-4 p-4 w-3/4 bg-[var(--col-4)]">
-            <p class="text-lg font-bold text-[var(--col-2)]">Torneo Interuniversidades Quetzaltenango</p>
-        </div>
-        <div class="flex flex-col gap-4 p-4 w-1/4">
-            <div class="flex gap-4">
-                <p class="text-lg font-bold text-[var(--col-2)]">Deporte</p>
-                <p class="text-lg text-[var(--col-5)]">Futbol</p>
-            </div>
-        </div>
-    </div>
-    <div class="flex flex-row items-center justify-center w-full">
-        <div class="flex flex-col gap-4 p-4 w-3/4">
-            <div class="flex gap-4">
-                <p class="text-lg font-bold text-[var(--col-2)]">Fecha de Inicio</p>
-                <p class="text-lg text-[var(--col-5)]">10/11/2022</p>
-            </div>
-            <div class="flex gap-4">
-                <p class="text-lg font-bold text-[var(--col-2)]">Fecha de Final</p>
-                <p class="text-lg text-[var(--col-5)]">20/11/2022</p>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="flex flex-row items-center w-full mt-7">
-        <div class="flex flex-col items-center gap-4 p-4 w-3/4 bg-[var(--col-4)]">
-            <p class="text-lg font-bold text-[var(--col-2)]">Informacion del Equipo</p>
-        </div>
-        <div class="flex gap-4 p-4 w-1/4">
-            <p class="text-lg font-bold text-[var(--col-2)]">Registro</p>
-            <p class="text-lg text-[var(--col-5)]">TFIU-D5K3FS</p>
-        </div>
-    </div>
-    <div class="flex flex-row items-center justify-center w-full">
-        <div class="flex flex-col gap-4 p-4 w-3/4">
-            <div class="flex gap-4">
-                <p class="text-lg font-bold text-[var(--col-2)]">Nombre del Equipo</p>
-                <p class="text-lg text-[var(--col-5)]">MUMES</p>
-            </div>
-            <div class="flex gap-4">
-                <p class="text-lg font-bold text-[var(--col-2)]">Entrenador</p>
-                <p class="text-lg text-[var(--col-5)]">Pepe</p>
-            </div>
-            <div class="flex gap-4">
-                <p class="text-lg font-bold text-[var(--col-2)]">Capitan del Equipo</p>
-                <p class="text-lg text-[var(--col-5)]">{{ mockTeam.players[0].names }}</p>
-            </div>
-            <div class="flex gap-4">
-                <p class="text-lg font-bold text-[var(--col-2)]">Correo de contacto</p>
-                <p class="text-lg text-[var(--col-5)]">placeholder-gmail.com</p>
-            </div>
-            <div class="flex gap-4">
-                <p class="text-lg font-bold text-[var(--col-2)]">Telefono de contacto</p>
-                <p class="text-lg text-[var(--col-5)]">77457823</p>
-            </div>
-        </div>
-    </div>
-    <div class="flex flex-row items-center w-full mt-7">
-        <div class="flex flex-col items-center gap-4 p-4 w-3/4 bg-[var(--col-4)]">
-            <p class="text-lg font-bold text-[var(--col-2)]">Jugadores del Equipo</p>
-        </div>
-    </div>
-    <div class="flex flex-row items-center justify-center w-full">
-        <div class="flex flex-col gap-4 p-4 w-3/4">
-            <table class="min-w-full text-sm text-left text-gray-100 border-separate border-spacing-y-1.5">
-                <thead class="text-xs uppercase bg-[var(--col-5)] text-white">
-                    <tr>
-                        <th class="px-3 py-3 text-[var(--col-1)]">Nombre</th>
-                        <th class="px-3 py-3 text-[var(--col-1)]">Carnet</th>
-                        <th class="px-3 py-3 text-[var(--col-1)]">Posicion</th>
-                        <th class="px-3 py-3 text-[var(--col-1)]">Edad</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let player of mockTeam.players; let i = index">
-                        <td class="px-3 py-3 text-[var(--col-5)]">{{ player.names }}</td>
-                        <td class="px-3 py-3 text-[var(--col-5)]">{{ player.carnet }}</td>
-                        <td class="px-3 py-3 text-[var(--col-5)]">{{ player.position?.name }}</td>
-                        <td class="px-3 py-3 text-[var(--col-5)]">{{ player.age }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="flex flex-col gap-4 p-4 w-1/4">
-            <div class="flex flex-col items-center gap-4 p-4 w-full bg-[var(--col-4)]">
-                <p class="text-lg font-bold text-[var(--col-2)]">Regulaciones del torneo</p>
-            </div>
-            <div class="flex gap-4">
-                <p class="text-lg font-bold text-[var(--col-2)]">Maximo de jugadores</p>
-                <p class="text-lg text-[var(--col-5)]">11</p>
-            </div>
-            <div class="flex gap-4">
-                <p class="text-lg font-bold text-[var(--col-2)]">Minimo de jugadores</p>
-                <p class="text-lg text-[var(--col-5)]">11</p>
-            </div>
-            <div class="flex gap-4">
-                <p class="text-lg font-bold text-[var(--col-2)]">Horario de juego</p>
-                <p class="text-lg text-[var(--col-5)]">11:00 - 12:00</p>
-            </div>
-            <div class="flex gap-4">
-                <p class="text-lg font-bold text-[var(--col-2)]">Dias de juego</p>
-                <p class="text-lg text-[var(--col-5)]">Lunes - Viernes</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="flex flex-row items-center w-full mt-7">
-        <div class="flex flex-col items-center gap-4 p-4 w-3/4 bg-[var(--col-4)]">
-            <p class="text-lg font-bold text-[var(--col-2)]">Fecha de Registro</p>
-            <p class="text-lg text-[var(--col-5)]">10/11/2022</p>
-        </div>
-    </div>
-</div>
+</main>
