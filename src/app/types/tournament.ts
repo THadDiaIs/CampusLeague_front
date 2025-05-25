@@ -1,5 +1,6 @@
 import { Sport } from "./sport";
 import { Status } from "./status";
+import { User } from "./user";
 
 export interface Tournament {
     id?: number;
@@ -10,5 +11,8 @@ export interface Tournament {
     description: string;
     max_team_members: number;
     min_team_members: number;
+    inscriptions_open_date: Date;
+    inscriptions_close_date: Date;
     status?: Status;
+    user?: User;
 }

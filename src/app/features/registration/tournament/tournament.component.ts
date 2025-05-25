@@ -32,7 +32,9 @@ export class TournamentComponent implements OnInit {
     status: {
       id: 0,
       status_name: ''
-    }
+    },
+    inscriptions_open_date: new Date(),
+    inscriptions_close_date: new Date(),
   };
 
   sports: Sport[] = [];
