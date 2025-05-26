@@ -20,7 +20,7 @@ export class PlayerService {
 
   async updatePlayer(id: number, playerData: Player): Promise<Player> {
     try {
-      return await this.apiService.post<Player>(`jugador/${id}`, playerData, true);
+      return await this.apiService.put<Player>(`jugador/${id}`, playerData, true);
     } catch (error) {
       console.error('Error updating player:', error);
       throw error;

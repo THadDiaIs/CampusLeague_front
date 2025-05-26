@@ -1,0 +1,73 @@
+<main class="main">
+  <div class="flex gap-2 mb-4 w-full">
+        <h1>Torneos</h1>
+        <a id="add-player" class="hover:bg-green-700 flex items-center justify-center rounded-full">
+        </a>
+    </div>
+  <div class="w-full flex flex-col items-center">
+  <div class="w-full flex justify-end mb-4">
+    <div class="w-80">
+      <p-iconfield iconPosition="left" class="w-full">
+        <p-inputicon>
+          <i class="pi pi-search"></i>
+        </p-inputicon>
+        <input
+          pInputText
+          type="text"
+          placeholder="Buscar equipo por nombre..."
+          [(ngModel)]="searchTorunament"
+          (input)="filterTorunaments()"
+          class="w-full"
+        />
+      </p-iconfield>
+    </div>
+  </div>
+
+    <div class="bg-white/20 backdrop-blur-sm p-2 rounded-lg min-h-65 max-h-72 overflow-auto w-full">
+      <table class="min-w-full text-sm text-left text-gray-100 border-separate border-spacing-y-1.5">
+        <thead class="text-xs uppercase bg-white/10 text-white">
+          <tr>
+            <th class="px-3 py-3">Nombre</th>
+            <th class="px-3 py-3">Descripción</th>
+            <th class="px-3 py-3">Maximo Miembros</th>
+            <th class="px-3 py-3">Minimo Miembros</th>
+            <th class="px-3 py-3">Inicio de Inscripcion</th>
+            <th class="px-3 py-3">Cierre de Inscripcion</th>
+            <th class="px-3 py-3">Comienza</th>
+            <th class="px-3 py-3">Termina</th>
+            <th class="px-3 py-3">Deporte</th>
+            <th class="px-3 py-3">Estado</th>
+            <th class="px-3 py-3">Creador</th>
+
+            <th class="px-3 py-3">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tournament of filteredTorunament; let idx = index"
+            class="bg-white/10 hover:bg-white/20 transition-colors duration-200 rounded-xl shadow-sm">
+            <td class="px-4 py-2">{{ tournament.tournament_name }}</td>
+            <td class="px-4 py-2">{{ tournament.description }}</td>
+            <td class="px-4 py-2">{{ tournament.max_team_members }}</td>
+            <td class="px-4 py-2">{{ tournament.min_team_members }}</td>
+            <td class="px-4 py-2">{{ tournament.inscriptions_open_date }}</td>
+            <td class="px-4 py-2">{{ tournament.inscriptions_close_date }}</td>
+            <td class="px-4 py-2">{{ tournament.start_date }}</td>
+            <td class="px-4 py-2">{{ tournament.end_date }}</td>
+            <td class="px-4 py-2">{{ tournament.sport.sport_name }}</td>
+            <td class="px-4 py-2">{{ tournament.status?.status_name }}</td>
+            <td class="px-4 py-2">{{ tournament.user?.username }}</td>
+            <td class="px-4 py-2 flex gap-3 items-center justify-center">
+              <button class="hover:underline">
+                <i class="pi pi-pencil" style="color: var(--color-1)"></i>
+              </button>
+              <button class="text-red-600 hover:underline">
+                <i class="pi pi-trash" style="color: red"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p-toast></p-toast>
+</main>

@@ -57,6 +57,18 @@ export class ApiService {
       });
   }
 
+  async put<T>(endpoint: string, data: any, needAuth: boolean = true): Promise<T> {
+  const instance = axios.create({
+    baseURL: this.apiUrl,
+    headers: this.getHeaders(needAuth)
+  });
+
+  return instance.put<T>(endpoint, data)
+    .then(response => response.data)
+    .catch(error => {
+      throw error.response?.data || error;
+    });
+}
   async delete<T>(endpoint: string, needAuth: boolean = true): Promise<T> {
     const instance = axios.create({
       baseURL: this.apiUrl,

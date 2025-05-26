@@ -12,28 +12,52 @@
           <p class="text-xs text-gray-300 mt-1">Rendirse nunca es una Opcipión</p>
         </div>
 
-        <ul class="flex flex-col gap-2">
+        <ul class="flex flex-col gap-2 text-gray-300">
           <li>
-            <a routerLink="/dashboard/tournament"
-              routerLinkActive="!bg-[var(--col-4)] !text-white before:absolute before:left-0 before:h-6 before:w-1 before:bg-[var(--col-1)] before:rounded-r"
-              class="relative flex items-center gap-3 p-3 text-gray-300 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:scale-[1.02]">
-              <span class="text-xl">🏆</span>
-              <span class="font-medium">Torneos</span>
-            </a>
+            <button (click)="toggleSection('torneos')"
+              class="w-full flex items-center justify-between p-3 rounded-xl hover:bg-white/10 hover:text-white transition-all duration-300">
+              <span class="flex items-center gap-3">
+                <i class="pi pi-prime text-xl"></i>
+                <span class="font-medium">Torneos</span>
+              </span>
+              <svg class="w-4 h-4 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            <ul *ngIf="openSection === 'torneos'" class="ml-6 mt-2 flex flex-col gap-1">
+              <li>
+                <a routerLink="/dashboard/tournament"
+                  class="block p-2 rounded hover:bg-white/10 hover:text-white flex items-center gap-2">
+                  <i class="pi pi-trophy text-sm"></i>
+                  Creación de Torneos <span class="ml-auto bg-red-500 text-white text-xs px-2 rounded-full"></span>
+                </a>
+              </li>
+              <li>
+                <a routerLink="/dashboard/tournament-info"
+                  class="block p-2 rounded hover:bg-white/10 hover:text-white flex items-center gap-2">
+                  <i class="pi pi-sitemap text-sm"></i>
+                  Información de Torneos
+                </a>
+              </li>
+            </ul>
           </li>
+
           <li>
             <a routerLink="/dashboard/teams-info"
               routerLinkActive="!bg-[var(--col-4)] !text-white before:absolute before:left-0 before:h-6 before:w-1 before:bg-[var(--col-1)] before:rounded-r"
-              class="relative flex items-center gap-3 p-3 text-gray-300 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:scale-[1.02]">
-              <span class="text-xl">👥</span>
+              class="relative flex items-center gap-3 p-3 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:scale-[1.02]">
+              <i class="pi pi-users text-sm"></i>
               <span class="font-medium">Equipos</span>
             </a>
           </li>
+
           <li>
             <a routerLink="/dashboard/players"
               routerLinkActive="!bg-[var(--col-4)] !text-white before:absolute before:left-0 before:h-6 before:w-1 before:bg-[var(--col-1)] before:rounded-r"
-              class="relative flex items-center gap-3 p-3 text-gray-300 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:scale-[1.02]">
-              <span class="text-xl">🧑💼</span>
+              class="relative flex items-center gap-3 p-3 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:scale-[1.02]">
+              <i class="pi pi-user text-sm"></i>
               <span class="font-medium">Jugadores</span>
             </a>
           </li>

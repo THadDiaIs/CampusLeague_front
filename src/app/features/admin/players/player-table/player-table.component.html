@@ -1,5 +1,17 @@
 <main class="main">
   <div class="w-full flex flex-col items-center">
+    <div class="w-full flex justify-end mb-4">
+      <div class="w-80">
+        <p-iconfield iconPosition="left" class="w-full">
+          <p-inputicon>
+            <i class="pi pi-search"></i>
+          </p-inputicon>
+          <input pInputText type="text" placeholder="Buscar jugador por nombre..." [(ngModel)]="searchPlayer"
+            (input)="filterPlayers()" class="w-full" />
+        </p-iconfield>
+      </div>
+    </div>
+
     <div class="bg-white/20 backdrop-blur-sm p-2 rounded-lg min-h-65 max-h-72 overflow-auto w-full">
       <table class="min-w-full text-sm text-left text-gray-100 border-separate border-spacing-y-1.5">
         <thead class="text-xs uppercase bg-white/10 text-white">
@@ -13,15 +25,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let player of players; let idx = index"
+          <tr *ngFor="let player of filteredPlayers"
             class="bg-white/10 hover:bg-white/20 transition-colors duration-200 rounded-xl shadow-sm">
             <td class="px-4 py-2">{{ player.names }}</td>
             <td class="px-4 py-2">{{ player.carnet }}</td>
             <td class="px-4 py-2">{{ player.age }}</td>
-            <td class="px-4 py-2">{{ player.created_at}}</td>
-            <td class="px-4 py-2">{{ player.status?.status_name}}</td>
+            <td class="px-4 py-2">{{ player.created_at | date: 'short' }}</td>
+            <td class="px-4 py-2">{{ player.status?.status_name }}</td>
             <td class="px-4 py-2 flex gap-3 items-center justify-center">
-              <button class="hover:underline">
+              <button class="hover:underline" (click)="editPlayer(player)">
                 <i class="pi pi-pencil" style="color: var(--color-1)"></i>
               </button>
               <button class="text-red-600 hover:underline" *ngIf="player.id !== undefined"
@@ -34,6 +46,35 @@
       </table>
     </div>
   </div>
-  <p-toast />
-
 </main>
+
+<p-dialog header="Editar Jugador" [(visible)]="showPlayerModal"  [style]="{ width: '45rem', height: '30rem' }"  [modal]="true">
+  <span class="text-sm text-gray-300 block mb-8">Actualiza la información del jugador.</span>
+
+  <div class="flex items-center gap-4 mb-4">
+    <label for="names" class="font-semibold w-28 text-white">Nombre</label>
+    <input pInputText id="names" class="flex-auto" [(ngModel)]="newPlayer.names" autocomplete="off" />
+  </div>
+
+  <div class="flex items-center gap-4 mb-4">
+    <label for="carnet" class="font-semibold w-28 text-white">Carnet</label>
+    <input pInputText id="carnet" class="flex-auto" [(ngModel)]="newPlayer.carnet" autocomplete="off" />
+  </div>
+
+  <div class="flex items-center gap-4 mb-6">
+    <label for="age" class="font-semibold w-28 text-white">Edad</label>
+    <input pInputText id="age" type="number" class="flex-auto" [(ngModel)]="newPlayer.age" autocomplete="off" />
+  </div>
+  <div class="flex items-center gap-4 mb-6">
+    <label for="status" class="font-semibold w-28 text-white">Estado</label>
+    <p-dropdown id="status" class="flex-auto" [options]="statuses" optionLabel="status_name"
+      [(ngModel)]="newPlayer.status" placeholder="Seleccione un estado">
+    </p-dropdown>
+  </div>
+  <div class="flex justify-end gap-2">
+    <p-button label="Cancelar" severity="secondary" (click)="showPlayerModal = false" />
+    <p-button label="Guardar" (click)="updatePlayer()" />
+  </div>
+</p-dialog>
+
+<p-toast></p-toast>
