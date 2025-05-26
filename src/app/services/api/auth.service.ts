@@ -11,7 +11,7 @@ export class AuthService extends ApiService {
       const response = await this.post<any>("auth/login", params, false);
       const { token } = response;
       if (token) {
-        window.localStorage.setItem("uid", token);
+        window.localStorage.setItem("token", token);
       }
       return 200;
     } catch (error) {

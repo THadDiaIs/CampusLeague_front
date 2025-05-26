@@ -1,20 +1,60 @@
-<main class="h-screen w-full flex flex-col bg-[var(--col-4)]">
-    <section class="w-full h-full flex">
-        <nav class="w-1/7 h-full bg-[var(--col-5)] p-4">
-            <ul class="flex flex-col gap-4">
-                <li class="bg-[var(--col-4)] p-2 rounded-lg">
-                    <a class="block w-full h-full" [routerLink]="['/tournament']">Torneos</a>
-                </li>
-                <li class="bg-[var(--col-4)] p-2 rounded-lg">
-                    <a class="block w-full h-full" [routerLink]="['/tournament']">Equipos</a>
-                </li>
-                <li class="bg-[var(--col-4)] p-2 rounded-lg">
-                    <a class="block w-full h-full" [routerLink]="['/tournament']">Jugadores</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="w-4/5 h-full p-4">
-            <router-outlet></router-outlet>
+<main class="h-screen w-full flex flex-col bg-[var(--col-4)] font-sans antialiased">
+  <section class="flex flex-grow h-full">
+
+    <nav
+      class="w-1/6 h-screen bg-[var(--col-5)] p-6 shadow-2xl flex flex-col justify-between flex-shrink-0 border-r border-white/10">
+      <div class="space-y-8">
+        <div class="mb-10">
+          <h2
+            class="text-2xl font-bold bg-gradient-to-r from-[var(--col-1)] to-[var(--col-3)] bg-clip-text text-transparent">
+            Campus League
+          </h2>
+          <p class="text-xs text-gray-300 mt-1">Rendirse nunca es una Opcipión</p>
         </div>
-    </section>
+
+        <ul class="flex flex-col gap-2">
+          <li>
+            <a routerLink="/dashboard/tournament"
+              routerLinkActive="!bg-[var(--col-4)] !text-white before:absolute before:left-0 before:h-6 before:w-1 before:bg-[var(--col-1)] before:rounded-r"
+              class="relative flex items-center gap-3 p-3 text-gray-300 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:scale-[1.02]">
+              <span class="text-xl">🏆</span>
+              <span class="font-medium">Torneos</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/dashboard/teams-info"
+              routerLinkActive="!bg-[var(--col-4)] !text-white before:absolute before:left-0 before:h-6 before:w-1 before:bg-[var(--col-1)] before:rounded-r"
+              class="relative flex items-center gap-3 p-3 text-gray-300 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:scale-[1.02]">
+              <span class="text-xl">👥</span>
+              <span class="font-medium">Equipos</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/dashboard/players"
+              routerLinkActive="!bg-[var(--col-4)] !text-white before:absolute before:left-0 before:h-6 before:w-1 before:bg-[var(--col-1)] before:rounded-r"
+              class="relative flex items-center gap-3 p-3 text-gray-300 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:scale-[1.02]">
+              <span class="text-xl">🧑💼</span>
+              <span class="font-medium">Jugadores</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="border-t border-white/10 pt-6">
+        <div class="text-xs text-gray-400/80 transition-colors hover:text-white">
+          <p class="mb-1">v2.4.0</p>
+          <p>&copy; 2025 CampusLeague</p>
+        </div>
+      </div>
+    </nav>
+
+
+    <!-- Hay que cambiar el color  -->
+    <div class="w-5/6 flex flex-col min-h-0 p-6 text-white" style="background-color: rgb(24, 70, 11);">
+      <div
+        class="flex-1 min-h-0 overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-[var(--col-5)] scrollbar-track-[var(--col-3)]/30">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </section>
 </main>

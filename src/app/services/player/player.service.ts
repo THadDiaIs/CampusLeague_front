@@ -29,7 +29,7 @@ export class PlayerService {
 
   async deletePlayer(id: number): Promise<Player> {
     try {
-      return await this.apiService.post<Player>(`jugador/${id}`, {}, true);
+      return await this.apiService.delete<Player>(`jugador/${id}`);
     } catch (error) {
       console.error('Error deleting player:', error);
       throw error;
@@ -38,6 +38,7 @@ export class PlayerService {
 
   async getAllPlayers(): Promise<Player[]> {
     try {
+      
       return await this.apiService.get<Player[]>(`jugador`, {}, true);
     } catch (error) {
       console.error('Error fetching all players:', error);

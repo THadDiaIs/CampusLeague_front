@@ -1,0 +1,39 @@
+<main class="main">
+  <div class="w-full flex flex-col items-center">
+    <div class="bg-white/20 backdrop-blur-sm p-2 rounded-lg min-h-65 max-h-72 overflow-auto w-full">
+      <table class="min-w-full text-sm text-left text-gray-100 border-separate border-spacing-y-1.5">
+        <thead class="text-xs uppercase bg-white/10 text-white">
+          <tr>
+            <th class="px-3 py-3">Nombres</th>
+            <th class="px-3 py-3">Carnet</th>
+            <th class="px-3 py-3">Edad</th>
+            <th class="px-3 py-3">Fecha de Creacion</th>
+            <th class="px-3 py-3">Estado</th>
+            <th class="px-3 py-3">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let player of players; let idx = index"
+            class="bg-white/10 hover:bg-white/20 transition-colors duration-200 rounded-xl shadow-sm">
+            <td class="px-4 py-2">{{ player.names }}</td>
+            <td class="px-4 py-2">{{ player.carnet }}</td>
+            <td class="px-4 py-2">{{ player.age }}</td>
+            <td class="px-4 py-2">{{ player.created_at}}</td>
+            <td class="px-4 py-2">{{ player.status?.status_name}}</td>
+            <td class="px-4 py-2 flex gap-3 items-center justify-center">
+              <button class="hover:underline">
+                <i class="pi pi-pencil" style="color: var(--color-1)"></i>
+              </button>
+              <button class="text-red-600 hover:underline" *ngIf="player.id !== undefined"
+                (click)="removePlayer(player.id)">
+                <i class="pi pi-trash" style="color: red"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p-toast />
+
+</main>
