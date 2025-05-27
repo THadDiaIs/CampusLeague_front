@@ -27,6 +27,16 @@ export class TeamService {
     }
   }
 
+  async aceptTeam(id: number): Promise<Team | any> {
+    try {
+      const response = await this.apiService.put<Team>(`equipo/aceptado/${id}`, true);
+      return response;
+    } catch (error) {
+      console.error('Error acept team:', error);
+      return error;
+    }
+  }
+
   async deleteTeam(id: number): Promise<Team> {
     try {
       return await this.apiService.post<Team>(`equipo/${id}`, {}, true);

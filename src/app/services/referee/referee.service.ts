@@ -18,12 +18,12 @@ export class RefereeService {
     }
   }
 
-  async updateReferee(id: number, refereeData: Referee): Promise<Referee> {
+  async updateReferee(id: number, refereeData: Referee): Promise<Referee | any> {
     try {
-      return await this.apiService.post<Referee>(`arbitro/${id}`, refereeData, true);
+      return await this.apiService.put<Referee>(`arbitro/${id}`, refereeData, true);
     } catch (error) {
       console.error('Error updating referee:', error);
-      throw error;
+      return error;
     }
   }
 
@@ -42,6 +42,15 @@ export class RefereeService {
     } catch (error) {
       console.error('Error fetching all referees:', error);
       throw error;
+    }
+  }
+  async saveReferee(referee: Referee): Promise<Referee | any> {
+    try {
+      const response = await this.apiService.post<Referee>("arbitro", referee, true);
+      return response;
+    } catch (error) {
+      console.log("Error on saving referee:", error);
+      return error;
     }
   }
 }

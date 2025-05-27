@@ -1,22 +1,28 @@
 <main class="main" *ngIf="!registredTeam">
-    <div *ngIf="!showRegisterForm" class="registrations-form flex flex-col justify-center items-center p-8 backdrop-blur-md shadow-lg rounded-lg max-h-4/5 w-1/2 gap-6">
+    <div *ngIf="!showRegisterForm"
+        class="registrations-form flex flex-col justify-center items-center p-8 backdrop-blur-md shadow-lg rounded-lg max-h-4/5 w-1/2 gap-6">
         <p class="text-2xl font-bold text-center">Seleccione el torneo al que desea inscribir su equipo</p>
         <div class="flex flex-row gap-3 w-full justify-center">
-                <select class="rounded-lg w-1/2 outline py-2 px-1" [(ngModel)]="selectedTournamentIdx" (ngModelChange)="onSelectedTournamentChange()">
-                    <option value="-1" disabled>
-                        Selecciona un torneo
-                    </option>
-                    <option *ngFor="let torneo of tournaments; let i = index" [ngValue]="i">
-                        {{ torneo.tournament_name }}
-                    </option>
-                </select>
+            <select class="custom-select rounded-lg w-1/2 outline py-2 px-1 bg-blue-50 bg-transparent text-black"
+                [(ngModel)]="selectedTournamentIdx" (ngModelChange)="onSelectedTournamentChange()">
+                <option value="-1" disabled>
+                    Selecciona un torneo
+                </option>
+                <option *ngFor="let torneo of tournaments; let i = index" [ngValue]="i">
+                    {{ torneo.tournament_name }}
+                </option>
+            </select>
         </div>
         <div *ngIf="selectedTournamentIdx >= 0" class="description flex flex-col gap-2">
             <p class="flex justify-between">{{ tournaments[selectedTournamentIdx].description }}</p>
-            <p class="flex justify-between"><strong>Fecha de inicio:</strong> {{ tournaments[selectedTournamentIdx].start_date.toLocaleString().split('T')[0] }}</p>
-            <p class="flex justify-between"><strong>Fecha de final:</strong> {{ tournaments[selectedTournamentIdx].end_date.toLocaleString().split('T')[0] }}</p>
-            <p class="flex justify-between"><strong>Miembros M nimos:</strong> {{ tournaments[selectedTournamentIdx].min_team_members }}</p>
-            <p class="flex justify-between"><strong>Miembros M ximos:</strong> {{ tournaments[selectedTournamentIdx].max_team_members }}</p>
+            <p class="flex justify-between"><strong>Fecha de inicio:</strong> {{
+                tournaments[selectedTournamentIdx].start_date.toLocaleString().split('T')[0] }}</p>
+            <p class="flex justify-between"><strong>Fecha de final:</strong> {{
+                tournaments[selectedTournamentIdx].end_date.toLocaleString().split('T')[0] }}</p>
+            <p class="flex justify-between"><strong>Miembros M nimos:</strong> {{
+                tournaments[selectedTournamentIdx].min_team_members }}</p>
+            <p class="flex justify-between"><strong>Miembros M ximos:</strong> {{
+                tournaments[selectedTournamentIdx].max_team_members }}</p>
         </div>
         <div class="flex justify-between items-center gap-3">
             <button class="rounded-lg outlined px-6" (click)="registrationsCancel()">Cancelar</button>
@@ -24,7 +30,8 @@
         </div>
     </div>
 
-    <div *ngIf="showRegisterForm" class="registrations-form flex flex-col p-8 backdrop-blur-md shadow-lg rounded-lg max-h-4/5 w-1/2 gap-6 overflow-auto">
+    <div *ngIf="showRegisterForm"
+        class="registrations-form flex flex-col p-8 backdrop-blur-md shadow-lg rounded-lg max-h-4/5 w-1/2 gap-6 overflow-auto">
         <div class="flex flex-row justify-evenly items-center">
             <img class='w-auto h-32' src="logo-dark.png" alt="logo">
             <div class=" bg-transparent max-w-1/2 ">
@@ -46,19 +53,20 @@
                     <input class="rounded-lg w-full" type="email" [(ngModel)]="team.contact_email">
                 </label>
                 <label>Telefono de Contacto
-                    <input class="rounded-lg w-full" placeholder="12345678" type="text" maxlength="8" minlength="8" pattern="[0-9]{8}" [(ngModel)]="team.contact_phone">
+                    <input class="rounded-lg w-full" placeholder="12345678" type="text" maxlength="8" minlength="8"
+                        pattern="[0-9]{8}" [(ngModel)]="team.contact_phone">
                 </label>
             </div>
-                <!-- <label>Logo del Equipo
+            <!-- <label>Logo del Equipo
                     <input class="rounded-lg w-full" type="file" accept="image">
                 </label> -->
         </div>
 
         <div class="flex flex-col items-center w-full gap-2 border border-[var(--col-4)] p-3 rounded-lg">
-                <label class="flex items-center gap-2">
-                    <input type="checkbox" [(ngModel)]="hasCoach">
-                    Entrenador
-                </label>
+            <label class="flex items-center gap-2">
+                <input type="checkbox" [(ngModel)]="hasCoach">
+                Entrenador
+            </label>
 
             <div *ngIf="hasCoach" class="flex flex-row justify-evenly gap-3 w-full">
                 <label>Nombre
@@ -118,7 +126,8 @@
             </div>
         </div>
         <div class="flex justify-between items-center">
-            <button class="outlined px-6 rounded-lg" [disabled]="team.players.length > 0" (click)="showRegisterForm = false">
+            <button class="outlined px-6 rounded-lg" [disabled]="team.players.length > 0"
+                (click)="showRegisterForm = false">
                 Anterior
             </button>
             <div class="flex gap-3">
@@ -135,7 +144,8 @@
 </main>
 <div *ngIf="showPlayerModal"
     class="w-full h-full bg-transparent backdrop-blur-md fixed top-0 right-0 flex flex-col justify-center items-center gap-3">
-    <app-players [currPlayer]="currentEdittingPlayer" [players]="team.players" [positions]="positions" (done)="onPlayerAdded()" />
+    <app-players [currPlayer]="currentEdittingPlayer" [players]="team.players" [positions]="positions"
+        (done)="onPlayerAdded()" />
 </div>
 <div *ngIf="registredTeam" class="w-full min-h-screen bg-transparent backdrop-blur-md gap-3">
     <app-register-sheet [team]="registredTeam" />

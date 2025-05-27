@@ -63,9 +63,10 @@ export class PlayerTableComponent implements OnInit {
     this.filteredPlayers = this.players;
   }
 
-  async loadStatuses() {
-    this.statuses = await this.statusService.getAllStatus();
-  }
+ async loadStatuses() {
+  this.statuses = (await this.statusService.getAllStatus())
+    .filter(status => [1, 2].includes(status.id));
+}
   
   filterPlayers() {
     const term = this.searchPlayer.toLowerCase();
@@ -98,7 +99,7 @@ export class PlayerTableComponent implements OnInit {
   }
 
   updatePlayer(): void {
-    console.log("Aca esta elplayer" , this.newPlayer)
+    //console.log("Aca esta elplayer" , this.newPlayer)
     if (this.newPlayer.id) {
       this.playerService.updatePlayer(this.newPlayer.id, this.newPlayer).then(() => {
         this.messageService.add({

@@ -1,0 +1,87 @@
+<main class="main">
+    <div class="flex gap-2 mb-4 w-full">
+        <h1>Canchas</h1>
+        <a class="hover:bg-green-700 flex items-center justify-center rounded-full">
+            <i class="pi pi-plus-circle" style="color: var(--color-1)"
+                (click)="showFieldModal = true; isEditing = false"></i>
+        </a>
+    </div>
+
+    <div class="w-full flex flex-col items-center">
+        <div class="w-full flex justify-end mb-4">
+            <div class="w-80">
+                <p-iconfield iconPosition="left" class="w-full">
+                    <p-inputicon><i class="pi pi-search"></i></p-inputicon>
+                    <input pInputText type="text" placeholder="Buscar cancha por nombre..." [(ngModel)]="searchField"
+                        (input)="filterFields()" class="w-full" />
+                </p-iconfield>
+            </div>
+        </div>
+
+        <div class="bg-white/20 backdrop-blur-sm p-2 rounded-lg min-h-65 max-h-* overflow-auto w-full">
+            <table class="min-w-full text-sm text-left text-gray-100 border-separate border-spacing-y-1.5">
+                <thead class="text-xs uppercase bg-white/10 text-white">
+                    <tr>
+                        <th class="px-3 py-3">Nombre</th>
+                        <th class="px-3 py-3">Ubicación</th>
+                        <th class="px-3 py-3">Capacidad</th>
+                        <th class="px-3 py-3">Estado</th>
+                        <th class="px-3 py-3">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let field of filteredFields"
+                        class="bg-white/10 hover:bg-white/20 transition-colors duration-200 rounded-xl shadow-sm">
+                        <td class="px-4 py-2">{{ field.name }}</td>
+                        <td class="px-4 py-2">{{ field.location }}</td>
+                        <td class="px-4 py-2">{{ field.capacity }}</td>
+                        <td class="px-4 py-2">{{ field.status?.status_name }}</td>
+                        <td class="px-4 py-2 flex gap-3 items-center justify-center">
+                            <button class="hover:underline">
+                                <i class="pi pi-pencil" style="color: var(--color-1)" (click)="editField(field)"></i>
+                            </button>
+                            <button class="text-red-600 hover:underline">
+                                <i class="pi pi-trash" style="color: red"></i>
+                            </button>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<p-dialog header="{{ isEditing ? 'Editar Cancha' : 'Registrar Cancha' }}" [(visible)]="showFieldModal"
+    [style]="{ width: '50rem' }" [modal]="true" [dismissableMask]="true">
+    <form (ngSubmit)="saveField()" class="flex flex-col gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm mb-1">Nombre</label>
+                <input type="text" pInputText [(ngModel)]="field.name" name="name" required class="w-full" />
+            </div>
+            <div>
+                <label class="block text-sm mb-1">Ubicación</label>
+                <input type="text" pInputText [(ngModel)]="field.location" name="location" required class="w-full" />
+            </div>
+            <div>
+                <label class="block text-sm mb-1">Capacidad</label>
+                <input type="number" pInputText [(ngModel)]="field.capacity" name="capacity" required min="0"
+                    class="w-full" />
+            </div>
+            <div *ngIf="isEditing">
+                <label class="block text-sm mb-1">Estado</label>
+                <p-dropdown [options]="statuses" optionLabel="status_name" [(ngModel)]="field.status" name="status"
+                    placeholder="Seleccione un estado" class="w-full"></p-dropdown>
+            </div>
+        </div>
+        <div class="flex justify-end mt-4 gap-2">
+            <button pButton type="button" class="p-button-text" (click)="cancelField()">Cancelar</button>
+            <button pButton type="submit" class="p-button-primary">
+                {{ isEditing ? 'Guardar cambios' : 'Crear' }}
+            </button>
+        </div>
+    </form>
+</p-dialog>
+
+<p-toast></p-toast>

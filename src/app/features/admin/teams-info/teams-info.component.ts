@@ -37,7 +37,7 @@ export class TeamsInfoComponent implements OnInit {
   constructor(
     private teamService: TeamService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   async ngOnInit() {
     try {
@@ -67,5 +67,36 @@ export class TeamsInfoComponent implements OnInit {
         detail: 'Error al obtener el equipo'
       });
     }
+  }
+
+  async aceptTeam(id: number) {
+    try {
+      const response = await this.teamService.aceptTeam(id);
+      if (response?.id) {
+        this.messageService.add({
+          severity: "success",
+          summary: "Done",
+          detail: "Equipo aceptado correctamente!."
+        });
+        this.showTeamModal = false;
+        this.ngOnInit();
+      }
+      if (response?.error) {
+         this.messageService.add({
+          severity: "error",
+          summary: "Error",
+          detail: response.error
+        });
+        return;
+      }
+    } catch (error) {
+      console.log("Error on acept team:", error);
+      this.messageService.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Error al aceptar el equipo, intente de nuevo mas tarde"
+      });
+      return;
+    } 
   }
 }

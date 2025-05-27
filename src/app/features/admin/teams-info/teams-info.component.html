@@ -103,42 +103,42 @@
     </div>
   </div>
   <div class="col-span-2">
-  <h2 class="text-white font-bold mb-2 text-lg">Datos del Torneo</h2>
-</div>
-
-<div class="grid grid-cols-3 gap-4 mb-4">
-  <div class="flex flex-col">
-    <label class="font-semibold text-white">Nombre</label>
-    <input type="text" class="w-full" [value]="teamPlayer.tournament?.tournament_name" disabled />
+    <h2 class="text-white font-bold mb-2 text-lg">Datos del Torneo</h2>
   </div>
 
-  <div class="flex flex-col">
-    <label class="font-semibold text-white">Estado</label>
-    <input type="text" class="w-full" [value]="teamPlayer.tournament?.status?.status_name" disabled />
-  </div>
+  <div class="grid grid-cols-3 gap-4 mb-4">
+    <div class="flex flex-col">
+      <label class="font-semibold text-white">Nombre</label>
+      <input type="text" class="w-full" [value]="teamPlayer.tournament?.tournament_name" disabled />
+    </div>
 
-  <div class="flex flex-col">
-    <label class="font-semibold text-white">Fecha Inicio</label>
-    <input type="text" class="w-full" [value]="teamPlayer.tournament?.start_date | date: 'longDate'" disabled />
-  </div>
+    <div class="flex flex-col">
+      <label class="font-semibold text-white">Estado</label>
+      <input type="text" class="w-full" [value]="teamPlayer.tournament?.status?.status_name" disabled />
+    </div>
 
-  <div class="flex flex-col">
-    <label class="font-semibold text-white">Fecha Fin</label>
-    <input type="text" class="w-full" [value]="teamPlayer.tournament?.end_date | date: 'longDate'" disabled />
-  </div>
+    <div class="flex flex-col">
+      <label class="font-semibold text-white">Fecha Inicio</label>
+      <input type="text" class="w-full" [value]="teamPlayer.tournament?.start_date | date: 'longDate'" disabled />
+    </div>
 
-  <div class="flex flex-col">
-    <label class="font-semibold text-white">Miembros (min - max)</label>
-    <input type="text" class="w-full"
-      [value]="teamPlayer.tournament?.min_team_members + ' - ' + teamPlayer.tournament?.max_team_members" disabled />
-  </div>
+    <div class="flex flex-col">
+      <label class="font-semibold text-white">Fecha Fin</label>
+      <input type="text" class="w-full" [value]="teamPlayer.tournament?.end_date | date: 'longDate'" disabled />
+    </div>
 
-  <div class="flex flex-col">
-    <label class="font-semibold text-white">Inscripción Cierra</label>
-    <input type="text" class="w-full"
-      [value]="teamPlayer.tournament?.inscriptions_close_date | date: 'longDate'" disabled />
+    <div class="flex flex-col">
+      <label class="font-semibold text-white">Miembros (min - max)</label>
+      <input type="text" class="w-full"
+        [value]="teamPlayer.tournament?.min_team_members + ' - ' + teamPlayer.tournament?.max_team_members" disabled />
+    </div>
+
+    <div class="flex flex-col">
+      <label class="font-semibold text-white">Inscripción Cierra</label>
+      <input type="text" class="w-full" [value]="teamPlayer.tournament?.inscriptions_close_date | date: 'longDate'"
+        disabled />
+    </div>
   </div>
-</div>
 
   <div class="flex justify-center items-center mt-10 mb-2 span-5 gap-2">
     <span class="text-white font-semibold text-2xl">Jugadores registrados:</span>
@@ -173,12 +173,12 @@
     </table>
   </div>
 
-<div class="flex justify-between mt-7 gap-4">
+  <div class="flex justify-between mt-7 gap-4">
     <p-button label="Cancelar" severity="secondary" (click)="showTeamModal = false" />
-    <p-button label="Aceptar" />
-    <p-button label="Actualizar" severity="info"/>
+    <p-button label="Aceptar"  *ngIf="teamPlayer.id !== undefined" (click)="aceptTeam(teamPlayer.id)" />
+    <p-button label="Actualizar" severity="info" />
   </div>
-  
+
 </p-dialog>
 
 <p-toast></p-toast>

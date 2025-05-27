@@ -18,12 +18,12 @@ export class FieldService {
     }
   }
 
-  async updateField(id: number, fieldData: Field): Promise<Field> {
+  async updateField(id: number, fieldData: Field): Promise<Field | any> {
     try {
-      return await this.apiService.post<Field>(`campo/${id}`, fieldData, true);
+      return await this.apiService.put<Field>(`campo/${id}`, fieldData, true);
     } catch (error) {
       console.error('Error updating field:', error);
-      throw error;
+      return error;
     }
   }
 
@@ -42,6 +42,16 @@ export class FieldService {
     } catch (error) {
       console.error('Error fetching all fields:', error);
       throw error;
+    }
+  }
+
+  async saveField(field: Field): Promise<Field | any> {
+    try {
+      const response = await this.apiService.post<Field>("campo", field, true);
+      return response;
+    } catch (error) {
+      console.log("Error on saving field:", error);
+      return error;
     }
   }
 }
