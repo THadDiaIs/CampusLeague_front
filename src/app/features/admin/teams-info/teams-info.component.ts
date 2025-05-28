@@ -10,6 +10,8 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { TeamPlayer } from '../../../types/TeamPlayer';
+import { TeamPlayerService } from '../../../services/teamPlayer/teamPlayer.service';
 
 @Component({
   selector: 'app-teams-info',
@@ -17,11 +19,12 @@ import { ButtonModule } from 'primeng/button';
   imports: [CommonModule, InputTextModule, ToastModule, FormsModule, IconFieldModule, InputIconModule, DialogModule, ButtonModule],
   templateUrl: './teams-info.component.html',
   styleUrls: ['./teams-info.component.css'],
-  providers: [TeamService, MessageService]
+  providers: [TeamService,TeamPlayerService, MessageService]
 })
 
 export class TeamsInfoComponent implements OnInit {
   teams: Team[] = [];
+  teamPlayersPosition: TeamPlayer[] = [];
   filteredTeams: Team[] = [];
   teamPlayer: Team = {
     name: '',
@@ -36,6 +39,7 @@ export class TeamsInfoComponent implements OnInit {
 
   constructor(
     private teamService: TeamService,
+    private teamPlayerService: TeamPlayerService,
     private messageService: MessageService
   ) { }
 
@@ -55,10 +59,12 @@ export class TeamsInfoComponent implements OnInit {
     );
   }
 
+
   async editTeam(id: number): Promise<void> {
     try {
+      this.teamPlayersPosition = await this.teamPlayerService.getTeamPlayerPositions(id);
       this.teamPlayer = await this.teamService.getTeam(id);
-      console.log("aca estra ", this.teamPlayer)
+      //console.log("aca estra ", this.teamPlayer)
       this.showTeamModal = true;
     } catch (error) {
       this.messageService.add({
