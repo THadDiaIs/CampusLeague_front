@@ -1,0 +1,108 @@
+<main class="main">
+    <div *ngIf="!showMyTeamInfo"
+        class="my-team-form flex flex-col justify-center items-center p-8 backdrop-blur-md shadow-lg rounded-lg max-h-4/5 w-1/2 gap-6">
+        <p class="text-2xl font-bold text-center">Ingreso el Código del Team</p>
+        <div class="flex flex-row gap-3 w-full justify-center">
+            <div>
+                <label class="block text-xl mb-2">Código</label>
+                <input type="text" pInputText [(ngModel)]="codeTeam" name="code" required class="w-full rounded-full" />
+            </div>
+        </div>
+        <div class="flex justify-between items-center gap-3">
+            <button class="rounded-lg outlined px-6" (click)="goHome()">Cancelar</button>
+            <button class="rounded-lg filled px-6" (click)="viewMyTeam()">Mi Equipo</button>
+        </div>
+    </div>
+    <div *ngIf="showMyTeamInfo && myTeamInfo"
+        class="registrations-form flex flex-col p-8 backdrop-blur-md shadow-lg rounded-lg max-h-4/5 w-1/2 gap-6 overflow-auto">
+        <div class="flex flex-row justify-evenly items-center">
+            <img class='w-auto h-32' src="logo-dark.png" alt="logo">
+            <div class=" bg-transparent max-w-1/2 ">
+                <p class="text-2xl font-bold">{{ myTeamInfo.tournament?.tournament_name }}</p>
+            </div>
+            <img class='w-auto h-32' src="logo-meso.png" alt="logo-meso">
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="flex items-center gap-4">
+                <label for="name" class="font-semibold w-32 text-white">Nombre</label>
+                <input pInputText id="name" class="flex-auto" [(ngModel)]="myTeamInfo.name" autocomplete="off" />
+            </div>
+
+            <div class="flex items-center gap-4">
+                <label for="captain" class="font-semibold w-32 text-white">Capitán</label>
+                <input pInputText id="captain" class="flex-auto" [(ngModel)]="myTeamInfo.captain" autocomplete="off" />
+            </div>
+
+            <div class="flex items-center gap-4">
+                <label for="email" class="font-semibold w-32 text-white">Correo</label>
+                <input pInputText id="email" class="flex-auto" [(ngModel)]="myTeamInfo.contact_email"
+                    autocomplete="off" />
+            </div>
+
+            <div class="flex items-center gap-4">
+                <label for="phone" class="font-semibold w-32 text-white">Teléfono</label>
+                <input pInputText id="phone" class="flex-auto" [(ngModel)]="myTeamInfo.contact_phone"
+                    autocomplete="off" />
+            </div>
+
+            <div class="flex items-center gap-4">
+                <label for="code" class="font-semibold w-32 text-white">Código</label>
+                <input pInputText id="code" class="flex-auto" [(ngModel)]="myTeamInfo.teamCode" autocomplete="off"
+                    disabled />
+            </div>
+
+            <div class="flex items-center gap-4">
+                <label for="inscription" class="font-semibold w-32 text-white">Fecha inscripción</label>
+                <input type="text" id="inscription" class="flex-auto"
+                    [value]="myTeamInfo.inscription_date | date: 'longDate'" disabled />
+            </div>
+
+            <div class="flex items-center gap-4">
+                <label for="approved" class="font-semibold w-32 text-white">Fecha aprobación</label>
+                <input type="text" id="approved" class="flex-auto" [value]="myTeamInfo.approved_date | date: 'longDate'"
+                    disabled />
+            </div>
+            <div class="flex items-center gap-4">
+                <label for="code" class="font-semibold w-32 text-white">Estado</label>
+                <input pInputText id="code" class="flex-auto" [value]="myTeamInfo.status?.status_name" autocomplete="off"
+                    disabled />
+            </div>
+            </div>
+            <div class="bg-white/20 backdrop-blur-sm p-2 rounded-lg min-h-65 max-h-72 overflow-auto w-full">
+                <table class="min-w-full text-sm text-left text-gray-100 border-separate border-spacing-y-1.5">
+                    <thead class="text-xs uppercase bg-white/10 text-white">
+                        <tr>
+                            <th class="px-3 py-3">Nombres</th>
+                            <th class="px-3 py-3">Carnet</th>
+                            <th class="px-3 py-3">Edad</th>
+                            <th class="px-3 py-3">Posición</th>
+                            <th class="px-3 py-3">Fecha de Creacion</th>
+                            <th class="px-3 py-3">Estado</th>
+                            <th class="px-3 py-3">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let player of positionTeam"
+                            class="bg-white/10 hover:bg-white/20 transition-colors duration-200 rounded-xl shadow-sm">
+                            <td class="px-4 py-2">{{ player.player?.names}}</td>
+                            <td class="px-4 py-2">{{ player.player?.carnet }}</td>
+                            <td class="px-4 py-2">{{ player.player?.age }}</td>
+                            <td class="px-4 py-2">{{ player.playerPosition?.name }}</td>
+                            <td class="px-4 py-2">{{ player.player?.created_at| date: 'short' }}</td>
+                            <td class="px-4 py-2">{{ player.player?.status?.status_name }}</td>
+                            <td class="px-4 py-2 flex gap-3 items-center justify-center">
+                            <button class="hover:underline">
+                                <i class="pi pi-pencil" style="color: var(--color-1)"
+                                    ></i>
+                            </button>
+                            <button class="text-red-600 hover:underline">
+                                <i class="pi pi-trash" style="color: red"></i>
+                            </button>
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</main>
+<p-toast></p-toast>

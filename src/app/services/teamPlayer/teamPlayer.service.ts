@@ -9,10 +9,9 @@ export class TeamPlayerService {
     constructor(private apiService: ApiService) {
     }
 
-
     async getTeamPlayerPositions(id: number): Promise<TeamPlayer | any> {
         try {
-            return await this.apiService.get<TeamPlayer>(`equipo/jugadores/${id}`, {}, true);
+            return await this.apiService.get<TeamPlayer>(`equipo/jugadores/${id}`, {}, false);
         } catch (error) {
             console.error('Error fetching field: ', error)
             return error

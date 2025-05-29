@@ -18,6 +18,15 @@ export class TeamService {
     }
   }
 
+  async getMyTeam(code: string): Promise<Team | any> {
+    try {
+      return await this.apiService.get<Team>(`mi-equipo/${code}`, false);
+    } catch (error) {
+      console.error('Error fetching my team');
+      return error;
+    }
+  }
+
   async updateTeam(id: number, teamData: Team): Promise<Team> {
     try {
       return await this.apiService.post<Team>(`equipo/${id}`, teamData, true);
@@ -57,11 +66,11 @@ export class TeamService {
 
   async saveTeam(team: Team): Promise<Team | any> {
     try {
-      const response = await this.apiService.post<Team>("equipo", team, true);
+      const response = await this.apiService.post<Team>("equipo", team, false);
       return response;
     } catch (error) {
       console.log("Error on saving team:", error);
-      return error;
+      return error; 
     }
   }
 }

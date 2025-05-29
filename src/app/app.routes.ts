@@ -9,13 +9,14 @@ import { TeamsInfoComponent } from './features/admin/teams-info/teams-info.compo
 import { TournamentInfoComponent } from './features/admin/tournament-info/tournament-info.component';
 import { RefereesComponent } from './features/admin/referees/referees.component';
 import { FieldsComponent } from './features/admin/fields/fields.component';
-
+import { MyTeamComponent } from './features/my-team/my-team.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
-    {
-        path: 'dashboard', component: DashboardComponent,
+    { path: 'my-team', component: MyTeamComponent },
+    
+    { path: 'dashboard', component: DashboardComponent,
         children: [
             { path: 'tournament', component: TournamentComponent },
             { path: 'players', component: PlayersComponent },

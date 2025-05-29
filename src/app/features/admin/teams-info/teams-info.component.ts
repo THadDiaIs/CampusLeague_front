@@ -64,7 +64,6 @@ export class TeamsInfoComponent implements OnInit {
     try {
       this.teamPlayersPosition = await this.teamPlayerService.getTeamPlayerPositions(id);
       this.teamPlayer = await this.teamService.getTeam(id);
-      //console.log("aca estra ", this.teamPlayer)
       this.showTeamModal = true;
     } catch (error) {
       this.messageService.add({

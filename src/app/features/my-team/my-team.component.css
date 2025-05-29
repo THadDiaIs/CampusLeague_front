@@ -1,0 +1,58 @@
+main {
+    background-image: url('../../../assets/pexels-markusspiske.jpg');
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+h1 {
+    color: rgb(var(--color-3));
+}
+
+.my-team-form {
+    text-align: center;
+    background-color: rgba(var(--color-5), 0.8);
+}
+
+.registrations-form {
+    text-align: center;
+    background-color: rgba(var(--color-5), 0.8);
+}
+
+label {
+    color: rgb(var(--color-3));
+}
+
+input {
+    background-color: rgba(var(--color-4), 0.3);
+    border: 1em;
+    color: rgb(var(--color-2));
+    height: 33px;
+    color: white
+}
+button{
+    height: 33px;
+}
+button:hover{
+    transform: scale(0.98);
+}
+.filled {
+    color: rgb(var(--color-2));
+    background-color: rgb(var(--color-1));
+}
+.outlined {
+    background-color: transparent;
+    color: rgb(var(--color-1));
+    border: 2px solid rgb(var(--color-1));
+}
+
+input[disabled] {
+  color: white !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: none !important;
+  cursor: not-allowed;
+}
