@@ -92,64 +92,74 @@
 
 
   <div class="flex-2 flex flex-col min-h-0 bg-[rgb(var(--color-2))] p-1 overflow-hidden">
+    <div class="flex items-center justify-between mb-2 px-4">
+      <div class="flex-grow text-left">
+        <h2 class="text-4xl font-semibold text-[rgb(var(--color-1))]">
+          {{ getName() }}
+        </h2>
+      </div>
+      <div class="flex flex-row gap-2">
+        <div
+          class="bg-white/90 backdrop-blur-sm rounded-lg p-2 border border-[rgba(var(--color-2),0.2)] shadow-sm min-w-22">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-xs text-[rgb(var(--color-2))]">Torneos</p>
+              <p class="text-lg font-bold text-[rgb(var(--color-2))]">{{ activeTournaments }}</p>
+              <p class="text-xs text-[rgb(var(--color-2))]">Activos</p>
+            </div>
+            <i class="pi pi-trophy text-xl text-[rgb(var(--color-2))]"></i>
+          </div>
+        </div>
 
-    <div class="flex flex-row justify-end gap-2 mb-2">
-      <div class="bg-white/90 backdrop-blur-sm rounded-lg p-2 border border-[rgba(var(--color-2),0.2)] shadow-sm">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-xs text-[rgb(var(--color-2))]">Torneos</p>
-            <p class="text-lg font-bold text-[rgb(var(--color-2))]">{{ activeTournaments }}</p>
-            <p class="text-xs text-[rgb(var(--color-2))]">Activos</p>
+        <div
+          class="bg-white/90 backdrop-blur-sm rounded-lg p-2 border border-[rgba(var(--color-2),0.2)] shadow-sm min-w-22">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-xs text-[rgb(var(--color-2))]">Partidos</p>
+              <p class="text-lg font-bold text-[rgb(var(--color-2))]">{{ todaysMatches }}</p>
+              <p class="text-xs text-[rgb(var(--color-2))]">Partidos</p>
+            </div>
+            <i class="pi pi-calendar text-xl text-[rgb(var(--color-2))]"></i>
           </div>
-          <i class="pi pi-trophy text-xl text-[rgb(var(--color-2))]"></i>
         </div>
-      </div>
 
-      <div class="bg-white/90 backdrop-blur-sm rounded-lg p-2 border border-[rgba(var(--color-2),0.2)] shadow-sm">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-xs text-[rgb(var(--color-2))]">Partidos</p>
-            <p class="text-lg font-bold text-[rgb(var(--color-2))]">{{ todaysMatches }}</p>
-            <p class="text-xs text-[rgb(var(--color-2))]">Partidos</p>
+        <div
+          class="bg-white/90 backdrop-blur-sm rounded-lg p-2 border border-[rgba(var(--color-2),0.2)] shadow-sm min-w-22">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-xs text-[rgb(var(--color-2))]">Equipos</p>
+              <p class="text-lg font-bold text-[rgb(var(--color-2))]">{{ teamsCountR }}</p>
+              <p class="text-xs text-[rgb(var(--color-2))]">En Revisión</p>
+            </div>
+            <i class="pi pi-users text-xl text-[rgb(var(--color-2))]"></i>
           </div>
-          <i class="pi pi-calendar text-xl text-[rgb(var(--color-2))]"></i>
         </div>
-      </div>
-
-      <div class="bg-white/90 backdrop-blur-sm rounded-lg p-2 border border-[rgba(var(--color-2),0.2)] shadow-sm">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-xs text-[rgb(var(--color-2))]">Equipos</p>
-            <p class="text-lg font-bold text-[rgb(var(--color-2))]">{{ teamsCountR }}</p>
-            <p class="text-xs text-[rgb(var(--color-2))]">En Revisión</p>
+        <div
+          class="bg-white/90 backdrop-blur-sm rounded-lg p-2 border border-[rgba(var(--color-2),0.2)] shadow-sm min-w-22">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-xs text-[rgb(var(--color-2))]">Equipos</p>
+              <p class="text-lg font-bold text-[rgb(var(--color-2))]">{{ teamsCountA }}</p>
+              <p class="text-xs text-[rgb(var(--color-2))]">Activos</p>
+            </div>
+            <i class="pi pi-users text-xl text-[rgb(var(--color-2))]"></i>
           </div>
-          <i class="pi pi-users text-xl text-[rgb(var(--color-2))]"></i>
         </div>
-      </div>
-      <div class="bg-white/90 backdrop-blur-sm rounded-lg p-2 border border-[rgba(var(--color-2),0.2)] shadow-sm">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-xs text-[rgb(var(--color-2))]">Equipos</p>
-            <p class="text-lg font-bold text-[rgb(var(--color-2))]">{{ teamsCountA }}</p>
-            <p class="text-xs text-[rgb(var(--color-2))]">Activos</p>
+        <div
+          class="bg-white/90 backdrop-blur-sm rounded-lg p-2 border border-[rgba(var(--color-2),0.2)] shadow-sm min-w-22">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-xs text-[rgb(var(--color-2))]">Jugadores</p>
+              <p class="text-lg font-bold text-[rgb(var(--color-2))]">{{ playersCount }}</p>
+              <p class="text-xs text-[rgb(var(--color-2))]">Activos</p>
+            </div>
+            <i class="pi pi-user text-xl text-[rgb(var(--color-2))]"></i>
           </div>
-          <i class="pi pi-users text-xl text-[rgb(var(--color-2))]"></i>
-        </div>
-      </div>
-      <div class="bg-white/90 backdrop-blur-sm rounded-lg p-2 border border-[rgba(var(--color-2),0.2)] shadow-sm">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-xs text-[rgb(var(--color-2))]">Jugadores</p>
-            <p class="text-lg font-bold text-[rgb(var(--color-2))]">{{ playersCount }}</p>
-            <p class="text-xs text-[rgb(var(--color-2))]">Activos</p>
-          </div>
-          <i class="pi pi-user text-xl text-[rgb(var(--color-2))]"></i>
         </div>
       </div>
     </div>
-
     <div
-      class="flex-1 min-h-0 overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-[rgba(var(--color-1))] scrollbar-track-transparent rounded-lg bg-[rgba(var(--color-5))] border border-[rgba(var(--color-2))] shadow-lg">
+      class="flex-1 min-h-0 overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-[rgba(var(--color-4))] scrollbar-track-transparent rounded-lg bg-[rgba(var(--color-5))] border border-[rgba(var(--color-4), 0.5)] shadow-lg">
       <router-outlet></router-outlet>
     </div>
 
