@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div class="bg-white/20 backdrop-blur-sm p-2 rounded-lg min-h-65 max-h-72 overflow-auto w-full">
+    <div class="bg-white/20 backdrop-blur-sm p-2 rounded-lg min-h-65 max-h-* overflow-auto w-full">
       <table class="min-w-full text-sm text-left text-gray-100 border-separate border-spacing-y-1.5">
         <thead class="text-xs uppercase bg-white/10 text-white">
           <tr>
@@ -45,9 +45,12 @@
             <td class="px-4 py-2">{{ team.tournament?.tournament_name }}</td>
             <td class="px-4 py-2">{{ team.status?.status_name }}</td>
             <td class="px-4 py-2 flex gap-3 items-center justify-center">
+              <button class="text-red-600 hover:underline">
+                <i class="pi pi-check" style="color: rgb(113, 255, 113)" *ngIf="team.id !== undefined" (click)="aceptTeam(team.id)"></i>
+              </button>
               <button class="hover:underline">
                 <i class="pi pi-pencil" style="color: var(--color-1)" *ngIf="team.id !== undefined"
-                  (click)="editTeam(team.id)"></i>
+                  (click)="editTeam(team.id); disabledVar === false"></i>
               </button>
               <button class="text-red-600 hover:underline">
                 <i class="pi pi-trash" style="color: red"></i>
@@ -67,22 +70,22 @@
   <div class="grid grid-cols-2 gap-4">
     <div class="flex items-center gap-4">
       <label for="name" class="font-semibold w-32 text-white">Nombre</label>
-      <input pInputText id="name" class="flex-auto" [(ngModel)]="teamPlayer.name" autocomplete="off" />
+      <input pInputText id="name" class="flex-auto" [(ngModel)]="teamPlayer.name" autocomplete="off" [disabled]="disabledVar"/>
     </div>
 
     <div class="flex items-center gap-4">
       <label for="captain" class="font-semibold w-32 text-white">Capitán</label>
-      <input pInputText id="captain" class="flex-auto" [(ngModel)]="teamPlayer.captain" autocomplete="off" />
+      <input pInputText id="captain" class="flex-auto" [(ngModel)]="teamPlayer.captain" autocomplete="off" [disabled]="disabledVar"/>
     </div>
 
     <div class="flex items-center gap-4">
       <label for="email" class="font-semibold w-32 text-white">Correo</label>
-      <input pInputText id="email" class="flex-auto" [(ngModel)]="teamPlayer.contact_email" autocomplete="off" />
+      <input pInputText id="email" class="flex-auto" [(ngModel)]="teamPlayer.contact_email" autocomplete="off" [disabled]="disabledVar"/>
     </div>
 
     <div class="flex items-center gap-4">
       <label for="phone" class="font-semibold w-32 text-white">Teléfono</label>
-      <input pInputText id="phone" class="flex-auto" [(ngModel)]="teamPlayer.contact_phone" autocomplete="off" />
+      <input pInputText id="phone" class="flex-auto" [(ngModel)]="teamPlayer.contact_phone" autocomplete="off" [disabled]="disabledVar"/>
     </div>
 
     <div class="flex items-center gap-4">
@@ -177,8 +180,8 @@
 
   <div class="flex justify-between mt-7 gap-4">
     <p-button label="Cancelar" severity="secondary" (click)="showTeamModal = false" />
-    <p-button label="Aceptar"  *ngIf="teamPlayer.id !== undefined" (click)="aceptTeam(teamPlayer.id)" />
-    <p-button label="Actualizar" severity="info" />
+    <p-button label="Aceptar Equipo"  *ngIf="teamPlayer.id !== undefined && disabledVar" (click)="confirmTeam(teamPlayer.id)" />
+    <p-button label="Actualizar" severity="info" *ngIf="!disabledVar"/>
   </div>
 
 </p-dialog>

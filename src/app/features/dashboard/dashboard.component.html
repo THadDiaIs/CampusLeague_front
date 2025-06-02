@@ -1,100 +1,160 @@
-<main class="h-screen w-full flex flex-col bg-[var(--col-4)] font-sans antialiased">
-  <section class="flex flex-grow h-full">
-
-    <nav
-      class="w-1/6 h-screen bg-[var(--col-5)] p-6 shadow-2xl flex flex-col justify-between flex-shrink-0 border-r border-white/10">
-      <div class="space-y-8">
-        <div class="mb-10">
+<main class="h-screen w-full flex flex-col bg-[rgb(var(--color-4))] font-sans antialiased">
+  <header class="bg-[rgb(var(--color-5))] border-b border-[rgba(var(--color-2),0.3)] p-4 shadow-lg">
+    <div class="flex flex-col space-y-4">
+      <div class="flex justify-between items-center">
+        <div>
           <h2
-            class="text-2xl font-bold bg-gradient-to-r from-[var(--col-1)] to-[var(--col-3)] bg-clip-text text-transparent">
+            class="text-2xl font-bold bg-gradient-to-r from-[rgb(var(--color-1))] to-[rgba(var(--color-2),0.8)] bg-clip-text text-transparent">
             Campus League
           </h2>
-          <p class="text-xs text-gray-300 mt-1">Rendirse nunca es una Opcipión</p>
+          <p class="text-xs text-[rgba(var(--color-2),0.7)]">Rendirse nunca es una Opción</p>
         </div>
 
-        <ul class="flex flex-col gap-2 text-gray-300">
-          <li>
-            <button (click)="toggleSection('torneos')"
-              class="w-full flex items-center justify-between p-3 rounded-xl hover:bg-white/10 hover:text-white transition-all duration-300">
-              <span class="flex items-center gap-3">
-                <i class="pi pi-prime text-xl"></i>
-                <span class="font-medium">Torneos</span>
-              </span>
-              <svg class="w-4 h-4 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-
-            <ul *ngIf="openSection === 'torneos'" class="ml-6 mt-2 flex flex-col gap-1">
-              <li>
-                <a routerLink="/dashboard/tournament"
-                  class="block p-2 rounded hover:bg-white/10 hover:text-white flex items-center gap-2">
-                  <i class="pi pi-trophy text-sm"></i>
-                  Creación de Torneos <span class="ml-auto bg-red-500 text-white text-xs px-2 rounded-full"></span>
-                </a>
-              </li>
-              <li>
-                <a routerLink="/dashboard/tournament-info"
-                  class="block p-2 rounded hover:bg-white/10 hover:text-white flex items-center gap-2">
-                  <i class="pi pi-sitemap text-sm"></i>
-                  Información de Torneos
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <li>
-            <a routerLink="/dashboard/referees"
-              routerLinkActive="!bg-[var(--col-4)] !text-white before:absolute before:left-0 before:h-6 before:w-1 before:bg-[var(--col-1)] before:rounded-r"
-              class="relative flex items-center gap-3 p-3 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:scale-[1.02]">
-              <i class="pi pi-address-book text-sm"></i>
-              <span class="font-medium">Arbitros</span>
-            </a>
-          </li>
-          <li>
-            <a routerLink="/dashboard/fields"
-              routerLinkActive="!bg-[var(--col-4)] !text-white before:absolute before:left-0 before:h-6 before:w-1 before:bg-[var(--col-1)] before:rounded-r"
-              class="relative flex items-center gap-3 p-3 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:scale-[1.02]">
-              <i class="pi pi-map text-sm"></i>
-              <span class="font-medium">Canchas</span>
-            </a>
-          </li>
-          <li>
-            <a routerLink="/dashboard/teams-info"
-              routerLinkActive="!bg-[var(--col-4)] !text-white before:absolute before:left-0 before:h-6 before:w-1 before:bg-[var(--col-1)] before:rounded-r"
-              class="relative flex items-center gap-3 p-3 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:scale-[1.02]">
-              <i class="pi pi-users text-sm"></i>
-              <span class="font-medium">Equipos</span>
-            </a>
-          </li>
-
-          <li>
-            <a routerLink="/dashboard/players"
-              routerLinkActive="!bg-[var(--col-4)] !text-white before:absolute before:left-0 before:h-6 before:w-1 before:bg-[var(--col-1)] before:rounded-r"
-              class="relative flex items-center gap-3 p-3 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:scale-[1.02]">
-              <i class="pi pi-user text-sm"></i>
-              <span class="font-medium">Jugadores</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="border-t border-white/10 pt-6">
-        <div class="text-xs text-gray-400/80 transition-colors hover:text-white">
-          <p class="mb-1">v2.4.0</p>
-          <p>&copy; 2025 CampusLeague</p>
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 rounded-full bg-[rgb(var(--color-2))] flex items-center justify-center">
+            <i class="pi pi-user text-[rgb(var(--color-1))]"></i>
+          </div>
         </div>
       </div>
-    </nav>
+
+      <nav class="flex flex-wrap gap-2">
+        <div class="relative" #tournamentDropdown>
+          <button (click)="toggleDropdown('tournament')"
+            class="flex items-center gap-2 px-4 py-2 bg-[rgba(var(--color-2),0.8)] text-[rgb(var(--color-1))] rounded-lg hover:bg-[rgb(var(--color-2))] transition-all">
+            <i class="pi pi-trophy"></i>
+            <span>Torneos</span>
+            <i class="pi pi-chevron-down text-xs"></i>
+          </button>
+          <div *ngIf="activeDropdown === 'tournament'"
+            class="absolute bg-[rgb(var(--color-5))] border border-[rgba(var(--color-2),0.3)] rounded-lg shadow-xl z-10 min-w-[200px] mt-1">
+            <a routerLink="/dashboard/tournament" (click)="closeDropdown()"
+              class="flex items-center gap-2 px-4 py-2 hover:bg-[rgba(var(--color-2),0.2)] rounded-t-lg text-[rgb(var(--color-2))]">
+              <i class="pi pi-plus-circle"></i>
+              <span>Creación de Torneos</span>
+            </a>
+            <a routerLink="/dashboard/tournament-info" (click)="closeDropdown()"
+              class="flex items-center gap-2 px-4 py-2 hover:bg-[rgba(var(--color-2),0.2)] rounded-b-lg text-[rgb(var(--color-2))]">
+              <i class="pi pi-info-circle"></i>
+              <span>Información de Torneos</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" #matchDropdown>
+          <button (click)="toggleDropdown('match')"
+            class="flex items-center gap-2 px-4 py-2 bg-[rgba(var(--color-2),0.8)] text-[rgb(var(--color-1))] rounded-lg hover:bg-[rgb(var(--color-2))] transition-all">
+            <i class="pi pi-calendar"></i>
+            <span>Partidos</span>
+            <i class="pi pi-chevron-down text-xs"></i>
+          </button>
+          <div *ngIf="activeDropdown === 'match'"
+            class="absolute bg-[rgb(var(--color-5))] border border-[rgba(var(--color-2),0.3)] rounded-lg shadow-xl z-10 min-w-[200px] mt-1">
+            <a routerLink="/dashboard/matches" (click)="closeDropdown()"
+              class="flex items-center gap-2 px-4 py-2 hover:bg-[rgba(var(--color-2),0.2)] rounded-t-lg text-[rgb(var(--color-2))]">
+              <i class="pi pi-plus-circle"></i>
+              <span>Creación de Partidos</span>
+            </a>
+            <a routerLink="/dashboard/goals" (click)="closeDropdown()"
+              class="flex items-center gap-2 px-4 py-2 hover:bg-[rgba(var(--color-2),0.2)] text-[rgb(var(--color-2))]">
+              <i class="pi pi-bolt"></i>
+              <span>Goles y Puntos</span>
+            </a>
+            <a routerLink="/dashboard/winners" (click)="closeDropdown()"
+              class="flex items-center gap-2 px-4 py-2 hover:bg-[rgba(var(--color-2),0.2)] rounded-b-lg text-[rgb(var(--color-2))]">
+              <i class="pi pi-star"></i>
+              <span>Ganadores</span>
+            </a>
+          </div>
+        </div>
+        <a routerLink="/dashboard/referees"
+          class="flex items-center gap-2 px-4 py-2 bg-[rgba(var(--color-2),0.8)] text-[rgb(var(--color-1))] rounded-lg hover:bg-[rgb(var(--color-2))] transition-all">
+          <i class="pi pi-address-book"></i>
+          <span>Árbitros</span>
+        </a>
+        <a routerLink="/dashboard/fields"
+          class="flex items-center gap-2 px-4 py-2 bg-[rgba(var(--color-2),0.8)] text-[rgb(var(--color-1))] rounded-lg hover:bg-[rgb(var(--color-2))] transition-all">
+          <i class="pi pi-map"></i>
+          <span>Canchas</span>
+        </a>
+        <a routerLink="/dashboard/teams-info"
+          class="flex items-center gap-2 px-4 py-2 bg-[rgba(var(--color-2),0.8)] text-[rgb(var(--color-1))] rounded-lg hover:bg-[rgb(var(--color-2))] transition-all">
+          <i class="pi pi-users"></i>
+          <span>Equipos</span>
+        </a>
+        <a routerLink="/dashboard/players"
+          class="flex items-center gap-2 px-4 py-2 bg-[rgba(var(--color-2),0.8)] text-[rgb(var(--color-1))] rounded-lg hover:bg-[rgb(var(--color-2))] transition-all">
+          <i class="pi pi-user"></i>
+          <span>Jugadores</span>
+        </a>
+      </nav>
+    </div>
+  </header>
 
 
-    <!-- Hay que cambiar el color  -->
-    <div class="w-5/6 flex flex-col min-h-0 p-6 text-white" style="background-color: rgb(24, 70, 11);">
-      <div
-        class="flex-1 min-h-0 overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-[var(--col-5)] scrollbar-track-[var(--col-3)]/30">
-        <router-outlet></router-outlet>
+  <div class="flex-2 flex flex-col min-h-0 bg-[rgb(var(--color-2))] p-1 overflow-hidden">
+
+    <div class="flex flex-row justify-end gap-2 mb-2">
+      <div class="bg-white/90 backdrop-blur-sm rounded-lg p-2 border border-[rgba(var(--color-2),0.2)] shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs text-[rgb(var(--color-2))]">Torneos</p>
+            <p class="text-lg font-bold text-[rgb(var(--color-2))]">{{ activeTournaments }}</p>
+            <p class="text-xs text-[rgb(var(--color-2))]">Activos</p>
+          </div>
+          <i class="pi pi-trophy text-xl text-[rgb(var(--color-2))]"></i>
+        </div>
+      </div>
+
+      <div class="bg-white/90 backdrop-blur-sm rounded-lg p-2 border border-[rgba(var(--color-2),0.2)] shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs text-[rgb(var(--color-2))]">Partidos</p>
+            <p class="text-lg font-bold text-[rgb(var(--color-2))]">{{ todaysMatches }}</p>
+            <p class="text-xs text-[rgb(var(--color-2))]">Partidos</p>
+          </div>
+          <i class="pi pi-calendar text-xl text-[rgb(var(--color-2))]"></i>
+        </div>
+      </div>
+
+      <div class="bg-white/90 backdrop-blur-sm rounded-lg p-2 border border-[rgba(var(--color-2),0.2)] shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs text-[rgb(var(--color-2))]">Equipos</p>
+            <p class="text-lg font-bold text-[rgb(var(--color-2))]">{{ teamsCountR }}</p>
+            <p class="text-xs text-[rgb(var(--color-2))]">En Revisión</p>
+          </div>
+          <i class="pi pi-users text-xl text-[rgb(var(--color-2))]"></i>
+        </div>
+      </div>
+      <div class="bg-white/90 backdrop-blur-sm rounded-lg p-2 border border-[rgba(var(--color-2),0.2)] shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs text-[rgb(var(--color-2))]">Equipos</p>
+            <p class="text-lg font-bold text-[rgb(var(--color-2))]">{{ teamsCountA }}</p>
+            <p class="text-xs text-[rgb(var(--color-2))]">Activos</p>
+          </div>
+          <i class="pi pi-users text-xl text-[rgb(var(--color-2))]"></i>
+        </div>
+      </div>
+      <div class="bg-white/90 backdrop-blur-sm rounded-lg p-2 border border-[rgba(var(--color-2),0.2)] shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs text-[rgb(var(--color-2))]">Jugadores</p>
+            <p class="text-lg font-bold text-[rgb(var(--color-2))]">{{ playersCount }}</p>
+            <p class="text-xs text-[rgb(var(--color-2))]">Activos</p>
+          </div>
+          <i class="pi pi-user text-xl text-[rgb(var(--color-2))]"></i>
+        </div>
       </div>
     </div>
-  </section>
+
+    <div
+      class="flex-1 min-h-0 overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-[rgba(var(--color-1))] scrollbar-track-transparent rounded-lg bg-[rgba(var(--color-5))] border border-[rgba(var(--color-2))] shadow-lg">
+      <router-outlet></router-outlet>
+    </div>
+
+    <footer class="mt-4 text-center text-xs text-[rgba(var(--color-1))]">
+      <p>v2.4.0 &copy; 2025 CampusLeague</p>
+    </footer>
+  </div>
 </main>

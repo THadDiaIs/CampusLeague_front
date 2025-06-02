@@ -10,6 +10,9 @@ import { TournamentInfoComponent } from './features/admin/tournament-info/tourna
 import { RefereesComponent } from './features/admin/referees/referees.component';
 import { FieldsComponent } from './features/admin/fields/fields.component';
 import { MyTeamComponent } from './features/my-team/my-team.component';
+import { GoalsComponent } from './features/admin/goals/goals.component';
+import { WinnersComponent } from './features/admin/winners/winners.component';
+import { MatchesComponent } from './features/admin/matches/matches.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -24,6 +27,9 @@ export const routes: Routes = [
             { path: 'tournament-info', component: TournamentInfoComponent },
             { path: 'referees', component: RefereesComponent },
             { path: 'fields', component: FieldsComponent },
+            { path: 'matches', component: MatchesComponent },
+            { path: 'goals', component: GoalsComponent },
+            { path: 'winners', component: WinnersComponent },
             
         ]
     },

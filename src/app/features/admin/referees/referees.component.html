@@ -1,24 +1,23 @@
 <main class="main">
-    <div class="flex gap-2 mb-4 w-full">
-        <h1>Equipos</h1>
-        <a id="add-player" class="hover:bg-green-700 flex items-center justify-center rounded-full">
-        </a>
-    </div>
 
     <div class="w-full flex flex-col items-center">
-        <div class="w-full flex justify-end mb-4">
-            <div class="flex gap-2 mb-4 w-full">
-                <h1>Árbitros</h1>
-                <a class="hover:bg-green-700 flex items-center justify-center rounded-full">
-                    <i class="pi pi-plus-circle" style="color: var(--color-1)" (click)="showRefereeModal = true; isEditing = false"></i>
-                </a>
+
+        <div class="w-full flex items-center justify-between mb-4">
+            <div class="flex-grow flex justify-center">
+                <div class="w-80">
+                    <p-iconfield iconPosition="left" class="w-full">
+                        <p-inputicon><i class="pi pi-search"></i></p-inputicon>
+                        <input pInputText type="text" placeholder="Buscar árbitro por nombre..."
+                            [(ngModel)]="searchReferee" (input)="filterTeams()" class="w-full" />
+                    </p-iconfield>
+                </div>
             </div>
-            <div class="w-80">
-                <p-iconfield iconPosition="left" class="w-full">
-                    <p-inputicon><i class="pi pi-search"></i></p-inputicon>
-                    <input pInputText type="text" placeholder="Buscar árbitro por nombre..." [(ngModel)]="searchReferee"
-                        (input)="filterTeams()" class="w-full" />
-                </p-iconfield>
+            <div class="flex items-center gap-4 ml-4">
+                <h1 class="text-xl font-bold whitespace-nowrap">Árbitros</h1>
+                <a class="hover:bg-green-700 flex items-center justify-center rounded-full p-2">
+                    <i class="pi pi-plus-circle" style="color: var(--color-1)"
+                        (click)="showRefereeModal = true; isEditing = false"></i>
+                </a>
             </div>
         </div>
 
@@ -71,8 +70,7 @@
             <div *ngIf="isEditing" class="flex items-center gap-4 mb-6">
                 <label for="status" class="font-semibold w-28 text-white">Estado</label>
                 <p-dropdown id="status" class="flex-auto" [options]="statuses" optionLabel="status_name"
-                    [(ngModel)]="referee.status" name="status"
-                    placeholder="Seleccione un estado"></p-dropdown>
+                    [(ngModel)]="referee.status" name="status" placeholder="Seleccione un estado"></p-dropdown>
             </div>
         </div>
         <div class="flex justify-end mt-4 gap-2">

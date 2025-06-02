@@ -36,6 +36,7 @@ export class TeamsInfoComponent implements OnInit {
   loading = true;
   searchTerm: string = '';
   showTeamModal: boolean = false;
+  disabledVar: boolean = false;
 
   constructor(
     private teamService: TeamService,
@@ -60,7 +61,14 @@ export class TeamsInfoComponent implements OnInit {
   }
 
 
-  async editTeam(id: number): Promise<void> {
+  async editTeam(id: number, bandera: boolean = false): Promise<void> {
+    
+    if (bandera) {
+      this.disabledVar = true;
+    } else {
+      this.disabledVar = false;
+    }
+
     try {
       this.teamPlayersPosition = await this.teamPlayerService.getTeamPlayerPositions(id);
       this.teamPlayer = await this.teamService.getTeam(id);
@@ -74,7 +82,12 @@ export class TeamsInfoComponent implements OnInit {
     }
   }
 
-  async aceptTeam(id: number) {
+
+  aceptTeam(id: number) {
+    this.editTeam(id, true)
+  }
+
+  async confirmTeam(id: number) {
     try {
       const response = await this.teamService.aceptTeam(id);
       if (response?.id) {
