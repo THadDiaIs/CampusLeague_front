@@ -16,7 +16,7 @@ import { NavigationEnd } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterLink, RouterOutlet, BadgeModule],
+  imports: [RouterLink, RouterOutlet, BadgeModule, NgIf],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

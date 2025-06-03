@@ -1,3 +1,6 @@
+import { Team } from "./team";
+import { Tournament } from "./tournament";
+
 export interface Match {
     id?: number;
     match_date: Date;
@@ -6,7 +9,7 @@ export interface Match {
     field_id: number;
     referee_id: number;
     status_id?: number;
-    team1_id: number;
-    team2_id: number;
-    tournament_id: number;
+    team1_id: Team;
+    team2_id: Team;
+    tournament: Tournament;
 }

@@ -10,7 +10,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
-import { TeamPlayer } from '../../../types/TeamPlayer';
+import { TeamPlayer } from '../../../types/teamPlayer';
 import { TeamPlayerService } from '../../../services/teamPlayer/teamPlayer.service';
 
 @Component({

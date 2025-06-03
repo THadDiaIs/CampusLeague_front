@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { CommonModule } from '@angular/common';
-import { TeamPlayer } from '../../types/TeamPlayer';
+import { TeamPlayer } from '../../types/teamPlayer';
 import { TeamPlayerService } from '../../services/teamPlayer/teamPlayer.service';
 
 @Component({

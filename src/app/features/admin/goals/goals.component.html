@@ -1,1 +1,101 @@
-<p>goals works!</p>
+<main class="main">
+    <div class="w-full flex flex-col items-center">
+        <div class="w-full flex items-center justify-between mb-2">
+            <div class="flex items-center gap-4 ml-4 p-4">
+                <h1 class="text-xl font-bold">Goles</h1>
+                <a class="hover:bg-green-700 flex items-center justify-center rounded-full p-2"
+                    (click)="showGoalModal = true; isEditing = false">
+                    <i class="pi pi-plus-circle" style="color: var(--color-1)"></i>
+                </a>
+            </div>
+
+            <div class="flex-grow flex justify-center">
+                <div class="w-80">
+                    <p-iconfield iconPosition="left" class="w-full">
+                        <p-inputicon><i class="pi pi-search"></i></p-inputicon>
+                        <input pInputText type="text" placeholder="Buscar por jugador..." [(ngModel)]="searchGoal"
+                            (input)="filterGoals()" class="w-full" />
+                    </p-iconfield>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white/20 backdrop-blur-sm p-2 rounded-lg min-h-65 max-h-* overflow-auto w-full">
+            <table class="min-w-full text-sm text-left text-gray-100 border-separate border-spacing-y-1.5">
+                <thead class="text-xs uppercase bg-white/10 text-white">
+                    <tr>
+                        <th class="px-3 py-3">Jugador</th>
+                        <th class="px-3 py-3">Torneo</th>
+                        <th class="px-3 py-3">Equipo</th>
+                        <th class="px-3 py-3">Minuto</th>
+                        <th class="px-3 py-3">Puntos</th>
+                        <th class="px-3 py-3">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let goal of filteredGoals"
+                        class="bg-white/10 hover:bg-white/20 transition-colors duration-200 rounded-xl shadow-sm">
+                        <td class="px-4 py-2">{{ goal.player.names }}</td>
+                        <td class="px-4 py-2">{{ goal.match.tournament.tournament_name}}</td>
+                        <td class="px-4 py-2">{{ goal.team.name }}</td>
+                        <td class="px-4 py-2">{{ goal.goal_time }}</td>
+                        <td class="px-4 py-2">{{ goal.points }}</td>
+                        <td class="px-4 py-2 flex gap-3 items-center justify-center">
+                            <button class="hover:underline" (click)="editGoal(goal)">
+                                <i class="pi pi-pencil" style="color: var(--color-1)"></i>
+                            </button>
+                            <button class="text-red-600 hover:underline" (click)="deleteGoal(goal)">
+                                <i class="pi pi-trash" style="color: red"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<p-dialog header="{{ isEditing ? 'Editar Gol' : 'Registrar Gol' }}" [(visible)]="showGoalModal"
+    [style]="{ width: '50rem', height: '28rem' }" [modal]="true" [dismissableMask]="true">
+    <form (ngSubmit)="registerGoal()" #goalForm="ngForm" class="flex flex-col gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm mb-1">Torneo</label>
+                <p-dropdown class="w-full" [options]="tournaments" [(ngModel)]="selectedTournament" name="tournament"
+                    optionLabel="tournament_name" placeholder="Selecciona un torneo" (onChange)="onTournamentChange()" required>
+                </p-dropdown>
+            </div>
+            <div>
+                <label class="block text-sm mb-1">Equipo</label>
+                <p-dropdown class="w-full" [options]="filteredTeams" [(ngModel)]="selectedTeam" name="team"
+                    optionLabel="name" placeholder="Selecciona un equipo" (onChange)="onTeamChange()" required>
+                </p-dropdown>
+            </div>
+            <div>
+                <label class="block text-sm mb-1">Jugador</label>
+                <p-dropdown class="w-full" [options]="filteredPlayers" [(ngModel)]="goal.player" name="player"
+                    optionLabel="names" placeholder="Selecciona un jugador" required>
+                </p-dropdown>
+            </div>
+            <div>
+                <label class="block text-sm mb-1">Minuto del gol</label>
+                <input type="text" pInputText [(ngModel)]="goal.goal_time" name="goalTime" placeholder="Ej: 45+2"
+                    required class="w-full" />
+            </div>
+            <div>
+                <label class="block text-sm mb-1">Puntos</label>
+                <input type="number" pInputText [(ngModel)]="goal.points" name="points" placeholder="Ej: 1" min="1"
+                    required class="w-full" />
+            </div>
+        </div>
+
+        <div class="flex justify-end mt-4 gap-2">
+            <button pButton type="button" class="p-button-text" (click)="cancelGoal()">Cancelar</button>
+            <button pButton type="submit" class="p-button-primary">
+                {{ isEditing ? 'Guardar cambios' : 'Crear' }}
+            </button>
+        </div>
+    </form>
+</p-dialog>
+
+<p-toast></p-toast>
