@@ -29,7 +29,7 @@ export class RefereeService {
 
   async deleteReferee(id: number): Promise<Referee> {
     try {
-      return await this.apiService.post<Referee>(`arbitro/${id}`, {}, true);
+      return await this.apiService.delete<Referee>(`arbitro/${id}`);
     } catch (error) {
       console.error('Error deleting referee:', error);
       throw error;

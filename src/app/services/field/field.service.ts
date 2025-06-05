@@ -29,7 +29,7 @@ export class FieldService {
 
   async deleteField(id: number): Promise<Field> {
     try {
-      return await this.apiService.post<Field>(`campo/${id}`, {}, true);
+      return await this.apiService.delete<Field>(`campo/${id}`);
     } catch (error) {
       console.error('Error deleting field:', error);
       throw error;

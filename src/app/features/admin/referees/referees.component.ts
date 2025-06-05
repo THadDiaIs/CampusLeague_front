@@ -139,4 +139,22 @@ export class RefereesComponent implements OnInit {
       referee.name.toLowerCase().includes(ref)
     );
   }
+
+  removeReferee(id: number): void {
+    this.refereeService.deleteReferee(id).then(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Arbitro eliminado',
+        detail: 'El arbitro fue eliminado correctamente.'
+      });
+      this.ngOnInit();
+    }).catch(error => {
+      console.error('Error eliminando arbitro', error);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'error',
+        detail: 'No se puede eliminar el arbitro'
+      })
+    })
+  }
 }

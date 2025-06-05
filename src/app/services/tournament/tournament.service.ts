@@ -29,7 +29,7 @@ export class TournamentService {
 
   async deleteTournament(id: number): Promise<Tournament> {
     try {
-      return await this.apiService.post<Tournament>(`torneo/${id}`, {}, true);
+      return await this.apiService.delete<Tournament>(`torneo/${id}`);
     } catch (error) {
       console.error('Error deleting tournament:', error);
       throw error;

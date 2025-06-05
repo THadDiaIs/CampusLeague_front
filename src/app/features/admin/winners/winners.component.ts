@@ -53,7 +53,7 @@ export class WinnersComponent implements OnInit {
     private teamService: TeamService,
     private tournamentService: TournamentService,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   async ngOnInit() {
     try {
@@ -160,5 +160,23 @@ export class WinnersComponent implements OnInit {
     this.filteredTeams = [];
     this.isEditing = false;
     this.showWinnerModal = false;
+  }
+
+  removeWinner(id: number): void {
+    this.winnerService.deleteWinner(id).then(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Ganador eliminado',
+        detail: 'El ganador fue eliminado correctamente.'
+      });
+      this.ngOnInit();
+    }).catch(error => {
+      console.error('Error eliminando ganador', error);
+      this.messageService.add({
+        severity: error,
+        summary: error,
+        detail: 'No se pudo eliminar el ganador.'
+      });
+    });
   }
 }

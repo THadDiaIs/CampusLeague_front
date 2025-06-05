@@ -141,4 +141,22 @@ export class FieldsComponent implements OnInit {
       });
     }
   }
+
+  removeField(id: number): void {
+    this.fieldService.deleteField(id).then(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'cancha eliminada',
+        detail: 'La cancha fue eliminada correctamente.'
+      });
+      this.ngOnInit();
+    }).catch(error => {
+      console.error('Error eliminando cancha', error);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'error',
+        detail: 'No se puede eliminar la cancha'
+      })
+    })
+  }
 }

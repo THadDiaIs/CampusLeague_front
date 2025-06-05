@@ -40,7 +40,8 @@
                             <button class="hover:underline" (click)="editWinner(winner)">
                                 <i class="pi pi-pencil" style="color: var(--color-1)"></i>
                             </button>
-                            <button class="text-red-600 hover:underline">
+                            <button class="text-red-600 hover:underline" *ngIf="winner.id !== undefined"
+                              (click)="removeWinner(winner.id)">
                                 <i class="pi pi-trash" style="color: red"></i>
                             </button>
                         </td>

@@ -29,7 +29,7 @@ export class WinnerService {
 
     async deleteWinner(id: number): Promise<Winner> {
         try {
-            return await this.apiService.post<Winner>(`ganador/${id}`, {}, true);
+            return await this.apiService.delete<Winner>(`ganador/${id}`);
         } catch (error) {
             console.error('Error deleting winner:', error);
             throw error;

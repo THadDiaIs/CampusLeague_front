@@ -43,5 +43,23 @@ export class TournamentInfoComponent implements OnInit {
        tour.tournament_name.toLowerCase().includes(term)
      );
    }
+
+   removeTournament(id: number): void {
+    this.tournamentService.deleteTournament(id).then(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Torneo eliminado',
+        detail: 'El torneo fue eliminado correctamente.'
+      });
+      this.ngOnInit();
+    }).catch(error => {
+      console.error('Error eliminando torneo', error);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'No se pudo eliminar el torneo.'
+      });
+    });  
+   }
  }
  

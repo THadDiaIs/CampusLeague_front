@@ -48,7 +48,7 @@ export class TeamService {
 
   async deleteTeam(id: number): Promise<Team> {
     try {
-      return await this.apiService.post<Team>(`equipo/${id}`, {}, true);
+      return await this.apiService.delete<Team>(`equipo/${id}`);
     } catch (error) {
       console.error('Error deleting team:', error);
       throw error;

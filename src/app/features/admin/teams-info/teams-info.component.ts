@@ -117,4 +117,22 @@ export class TeamsInfoComponent implements OnInit {
       return;
     } 
   }
+
+  removeTeam(id: number): void {
+    this.teamService.deleteTeam(id).then(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Equipo eliminado',
+        detail: 'El equipo fue eliminado correctamente.'
+      });
+      this.ngOnInit();
+    }).catch(error => {
+      console.error('Error eliminando equipo', error);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'error',
+        detail: 'No se puede eliminar el equipo.'
+      });
+    });
+  }
 }
