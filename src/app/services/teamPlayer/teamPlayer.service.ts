@@ -12,7 +12,7 @@ export class TeamPlayerService {
 
     async getTeamPlayerPositions(id: number): Promise<TeamPlayer | any> {
         try {
-            return await this.apiService.get<TeamPlayer>(`equipo/jugadores-info/${id}`, {}, false);
+            return await this.apiService.get<TeamPlayer>(`equipo/jugadores-info/${id}`, {}, true);
         } catch (error) {
             console.error('Error fetching players info: ', error)
             return error
