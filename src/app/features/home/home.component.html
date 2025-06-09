@@ -5,11 +5,10 @@
         <nav>
           <div class="left-opts">
             <a href="#" class="nav-link" routerLink="/my-team">Mi Equipo</a>
-            <a href="#" class="nav-link">Calendario</a>
-
+            <a href="#" class="nav-link" routerLink="/calendar">Calendario</a>
             <a href="#" class="nav-link">Tablero</a>
           </div>
-          <app-logo />
+          <app-logo></app-logo>
           <div class="right-opts">
             <a class="nav-link" routerLink="/register-team">Inscripciones</a>
             <a class="nav-link" routerLink="/login">Administracion</a>
@@ -20,26 +19,22 @@
           <div class="news">
             <div class="carousel-container">
               <div *ngIf="sections[currentIndex] === 'tournaments'">
-                <h1>adf </h1>
+                <h1>Torneos</h1>
               </div>
-
               <div *ngIf="sections[currentIndex] === 'inscriptions'">
-                <h1>adf adfads</h1>
-
+                <h1>Inscripciones</h1>
               </div>
-
               <div *ngIf="sections[currentIndex] === 'matchs'">
-                <h1>adfadfadsfsdafasdfsad </h1>
+                <h1>Partidos</h1>
               </div>
-
               <div *ngIf="sections[currentIndex] === 'foto'">
+                <h1>Galería</h1>
               </div>
             </div>
           </div>
+
           <div class="last-events">
-            <p class="title">
-              Ultimos resultados
-            </p>
+            <p class="title">Últimos resultados</p>
             <div class="row">
               <strong>Equipo1</strong>
               <span>4</span>
@@ -50,25 +45,18 @@
             </div>
             <div class="row">
               <strong>Equipo1</strong>
-              <span>4</span>
+              <span>3</span>
             </div>
             <div class="row">
               <strong>Equipo2</strong>
-              <span>2</span>
-            </div>
-            <div class="row">
-              <strong>Equipo1</strong>
-              <span>4</span>
-            </div>
-            <div class="row">
-              <strong>Equipo2</strong>
-              <span>2</span>
+              <span>1</span>
             </div>
           </div>
         </div>
-        <app-quote />
       </div>
     </div>
-    <app-footer />
+
+    <app-quote></app-quote>
+    <app-footer></app-footer>
   </div>
 </main>

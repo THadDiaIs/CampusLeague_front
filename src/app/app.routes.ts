@@ -13,11 +13,13 @@ import { MyTeamComponent } from './features/my-team/my-team.component';
 import { GoalsComponent } from './features/admin/goals/goals.component';
 import { WinnersComponent } from './features/admin/winners/winners.component';
 import { MatchesComponent } from './features/admin/matches/matches.component';
+import { CalendarComponent } from './features/calendar/calendar.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: 'my-team', component: MyTeamComponent },
+    { path: 'calendar', component: CalendarComponent},
     
     { path: 'dashboard', component: DashboardComponent,
         children: [
