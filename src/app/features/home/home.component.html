@@ -1,59 +1,74 @@
 <main class="main">
-    <div class="content">
-      <div class="hero-container">
-        <div class="hero">
-          <nav>
-            <div class="left-opts">
-              <a href="#" class="nav-link" routerLink="/my-team">Mi Equipo</a>
-              <a href="#" class="nav-link">Calendario</a>
-              <a href="#" class="nav-link">Tablero</a>
-            </div>
-            <app-logo />
-            <div class="right-opts">
-              <a class="nav-link" routerLink="/register-team">Inscripciones</a>
-              <a class="nav-link" routerLink="/login">Administracion</a>
-            </div>
-          </nav>
-  
-          <div class="events">
-            <div class="news">
-              <p class="title">Evento</p>
-              <p class="content">cualquier evento random, o un lorem ipsum dolor sit amet...</p>
-            </div>
-            <div class="last-events">
-              <p class="title">
-                Ultimos resultados
-              </p>
-                <div class="row">
-                  <strong>Equipo1</strong>
-                  <span>4</span>
-                </div>
-                <div class="row">
-                  <strong>Equipo2</strong>
-                  <span>2</span>
-                </div>
-                <div class="row">
-                  <strong>Equipo1</strong>
-                  <span>4</span> 
-                </div>
-                <div class="row">
-                  <strong>Equipo2</strong>
-                  <span>2</span>
-                </div>
-                <div class="row">
-                  <strong>Equipo1</strong>
-                  <span>4</span>
-                </div>
-                <div class="row">
-                  <strong>Equipo2</strong>
-                  <span>2</span>
-                </div>
+  <div class="content">
+    <div class="hero-container">
+      <div class="hero">
+        <nav>
+          <div class="left-opts">
+            <a href="#" class="nav-link" routerLink="/my-team">Mi Equipo</a>
+            <a href="#" class="nav-link">Calendario</a>
+
+            <a href="#" class="nav-link">Tablero</a>
+          </div>
+          <app-logo />
+          <div class="right-opts">
+            <a class="nav-link" routerLink="/register-team">Inscripciones</a>
+            <a class="nav-link" routerLink="/login">Administracion</a>
+          </div>
+        </nav>
+
+        <div class="events">
+          <div class="news">
+            <div class="carousel-container">
+              <div *ngIf="sections[currentIndex] === 'tournaments'">
+                <h1>adf </h1>
+              </div>
+
+              <div *ngIf="sections[currentIndex] === 'inscriptions'">
+                <h1>adf adfads</h1>
+
+              </div>
+
+              <div *ngIf="sections[currentIndex] === 'matchs'">
+                <h1>adfadfadsfsdafasdfsad </h1>
+              </div>
+
+              <div *ngIf="sections[currentIndex] === 'foto'">
+              </div>
             </div>
           </div>
-  
-          <app-quote />
+          <div class="last-events">
+            <p class="title">
+              Ultimos resultados
+            </p>
+            <div class="row">
+              <strong>Equipo1</strong>
+              <span>4</span>
+            </div>
+            <div class="row">
+              <strong>Equipo2</strong>
+              <span>2</span>
+            </div>
+            <div class="row">
+              <strong>Equipo1</strong>
+              <span>4</span>
+            </div>
+            <div class="row">
+              <strong>Equipo2</strong>
+              <span>2</span>
+            </div>
+            <div class="row">
+              <strong>Equipo1</strong>
+              <span>4</span>
+            </div>
+            <div class="row">
+              <strong>Equipo2</strong>
+              <span>2</span>
+            </div>
+          </div>
         </div>
+        <app-quote />
       </div>
-      <app-footer />
     </div>
-  </main>
+    <app-footer />
+  </div>
+</main>

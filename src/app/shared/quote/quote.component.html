@@ -1,9 +1,9 @@
 <div class="quote absolute left-10 bottom-10 flex gap-4">
     <div class="w-1.5 quote-decorator"></div>
     <div class="quote-content">
-      <p class="author" [classList]="authorSize">San Juan Bosco</p>
-      <p class="phrase max-w-4xl" [classList]="authorSize">
-        “Ser bueno no consiste en no cometer ninguna falta, sino en saber enmendarse”.
+      <p class="author" [ngClass]="authorSize"> {{ phrases[currentIndex].author }}</p>
+      <p class="phrase max-w-4xl" [ngClass]="quoteSize">
+        {{ phrases[currentIndex].quote }}
       </p>
     </div>
   </div>
