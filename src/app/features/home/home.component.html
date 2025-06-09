@@ -19,7 +19,12 @@
           <div class="news">
             <div class="carousel-container">
               <div *ngIf="sections[currentIndex] === 'tournaments'">
-                <h1>Torneos</h1>
+                <li *ngFor="let t of tournaments" style="margin-bottom: 1.5rem;">
+                  <strong>{{ t.tournament_name }}</strong> - {{ t.start_date | date:'shortDate' }}
+                  <p>{{ t.description }}</p>
+                  <h1>hao</h1>
+                </li>
+
               </div>
               <div *ngIf="sections[currentIndex] === 'inscriptions'">
                 <h1>Inscripciones</h1>
@@ -55,6 +60,31 @@
         </div>
       </div>
     </div>
+
+    <section style="background-color: rgb(30, 56, 56);" class="text-white w-full py-24">
+      <div class="max-w-7xl mx-auto px-8">
+        <h2 class="text-5xl font-bold text-center mb-20">Misión y Visión</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+          <div style="background-color: rgb(247, 247, 247); color: rgb(30, 56, 56);" class="p-14 shadow-xl h-full">
+            <h3 class="text-4xl font-bold mb-8">Misión</h3>
+            <p class="text-xl leading-loose text-justify">
+              Somos una Universidad Salesiana, que a través del Sistema Preventivo de Don Bosco, fomentamos el
+              aprendizaje y la investigación de calidad, centrados en la persona del estudiante en su formación como
+              profesional competente, ético, responsable y comprometido con la sociedad.
+            </p>
+          </div>
+
+          <div style="background-color: rgb(247, 247, 247); color: rgb(30, 56, 56);" class="p-14 shadow-xl h-full">
+            <h3 class="text-4xl font-bold mb-8">Visión</h3>
+            <p class="text-xl leading-loose text-justify">
+              Ser una institución de estudios superiores sólida, abierta y flexible, reconocida nacional e
+              internacionalmente por la formación humana y académica de profesionales íntegros, comprometidos en la
+              búsqueda de soluciones a los problemas de la sociedad.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <app-quote></app-quote>
     <app-footer></app-footer>

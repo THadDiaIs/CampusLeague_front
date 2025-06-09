@@ -1,1 +1,131 @@
-<p>matches works!</p>
+<main class="main">
+  <div class="w-full flex flex-col items-center">
+
+    <div class="w-full flex items-center justify-between mb-2">
+      <div class="flex items-center gap-4 ml-4 p-4">
+        <h1 class="text-xl font-bold">Partidos</h1>
+        <a class="hover:bg-blue-700 flex items-center justify-center rounded-full p-2"
+           (click)="showMatchModal = true; isEditing = false">
+          <i class="pi pi-plus-circle" style="color: var(--color-1)"></i>
+        </a>
+      </div>
+
+      <div class="flex-grow flex justify-center">
+        <div class="w-80">
+          <p-iconfield iconPosition="left" class="w-full">
+            <p-inputicon><i class="pi pi-search"></i></p-inputicon>
+            <input pInputText type="text" placeholder="Buscar por equipo..." [(ngModel)]="searchMatch"
+                   (input)="filterMatches()" class="w-full" />
+          </p-iconfield>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white/20 backdrop-blur-sm p-2 rounded-lg min-h-65 max-h-* overflow-auto w-full">
+      <table class="min-w-full text-sm text-left text-gray-100 border-separate border-spacing-y-1.5">
+        <thead class="text-xs uppercase bg-white/10 text-white">
+          <tr>
+            <th class="px-3 py-3">Fecha</th>
+            <th class="px-3 py-3">Equipo 1</th>
+            <th class="px-3 py-3">Puntaje del Equipo 1</th>
+            <th class="px-3 py-3">Equipo 2</th>
+            <th class="px-3 py-3">Puntaje del Equipo 1</th>
+            <th class="px-3 py-3">Torneo</th>
+            <th class="px-3 py-3">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let match of filteredMatches"
+              class="bg-white/10 hover:bg-white/20 transition-colors duration-200 rounded-xl shadow-sm">
+            <td class="px-4 py-2">{{ match.match_date | date:'shortDate' }}</td>
+            <td class="px-4 py-2">{{ match.team1.name }}</td>
+            <td class="px-4 py-2">{{ match.team1_score }}</td>
+            <td class="px-4 py-2">{{ match.team2.name }}</td>
+            <td class="px-4 py-2">{{ match.team2_score }}</td>
+            <td class="px-4 py-2">{{ match.tournament.tournament_name }}</td>
+            <td class="px-4 py-2 flex gap-3 items-center justify-center">
+              <button class="hover:underline" (click)="editMatch(match)">
+                <i class="pi pi-pencil" style="color: var(--color-1)"></i>
+              </button>
+              <button class="text-red-600 hover:underline" *ngIf="match.id !== undefined"
+                      (click)="removeMatch(match.id)">
+                <i class="pi pi-trash" style="color: red"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</main>
+
+<p-dialog header="{{ isEditing ? 'Editar Partido' : 'Registrar Partido' }}" [(visible)]="showMatchModal"
+          [style]="{ width: '50rem', height: '30rem' }" [modal]="true" [dismissableMask]="true">
+
+  <form (ngSubmit)="registerMatch()" #matchForm="ngForm" class="flex flex-col gap-4">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+      <div>
+        <label class="block text-sm mb-1">Fecha y Hora</label>
+        <input type="datetime-local" pInputText [(ngModel)]="matchDateTime" name="match_date" required />
+      </div>
+
+      <div>
+        <label class="block text-sm mb-1">Equipo 1</label>
+        <p-dropdown class="w-full" [options]="teams" [(ngModel)]="match.team1" name="team1_id"
+                    optionLabel="name" placeholder="Selecciona equipo 1" required>
+        </p-dropdown>
+      </div>
+
+      <div>
+        <label class="block text-sm mb-1">Puntaje Equipo 1</label>
+        <input type="number" pInputText [(ngModel)]="match.team1_score" name="team1_score" required min="0" />
+      </div>
+
+      <div>
+        <label class="block text-sm mb-1">Equipo 2</label>
+        <p-dropdown class="w-full" [options]="teams" [(ngModel)]="match.team2" name="team2_id"
+                    optionLabel="name" placeholder="Selecciona equipo 2" required>
+        </p-dropdown>
+      </div>
+
+      <div>
+        <label class="block text-sm mb-1">Puntaje Equipo 2</label>
+        <input type="number" pInputText [(ngModel)]="match.team2_score" name="team2_score" required min="0" />
+      </div>
+
+      <div>
+        <label class="block text-sm mb-1">Torneo</label>
+        <p-dropdown class="w-full" [options]="tournaments" [(ngModel)]="match.tournament" name="tournament"
+                    optionLabel="tournament_name" placeholder="Selecciona un torneo" required>
+        </p-dropdown>
+      </div>
+      <div>
+        <label class="block text-sm mb-1">Cancha</label>
+        <p-dropdown [options]="fields" optionLabel="name" [(ngModel)]="match.field"
+                    placeholder="Selecciona una cancha" name="field">
+        </p-dropdown>
+
+      </div>
+
+      <div>
+        <label class="block text-sm mb-1">Árbitro</label>
+        <p-dropdown [options]="referees" optionLabel="name" [(ngModel)]="match.referee"
+                    placeholder="Selecciona un árbitro" name="referee">
+        </p-dropdown>
+
+      </div>
+
+    </div>
+
+    <div class="flex justify-end mt-4 gap-2">
+      <button pButton type="button" class="p-button-text" (click)="cancelMatch()">Cancelar</button>
+      <button pButton type="submit" class="p-button-primary">{{ isEditing ? 'Guardar cambios' : 'Crear' }}</button>
+    </div>
+
+  </form>
+</p-dialog>
+
+<p-toast></p-toast>

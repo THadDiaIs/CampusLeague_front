@@ -20,13 +20,20 @@ export class TournamentService {
 
   async updateTournament(id: number, tournamentData: Tournament): Promise<Tournament> {
     try {
-      return await this.apiService.post<Tournament>(`torneo/${id}`, tournamentData, true);
+      return await this.apiService.put<Tournament>(`torneo/${id}`, tournamentData, true);
     } catch (error) {
       console.error('Error updating tournament:', error);
       throw error;
     }
   }
-
+  async save( tournamentData: Tournament): Promise<Tournament | any> {
+    try {
+      return await this.apiService.post<Tournament>(`torneo`, tournamentData, true);
+    } catch (error) {
+      console.error('Error save tournament:', error);
+      return error;
+    }
+  }
   async deleteTournament(id: number): Promise<Tournament> {
     try {
       return await this.apiService.delete<Tournament>(`torneo/${id}`);

@@ -20,7 +20,7 @@ export class MatchService {
 
   async updateMatch(id: number, matchData: Match): Promise<Match> {
     try {
-      return await this.apiService.post<Match>(`partido/${id}`, matchData, true);
+      return await this.apiService.put<Match>(`partido/${id}`, matchData, true);
     } catch (error) {
       console.error('Error updating match:', error);
       throw error;
@@ -33,6 +33,15 @@ export class MatchService {
     } catch (error) {
       console.error('Error deleting match:', error);
       throw error;
+    }
+  }
+
+  async saveMatch(matchData: Match): Promise<Match | any> {
+    try {
+      return await this.apiService.post<Match>(`partido`, matchData, true);
+    } catch (error) {
+      console.error('Error save match:', error);
+      return error;
     }
   }
 

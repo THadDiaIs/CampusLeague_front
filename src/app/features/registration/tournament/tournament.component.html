@@ -1,66 +1,78 @@
 <main class="main">
-    <div class="registrations-form flex flex-col p-8 backdrop-blur-md shadow-lg rounded-lg w-3/4 gap-6 bg-[var(--col-5)]">
+  <div class="registrations-form flex flex-col p-8 backdrop-blur-md shadow-lg rounded-lg w-3/4 gap-6 bg-[var(--col-5)]">
+    <p class="text-2xl font-bold mt-8">Formulario Registro de Torneo</p>
 
-        <p class="text-2xl font-bold mt-8">Formulario Registro de Torneo</p>
-        <div class="flex flex-col w-full gap-2">
+    <div class="flex flex-col w-full gap-2">
 
-            <div class="flex flex-row gap-3 w-full">
-                <label>Nombre del Torneo
-                    <input class="rounded-lg w-full" type="text" [(ngModel)]="tournament.tournament_name">
-                </label>
-                <label>Deporte
-                    <select class="rounded-lg w-full" [(ngModel)]="tournament.sport.id">
-                        <option value="0">
-                            Selecciona un deporte
-                        </option>
-                        <option *ngFor="let sport of sports" [ngValue]="sport.id">
-                            {{ sport.sport_name }}
-                        </option>
-                    </select>
-                </label>
-            </div>
-            <div class="flex flex-row gap-3 w-full">
-                <label>Fecha de Inicio
-                    <input class="rounded-lg w-full" type="date" [(ngModel)]="tournament.start_date">
-                </label>
-                <label>Fecha de Final
-                    <input class="rounded-lg w-full" type="date" [(ngModel)]="tournament.end_date">
-                </label>
-            </div>
-            <div class="flex flex-row gap-3 w-full">
-                <label>Descripción
-                    <textarea class="rounded-lg w-full" [(ngModel)]="tournament.description"></textarea>
-                </label>
-            </div>
-            <div class="flex flex-row gap-3 w-full">
-                <label>Miembros Mínimos
-                    <input class="rounded-lg w-full" type="number" [(ngModel)]="tournament.min_team_members">
-                </label>
-                <label>Miembros Máximos
-                    <input class="rounded-lg w-full" type="number" [(ngModel)]="tournament.max_team_members">
-                </label>
-            </div>
-            <div class="flex flex-row gap-3 w-full">
-                <label>Estado
-                    <select class="rounded-lg w-full" [(ngModel)]="tournament.status">
-                        <option value="0">Selecciona un estado</option>
-                        <option value="1">Activo</option>
-                        <option value="2">Inactivo</option>
-                        <option value="3">En Progreso</option>
-                        <option value="4">Finalizado</option>
-                    </select>
-                </label>
-            </div>
-        </div>
+      <div class="flex flex-row gap-3 w-full">
+        <label class="w-full">Nombre del Torneo
+          <input class="rounded-lg w-full" type="text" [(ngModel)]="tournament.tournament_name" name="tournament_name" required>
+        </label>
 
-        <div class="flex justify-between items-center">
-            <button class="outlined px-6 rounded-lg text-lg font-bold" (click)="cancel()">
-                Cancelar
-            </button>
-            <button class="filled px-6 rounded-lg text-lg font-bold" (click)="registerTournament()">
-                Registrar Torneo
-            </button>
-        </div>
+        <label class="w-full">Deporte
+          <select class="rounded-lg w-full" [(ngModel)]="tournament.sport" name="sport" required [compareWith]="compareSports">
+            <option [ngValue]="null">Selecciona un deporte</option>
+            <option *ngFor="let sport of sports" [ngValue]="sport">
+              {{ sport.sport_name }}
+            </option>
+          </select>
+        </label>
+      </div>
+
+      <div class="flex flex-row gap-3 w-full">
+        <label class="w-full">Fecha de Inicio
+          <input class="rounded-lg w-full" type="datetime-local" [(ngModel)]="tournament.start_date" name="start_date" required>
+        </label>
+
+        <label class="w-full">Fecha de Final
+          <input class="rounded-lg w-full" type="datetime-local" [(ngModel)]="tournament.end_date" name="end_date" required>
+        </label>
+      </div>
+
+      <div class="flex flex-row gap-3 w-full">
+        <label class="w-full">Apertura de Inscripciones
+          <input class="rounded-lg w-full" type="datetime-local" [(ngModel)]="tournament.inscriptions_open_date" name="inscriptions_open_date" required>
+        </label>
+
+        <label class="w-full">Cierre de Inscripciones
+          <input class="rounded-lg w-full" type="datetime-local" [(ngModel)]="tournament.inscriptions_close_date" name="inscriptions_close_date" required>
+        </label>
+      </div>
+
+      <div class="flex flex-row gap-3 w-full">
+        <label class="w-full">Descripción
+          <textarea class="rounded-lg w-full" [(ngModel)]="tournament.description" name="description" required></textarea>
+        </label>
+      </div>
+
+      <div class="flex flex-row gap-3 w-full">
+        <label class="w-full">Miembros Mínimos
+          <input class="rounded-lg w-full" type="number" [(ngModel)]="tournament.min_team_members" name="min_team_members" required>
+        </label>
+
+        <label class="w-full">Miembros Máximos
+          <input class="rounded-lg w-full" type="number" [(ngModel)]="tournament.max_team_members" name="max_team_members" required>
+        </label>
+      </div>
+
+      <div class="flex flex-row gap-3 w-full">
+        <label class="w-full">Estado
+          <select class="rounded-lg w-full" [(ngModel)]="tournament.status" name="status" required [compareWith]="compareStatuses">
+            <option [ngValue]="null">Selecciona un estado</option>
+            <option *ngFor="let status of statuses" [ngValue]="status">
+              {{ status.status_name }}
+            </option>
+          </select>
+        </label>
+      </div>
+
     </div>
-    <p-toast />
+
+    <div class="flex justify-between items-center mt-4">
+      <button class="outlined px-6 rounded-lg text-lg font-bold" (click)="cancel()">Cancelar</button>
+      <button class="filled px-6 rounded-lg text-lg font-bold" (click)="registerTournament()">Registrar Torneo</button>
+    </div>
+
+  </div>
+  <p-toast />
 </main>
