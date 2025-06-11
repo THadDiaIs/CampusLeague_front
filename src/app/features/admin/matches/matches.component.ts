@@ -41,9 +41,11 @@ import { TournamentService } from '../../../services/tournament/tournament.servi
 export class MatchesComponent implements OnInit {
   matches: Match[] = [];
   filteredMatches: Match[] = [];
+  filteredTournaments: Tournament[] = [];
   teams: Team[] = [];
   tournaments: Tournament[] = [];
   searchMatch: string = '';
+  searchTournament: string = '';
   matchDateTime: string = '';
   fields: any[] = [];
   referees: any[] = [];
@@ -60,6 +62,9 @@ export class MatchesComponent implements OnInit {
   };
 
   showMatchModal = false;
+  showMatchesModal = false;
+  selectedTournamentForGeneration: any = null;
+  activeTournaments: any[] = [];
   isEditing = false;
   loading = true;
 
@@ -74,6 +79,10 @@ export class MatchesComponent implements OnInit {
 
   async ngOnInit() {
     await this.loadData();
+    this.activeTournaments = this.tournaments.filter(t =>
+      new Date(t.start_date) <= new Date() && new Date(t.end_date) > new Date()
+    );
+
   }
 
   async loadData() {
@@ -86,17 +95,48 @@ export class MatchesComponent implements OnInit {
       this.teams = await this.teamService.getAllTeams();
       this.tournaments = await this.tournamentService.getAllTournaments();
       this.filteredMatches = [...this.matches];
+      this.filteredTournaments = [...this.tournaments];
     } finally {
       this.loading = false;
     }
   }
+  async generateMatchesForTournaments() {
+    if (!this.selectedTournamentForGeneration) return;
+
+    const tournamentId = this.selectedTournamentForGeneration.id;
+
+    try {
+      await this.matchService.generateMatches(tournamentId);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Hecho',
+        detail: 'Partidos generados correctamente'
+      });
+      this.showMatchesModal = false;
+      this.loadData();
+    } catch (error) {
+      console.error(error);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Error al generar los partidos'
+      });
+    }
+  }
+
+
 
   filterMatches() {
-    const text = this.searchMatch.toLowerCase();
+    const teamText = this.searchMatch.toLowerCase();
+    const tournamentText = this.searchTournament.toLowerCase();
+
     this.filteredMatches = this.matches.filter(m =>
-      m.team1?.name?.toLowerCase().includes(text) || m.team2?.name?.toLowerCase().includes(text)
+      (m.team1?.name?.toLowerCase().includes(teamText) ||
+        m.team2?.name?.toLowerCase().includes(teamText)) &&
+      m.tournament?.tournament_name?.toLowerCase().includes(tournamentText)
     );
   }
+
 
   async registerMatch() {
     if (!this.match.team1 || !this.match.team2 || !this.match.tournament || !this.match.match_date) {

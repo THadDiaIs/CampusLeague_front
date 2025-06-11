@@ -5,7 +5,12 @@
       <div class="flex items-center gap-4 ml-4 p-4">
         <h1 class="text-xl font-bold">Partidos</h1>
         <a class="hover:bg-blue-700 flex items-center justify-center rounded-full p-2"
-           (click)="showMatchModal = true; isEditing = false">
+          (click)="showMatchModal = true; isEditing = false">
+          <i class="pi pi-plus-circle" style="color: var(--color-1)"></i>
+        </a>
+        <h1 class="text-xl font-bold">Generar Partidos</h1>
+        <a class="hover:bg-blue-700 flex items-center justify-center rounded-full p-2"
+          (click)="showMatchesModal= true">
           <i class="pi pi-plus-circle" style="color: var(--color-1)"></i>
         </a>
       </div>
@@ -15,11 +20,19 @@
           <p-iconfield iconPosition="left" class="w-full">
             <p-inputicon><i class="pi pi-search"></i></p-inputicon>
             <input pInputText type="text" placeholder="Buscar por equipo..." [(ngModel)]="searchMatch"
-                   (input)="filterMatches()" class="w-full" />
+              (input)="filterMatches()" class="w-full" />
+          </p-iconfield>
+        </div>
+        <div class="w-80">
+          <p-iconfield iconPosition="left" class="w-full">
+            <p-inputicon><i class="pi pi-search"></i></p-inputicon>
+            <input pInputText type="text" placeholder="Buscar por torneo..." [(ngModel)]="searchTournament"
+              (input)="filterMatches()" class="w-full" />
           </p-iconfield>
         </div>
       </div>
     </div>
+
 
     <div class="bg-white/20 backdrop-blur-sm p-2 rounded-lg min-h-65 max-h-* overflow-auto w-full">
       <table class="min-w-full text-sm text-left text-gray-100 border-separate border-spacing-y-1.5">
@@ -36,7 +49,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let match of filteredMatches"
-              class="bg-white/10 hover:bg-white/20 transition-colors duration-200 rounded-xl shadow-sm">
+            class="bg-white/10 hover:bg-white/20 transition-colors duration-200 rounded-xl shadow-sm">
             <td class="px-4 py-2">{{ match.match_date | date:'shortDate' }}</td>
             <td class="px-4 py-2">{{ match.team1.name }}</td>
             <td class="px-4 py-2">{{ match.team1_score }}</td>
@@ -48,7 +61,7 @@
                 <i class="pi pi-pencil" style="color: var(--color-1)"></i>
               </button>
               <button class="text-red-600 hover:underline" *ngIf="match.id !== undefined"
-                      (click)="removeMatch(match.id)">
+                (click)="removeMatch(match.id)">
                 <i class="pi pi-trash" style="color: red"></i>
               </button>
             </td>
@@ -61,8 +74,7 @@
 </main>
 
 <p-dialog header="{{ isEditing ? 'Editar Partido' : 'Registrar Partido' }}" [(visible)]="showMatchModal"
-          [style]="{ width: '50rem', height: '30rem' }" [modal]="true" [dismissableMask]="true">
-
+  [style]="{ width: '50rem', height: '30rem' }" [modal]="true" [dismissableMask]="true">
   <form (ngSubmit)="registerMatch()" #matchForm="ngForm" class="flex flex-col gap-4">
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -74,8 +86,8 @@
 
       <div>
         <label class="block text-sm mb-1">Equipo 1</label>
-        <p-dropdown class="w-full" [options]="teams" [(ngModel)]="match.team1" name="team1_id"
-                    optionLabel="name" placeholder="Selecciona equipo 1" required>
+        <p-dropdown class="w-full" [options]="teams" [(ngModel)]="match.team1" name="team1_id" optionLabel="name"
+          placeholder="Selecciona equipo 1" required>
         </p-dropdown>
       </div>
 
@@ -86,8 +98,8 @@
 
       <div>
         <label class="block text-sm mb-1">Equipo 2</label>
-        <p-dropdown class="w-full" [options]="teams" [(ngModel)]="match.team2" name="team2_id"
-                    optionLabel="name" placeholder="Selecciona equipo 2" required>
+        <p-dropdown class="w-full" [options]="teams" [(ngModel)]="match.team2" name="team2_id" optionLabel="name"
+          placeholder="Selecciona equipo 2" required>
         </p-dropdown>
       </div>
 
@@ -99,13 +111,13 @@
       <div>
         <label class="block text-sm mb-1">Torneo</label>
         <p-dropdown class="w-full" [options]="tournaments" [(ngModel)]="match.tournament" name="tournament"
-                    optionLabel="tournament_name" placeholder="Selecciona un torneo" required>
+          optionLabel="tournament_name" placeholder="Selecciona un torneo" required>
         </p-dropdown>
       </div>
       <div>
         <label class="block text-sm mb-1">Cancha</label>
-        <p-dropdown [options]="fields" optionLabel="name" [(ngModel)]="match.field"
-                    placeholder="Selecciona una cancha" name="field">
+        <p-dropdown [options]="fields" optionLabel="name" [(ngModel)]="match.field" placeholder="Selecciona una cancha"
+          name="field">
         </p-dropdown>
 
       </div>
@@ -113,7 +125,7 @@
       <div>
         <label class="block text-sm mb-1">Árbitro</label>
         <p-dropdown [options]="referees" optionLabel="name" [(ngModel)]="match.referee"
-                    placeholder="Selecciona un árbitro" name="referee">
+          placeholder="Selecciona un árbitro" name="referee">
         </p-dropdown>
 
       </div>
@@ -127,5 +139,31 @@
 
   </form>
 </p-dialog>
+
+<p-dialog header="Generar Partidos (Todos Contra Todos)" [(visible)]="showMatchesModal"
+  [style]="{ width: '30rem' }" [modal]="true" [dismissableMask]="true">
+
+  <form (ngSubmit)="generateMatchesForTournaments()" #generateForm="ngForm" class="flex flex-col gap-4">
+
+    <div>
+      <label class="block text-sm mb-1">Torneo activo</label>
+      <p-dropdown
+        [options]="activeTournaments"
+        [(ngModel)]="selectedTournamentForGeneration"
+        optionLabel="tournament_name"
+        name="tournament"
+        placeholder="Selecciona un torneo"
+        required>
+      </p-dropdown>
+    </div>
+
+    <div class="flex justify-end gap-2 mt-4">
+      <button pButton type="button" class="p-button-text" (click)="showMatchesModal = false">Cancelar</button>
+      <button pButton type="submit" class="p-button-primary">Generar</button>
+    </div>
+
+  </form>
+</p-dialog>
+
 
 <p-toast></p-toast>

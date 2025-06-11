@@ -45,6 +45,15 @@ export class MatchService {
     }
   }
 
+    async generateMatches(id: number): Promise<Match | any > {
+    try {
+      return await this.apiService.post<Match>(`partido/generador/${id}`, true);
+    } catch (error) {
+      console.error('Error generate matches:', error);
+      return  error;
+    }
+  }
+
   async getAllMatches(): Promise<Match[]> {
     try {
       return await this.apiService.get<Match[]>(`partido`, {}, false);
