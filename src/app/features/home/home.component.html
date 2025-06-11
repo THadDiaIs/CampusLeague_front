@@ -19,44 +19,82 @@
           <div class="news">
             <div class="carousel-container">
               <div *ngIf="sections[currentIndex] === 'tournaments'">
-                <li *ngFor="let t of tournaments" style="margin-bottom: 1.5rem;">
-                  <strong>{{ t.tournament_name }}</strong> - {{ t.start_date | date:'shortDate' }}
-                  <p>{{ t.description }}</p>
-                  <h1>hao</h1>
-                </li>
-
-              </div>
-              <div *ngIf="sections[currentIndex] === 'inscriptions'">
-                <h1>Inscripciones</h1>
+                <div *ngIf="tournaments.length > 0">
+                  <h2 class="text-5xl font-bold text-center mb-10">Torneos</h2>
+                  <div class="description flex flex-col gap-4">
+                    <h3 class="text-3xl font-semibold text-center">
+                      {{ tournaments[selectedTournamentIdx].tournament_name }}
+                    </h3>
+                    <p class="text-lg">{{ tournaments[selectedTournamentIdx].description }}</p>
+                    <p class="flex justify-between"><strong>Fecha de inicio:</strong> {{
+                      tournaments[selectedTournamentIdx].start_date | date: 'shortDate' }}</p>
+                    <p class="flex justify-between"><strong>Fecha de final:</strong> {{
+                      tournaments[selectedTournamentIdx].end_date | date: 'shortDate' }}</p>
+                    <p class="flex justify-between"><strong>Miembros máximos:</strong> {{
+                      tournaments[selectedTournamentIdx].max_team_members }}</p>
+                    <p class="flex justify-between"><strong>Miembros mínimos:</strong> {{
+                      tournaments[selectedTournamentIdx].min_team_members }}</p>
+                    <p class="flex justify-between"><strong>Inicio de Inscripciones</strong> {{
+                      tournaments[selectedTournamentIdx].inscriptions_open_date | date: 'fullDate' }}</p>
+                    <p class="flex justify-between"><strong>Fin de Inscripciones</strong> {{
+                      tournaments[selectedTournamentIdx].inscriptions_close_date| date: 'fullDate' }}</p>
+                  </div>
+                  <div *ngIf="tournaments.length === 0">
+                    <p class="text-center text-lg">No hay torneos próximos ni activos</p>
+                  </div>
+                  <div class="flex justify-center mt-6 gap-4">
+                    <button (click)="previousTournament()"
+                      class="px-4 py-2 bg-gray-700 text-white rounded">Anterior</button>
+                    <button (click)="nextTournament()"
+                      class="px-4 py-2 bg-gray-700 text-white rounded">Siguiente</button>
+                  </div>
+                </div>
               </div>
               <div *ngIf="sections[currentIndex] === 'matchs'">
-                <h1>Partidos</h1>
-              </div>
-              <div *ngIf="sections[currentIndex] === 'foto'">
-                <h1>Galería</h1>
-              </div>
-            </div>
-          </div>
+                <div *ngIf="matches.length > 0">
+                  <h2 class="text-4xl font-bold text-center mb-6">Partidos Próximos (7 días)</h2>
 
-          <div class="last-events">
-            <p class="title">Últimos resultados</p>
-            <div class="row">
-              <strong>Equipo1</strong>
-              <span>4</span>
-            </div>
-            <div class="row">
-              <strong>Equipo2</strong>
-              <span>2</span>
-            </div>
-            <div class="row">
-              <strong>Equipo1</strong>
-              <span>3</span>
-            </div>
-            <div class="row">
-              <strong>Equipo2</strong>
-              <span>1</span>
+                  <div class="max-h-[30rem] overflow-y-auto space-y-4 pr-2">
+                    <div *ngFor="let match of matches" class="bg-white text-black p-4 rounded-lg shadow">
+                      <p><strong>Fecha:</strong> {{ match.match_date | date: 'fullDate' }}</p>
+                      <p><strong>Hora:</strong> {{ match.match_date | date: 'shortTime' }}</p>
+                      <p><strong>Equipo 1:</strong> {{ match.team1.name }}</p>
+                      <p><strong>Equipo 2:</strong> {{ match.team2.name }}</p>
+                      <p><strong>Cancha:</strong> {{ match.field.name }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="matches.length === 0">
+                  <p class="text-center text-lg">No hay partidos próximos en los siguientes 7 días.</p>
+                </div>
+              </div>
+
             </div>
           </div>
+        </div>
+
+        <div class="last-events">
+          <p class="title">Últimos Ganadores</p>
+
+          <ng-container *ngIf="winners.length > 0; else noWinners">
+
+            <div class="row header">
+              <strong>Torneo</strong>
+              <strong>Team</strong>
+              <strong>Posición</strong>
+            </div>
+
+            <div *ngFor="let winner of winners" class="row">
+              <strong>{{ winner.tournament.tournament_name }}</strong>
+              <strong>{{ winner.team.name }}</strong>
+              <span>1° lugar</span>
+            </div>
+          </ng-container>
+
+          <ng-template #noWinners>
+            <p class="text-center text-lg">No hay ganadores recientes con primer lugar.</p>
+          </ng-template>
         </div>
       </div>
     </div>

@@ -47,7 +47,7 @@ export class MatchService {
 
   async getAllMatches(): Promise<Match[]> {
     try {
-      return await this.apiService.get<Match[]>(`partido`, {}, true);
+      return await this.apiService.get<Match[]>(`partido`, {}, false);
     } catch (error) {
       console.error('Error fetching all matches:', error);
       throw error;

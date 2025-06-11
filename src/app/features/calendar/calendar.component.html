@@ -2,32 +2,56 @@
     <div class="title-container">
         <h1 class="title">Calendario de Partidos</h1>
     </div>
-    <div class="calendar-wrapper">
-        <div class="calendar-container lex flex-col justify-evenly items-center p-8">
-            <div class="header">
-            <button (click)="changeMonth(-1)">◀</button>
-            <h2>{{ monthName }} {{ currentYear }}</h2>
-            <button (click)="changeMonth(1)">▶</button>
+    
+    <div class="calendar-content">
+        <div class="calendar-wrapper">
+            <div class="calendar-container">
+                <div class="header">
+                    <button (click)="changeMonth(-1)">◀</button>
+                    <h2>{{ monthName | titlecase }} {{ currentYear }}</h2>
+                    <button (click)="changeMonth(1)">▶</button>
+                </div>
+
+                <div class="week-days">
+                    <span *ngFor="let day of weekDays">{{ day }}</span>
+                </div>
+
+                <div class="month-days">
+                    <span *ngFor="let day of monthDays"
+                          [class.empty]="!day"
+                          [class.today]="day === currentDay && isCurrentMonth"
+                          [class.selected]="day === selectedDay"
+                          [class.has-match]="hasMatches(day)"
+                          (click)="selectDay(day)">
+                        {{ day || '' }}
+                        <span *ngIf="hasMatches(day)" class="match-indicator">•</span>
+                    </span>
+                </div>
             </div>
 
-            <div class="week-days">
-            <span *ngFor="let day of weekDays">{{ day }}</span>
+            <div class="events-container">
+                <h3 *ngIf="selectedDay">Partidos para el {{ selectedDay }} de {{ monthName | titlecase }}</h3>
+                
+                <div *ngIf="selectedDay && getMatchesForSelectedDay().length > 0; else noMatches" class="matches-list">
+                    <div *ngFor="let match of getMatchesForSelectedDay()" class="match-card">
+                        <div class="teams">
+                            
+                            <div class="score">
+                                <span>{{ match.team1.name }} vs {{ match.team2.name }}</span> 
+                            </div>
+                        </div>
+                        <div class="match-info">
+                            <span class="time">{{ formatMatchTime(match.match_date) }}</span>
+                            <span class="field">{{ match.field.name }}</span>
+                            <span class="tournament">{{ match.tournament.tournament_name }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <ng-template #noMatches>
+                    <p *ngIf="selectedDay" class="no-matches">No hay partidos programados para este día</p>
+                </ng-template>
             </div>
-
-            <div class="month-days">
-            <span *ngFor="let day of monthDays"
-                    [class.empty]="!day"
-                    [class.today]="day === currentDay"
-                    [class.selected]="day === selectedDay"
-                    (click)="selectDay(day)">
-                {{ day || '' }}
-            </span>
-            </div>
-        </div>
-
-        <div class="events-container">
-            <h3 *ngIf="selectedEvent">Eventos para el {{ selectedEvent?.day }} de {{ monthName }}</h3>
-            <p *ngIf="selectedEvent">{{ selectedEvent?.description }}</p>
         </div>
     </div>
 </main>

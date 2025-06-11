@@ -117,7 +117,61 @@ export class TeamsInfoComponent implements OnInit {
       return;
     } 
   }
+async saveChanges(id?: number) {
+  try {
+    let result: Team;
+   
+      result = await this.teamService.updateTeam(id!, this.teamPlayer);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Éxito',
+        detail: '¡Equipo actualizado correctamente!'
+      });
+    
 
+    this.showTeamModal = false;
+    await this.ngOnInit(); 
+
+  } catch (error) {
+    console.error('Error al guardar cambios del equipo:', error);
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: 'Hubo un error al guardar el equipo.'
+    });
+  }
+}
+
+  async discardTeam(id: number) {
+    try {
+      const response = await this.teamService.discardTeam(id);
+      if (response?.id) {
+        this.messageService.add({
+          severity: "success",
+          summary: "Done",
+          detail: "Equipo Rechazado correctamente!."
+        });
+        this.showTeamModal = false;
+        this.ngOnInit();
+      }
+      if (response?.error) {
+         this.messageService.add({
+          severity: "error",
+          summary: "Error",
+          detail: response.error
+        });
+        return;
+      }
+    } catch (error) {
+      console.log("Error on discard team:", error);
+      this.messageService.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Error al rechazar el equipo, intente de nuevo mas tarde"
+      });
+      return;
+    }
+  }
   removeTeam(id: number): void {
     this.teamService.deleteTeam(id).then(() => {
       this.messageService.add({

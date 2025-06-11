@@ -7,6 +7,6 @@ export interface Goal {
     player: Player,
     team: Team,
     match: Match,
-    goal_time: string,
+    goal_time: Date,
     points: number,
 }

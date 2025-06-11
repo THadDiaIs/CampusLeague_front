@@ -81,6 +81,60 @@ export class MyTeamComponent {
     }
 
   }
+  async updateMyTeam() {
+    if (!this.myTeamInfo) return;
+
+    try {
+      const updatedData: Team = {
+        id: this.myTeamInfo.id!,
+        name: this.myTeamInfo.name,
+        captain: this.myTeamInfo.captain,
+        contact_email: this.myTeamInfo.contact_email,
+        contact_phone: this.myTeamInfo.contact_phone,
+        status: this.myTeamInfo.status!,
+        players: this.myTeamInfo.players
+      };
+
+
+      const id = this.myTeamInfo.id;
+
+      if (id !== undefined) {
+        const response = await this.teamService.updateTeam(id, updatedData);
+        if (response?.error) {
+          this.messageService.add({
+            severity: "error",
+            summary: "Error",
+            detail: response.error
+          });
+        } else {
+          this.messageService.add({
+            severity: "success",
+            summary: "Equipo actualizado",
+            detail: "Los datos del equipo se actualizaron correctamente"
+          });
+        }
+      }
+
+    } catch (error) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error",
+        detail: "No se pudo actualizar el equipo"
+      });
+      console.error(error);
+    }
+  }
+
+
+
+  isReadOnly(): boolean {
+    const statusId = this.myTeamInfo?.status?.id;
+    return statusId === 1 || statusId === 5;
+  }
+
+  canUpdateFields(): boolean {
+    return this.myTeamInfo !== null;
+  }
 
   goHome() {
     this.router.navigate(['/home']);

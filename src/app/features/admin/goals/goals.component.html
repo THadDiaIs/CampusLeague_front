@@ -62,13 +62,20 @@
             <div>
                 <label class="block text-sm mb-1">Torneo</label>
                 <p-dropdown class="w-full" [options]="tournaments" [(ngModel)]="selectedTournament" name="tournament"
-                    optionLabel="tournament_name" placeholder="Selecciona un torneo" (onChange)="onTournamentChange()" required>
+                    optionLabel="tournament_name" placeholder="Selecciona un torneo" (onChange)="onTournamentChange()"
+                    required>
                 </p-dropdown>
             </div>
             <div>
                 <label class="block text-sm mb-1">Equipo</label>
                 <p-dropdown class="w-full" [options]="filteredTeams" [(ngModel)]="selectedTeam" name="team"
                     optionLabel="name" placeholder="Selecciona un equipo" (onChange)="onTeamChange()" required>
+                </p-dropdown>
+            </div>
+            <div>
+                <label class="block text-sm mb-1">Partidos</label>
+                <p-dropdown class="w-full" [options]="filteredMatch" [(ngModel)]="selectedMatch" name="match" optionLabel="match_name"
+                    placeholder="Selecciona un partido" (onChange)="onMatchChange()" required>
                 </p-dropdown>
             </div>
             <div>
@@ -79,8 +86,8 @@
             </div>
             <div>
                 <label class="block text-sm mb-1">Minuto del gol</label>
-                <input type="text" pInputText [(ngModel)]="goal.goal_time" name="goalTime" placeholder="Ej: 45+2"
-                    required class="w-full" />
+                <input type="datetime-local" pInputText [(ngModel)]="goal.goal_time" name="goalTime" required
+                    class="w-full" />
             </div>
             <div>
                 <label class="block text-sm mb-1">Puntos</label>

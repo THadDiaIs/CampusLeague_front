@@ -27,12 +27,22 @@ export class TeamService {
     }
   }
 
-  async updateTeam(id: number, teamData: Team): Promise<Team> {
+  async updateTeam(id: number, teamData: Team): Promise<Team | any> {
     try {
-      return await this.apiService.post<Team>(`equipo/${id}`, teamData, true);
+      return await this.apiService.put<Team>(`equipo/${id}`, teamData, false);
     } catch (error) {
       console.error('Error updating team:', error);
-      throw error;
+      return error;
+    }
+  }
+
+  async discardTeam(id: number): Promise<Team | any> {
+    try {
+      const response = await this.apiService.put<Team>(`equipo/descartado/${id}`, true);
+      return response;
+    } catch (error) {
+      console.error('Error discard team:', error);
+      return error;
     }
   }
 

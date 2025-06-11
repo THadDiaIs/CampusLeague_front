@@ -174,8 +174,9 @@
 
   <div class="flex justify-between mt-7 gap-4">
     <p-button label="Cancelar" severity="secondary" (click)="showTeamModal = false" />
+    <p-button label="Rechazar Equipo" severity="secondary" *ngIf="teamPlayer.id !== undefined && disabledVar" (click)="discardTeam(teamPlayer.id)" />
     <p-button label="Aceptar Equipo"  *ngIf="teamPlayer.id !== undefined && disabledVar" (click)="confirmTeam(teamPlayer.id)" />
-    <p-button label="Actualizar" severity="info" *ngIf="!disabledVar"/>
+    <p-button label="Actualizar" severity="info" *ngIf="!disabledVar" (onClick)="saveChanges(teamPlayer.id)"/>
   </div>
 
 </p-dialog>

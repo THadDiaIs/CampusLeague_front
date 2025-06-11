@@ -1,79 +1,232 @@
-main {
-    background-image: url('../../../assets/pexels-markusspiske.jpg');
-    background-position: center;
+.main {
+    background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.6), rgba(30, 30, 30, 0.6)), url('../../../assets/pexels-markusspiske.jpg');
     background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 100vh;
-}
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-  background: #212121;
-  color: white;
-  margin: 0;
-}
-
-.calendar-wrapper {
-  display: flex;
-  gap: 40px; 
-  align-items: center;
-  justify-content: center;
-  width: 90vw;
-  height: 90vh;
-}
-
-.calendar-container {
-  width: 60vw; 
-  height: 80vh; 
-  background: #333;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.week-days, .month-days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
-  font-size: 1.3rem; 
-}
-
-.events-container {
-  width: 20vw; 
-  height: 50vh; 
-  background: #444;
-  padding: 20px;
-  border-radius: 10px;
-  font-size: 1.2rem;
-}
-
-.selected {
-  background: #40a0d7;
-  color: white;
-  font-weight: bold;
+    background-position: center;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .title-container {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+    padding: 2rem 1rem;
 }
 
 .title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #a0f06a;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+    letter-spacing: 1.5px;
+    margin: 0;
 }
 
-.calendar-container, .events-container {
-  background-color: rgba(var(--color-5), 0.8); 
-  padding: 20px;
-  border-radius: 10px;
+.calendar-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    width: 100%;
+    height: 80vh;
+    box-sizing: border-box;
+}
+
+.calendar-container {
+    flex: 3;
+    background: rgba(34, 34, 34, 0.9);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    height: 100%;
+}
+
+.events-container {
+    flex: 1;
+    background: rgba(44, 44, 44, 0.9);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.header h2 {
+    color: #fff;
+    font-size: 2rem;
+    margin: 0;
+}
+
+.header button {
+    background: #40a0d7;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.header button:hover {
+    background: #2d7fb8;
+    transform: scale(1.1);
+}
+
+.week-days, .month-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+}
+
+.week-days span {
+    color: #a0f06a;
+    font-weight: bold;
+    text-align: center;
+    padding: 0.7rem;
+    font-size: 1.1rem;
+}
+
+.month-days span {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    text-align: center;
+    padding: 1.2rem 0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    position: relative;
+    font-size: 1.2rem;
+}
+
+.month-days span:hover:not(.empty) {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.month-days .empty {
+    background: transparent;
+    cursor: default;
+}
+
+.month-days .today {
+    background: #a0f06a;
+    color: #222;
+    font-weight: bold;
+}
+
+.month-days .selected {
+    background: #40a0d7;
+    color: white;
+    font-weight: bold;
+    transform: scale(1.05);
+}
+
+.month-days .has-match {
+    border-bottom: 3px solid #ff6b6b;
+}
+
+.match-indicator {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #ff6b6b;
+    font-size: 1.2rem;
+}
+
+.events-container h3 {
+    color: #a0f06a;
+    font-size: 1.6rem;
+    border-bottom: 2px solid #a0f06a;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.matches-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.match-card {
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 15px;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.match-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.teams {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+}
+
+.team-name {
+    text-align: center;
+    font-weight: bold;
+}
+
+.score {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #a0f06a;
+    min-width: 20%;
+    text-align: center;
+}
+
+.match-info {
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.95rem;
+    color: #bbb;
+}
+
+.no-matches {
+    text-align: center;
+    font-style: italic;
+    color: #aaa;
+}
+
+@media (max-width: 768px) {
+    .calendar-wrapper {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .calendar-container,
+    .events-container {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .header h2 {
+        font-size: 1.6rem;
+    }
 }
